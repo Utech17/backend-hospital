@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
-import { serviceServices } from "../services";
-export class ServiceController {
-  constructor() {
-    
-  }
+import { AppointmentServices } from "../services";
+
+export class AppointmentController {
+  constructor() {}
 
   all = async (req: Request, res: Response) => {
-    const { status, message, data } = await serviceServices.getAll();
+    const { status, message, data } = await AppointmentServices.getAll();
     return res.status(status).json({
       message,
       data,
@@ -14,23 +13,25 @@ export class ServiceController {
   };
 
   one = async (req: Request, res: Response) => {
-    const {id}=req.params
-    const { status, message, data } = await serviceServices.getOne(Number(id));
+    const { id } = req.params;
+    const { status, message, data } = await AppointmentServices.getOne(parseInt(id) as number);
     return res.status(status).json({
       message,
       data,
     });
   };
+
   create = async (req: Request, res: Response) => {
-    const { status, message, data } = await serviceServices.create(req.body);
+    const { status, message, data } = await AppointmentServices.create(req.body);
     return res.status(status).json({
       message,
       data,
     });
   };
+
   update = async (req: Request, res: Response) => {
-    const {id}=req.params
-    const { status, message, data } = await serviceServices.update(Number(id),req.body);
+    const { id } = req.params;
+    const { status, message, data } = await AppointmentServices.update(parseInt(id) as number, req.body);
     return res.status(status).json({
       message,
       data,
@@ -38,8 +39,8 @@ export class ServiceController {
   };
 
   delete = async (req: Request, res: Response) => {
-    const {id}=req.params
-    const { status, message, data } = await serviceServices.delete(Number(id));
+    const { id } = req.params;
+    const { status, message, data } = await AppointmentServices.delete(parseInt(id) as number);
     return res.status(status).json({
       message,
       data,
