@@ -4,10 +4,40 @@ import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
 import {
+  MedicalHistoryRoute,
+  ContractRoute,
+  InventoryMovementRoute,
+  EventRoute,
+  ContactRoute,
+  ConceptRoute,
+  TypeRoute,
+  ClientRoute,
+  DepartamentRoute,
+  ChargeRoute,
+  ActionRoute,
+  EventDetailsRoute,
+  EventTypeRoute,
+  ProductRoute,
+  PatientRoute,
+  UserRoute,
+  ClassRoute,
+  AttendanceRoute,
+  SaleRoute,
+  StoreRoute,
+  PaymentTypeRoute,
+  PurchaseDetailsRoute,
+  AppointmentRoute,
+  PresentationRoute, 
+  PayrollRoute,
+  WorkingDayRoute,
+  BillingRoute,
+  EmployeeRoute,
+  BuyRoute,
   roleRoute,
-  serviceRoute,
-  userRoute,
-} from "../routes/index.route";
+  OrganizationalUnitsRoute,
+} 
+
+from "../routes/index.route";
 import { db } from "../config/sequelize.config";
 import { swaggerOptions } from "../config";
 export class Server {
@@ -20,9 +50,37 @@ export class Server {
     this.port = process.env.API_PORT || 3880;
     this.pre = "/api";
     this.paths = {
-      roles: this.pre + "/roles",
-      services: this.pre + "/services",
-      users: this.pre + "/users",
+      Contract: this.pre + "/Contracts",
+      MedicalHistory: this.pre + "/MedicalHistory",
+      Event: this.pre + "/Event",
+      InventoryMovement: this.pre + "/InventoryMovement",
+      Contact: this.pre + "/Contact",
+      Concept: this.pre + "/Concept",
+      Type: this.pre + "/Type",
+      Client: this.pre + "/Client",
+      Departament: this.pre + "/Departament",
+      Charge: this.pre + "/Charge",
+      Action: this.pre + "/Action",
+      EventDetails: this.pre + "/EventDetails",
+      EventType: this.pre + "/EventType",
+      Product: this.pre + "/Product",
+      Patient: this.pre + "/Patient",
+      User: this.pre + "/User",
+      Role: this.pre + "/Role",
+      Class: this.pre + "/Class",
+      Attendance: this.pre + "/Attendance",
+      Sale: this.pre + "/Sale",
+      Store: this.pre + "/Store",
+      PurchaseDetails: this.pre + "/PurchaseDetails",
+      Appointment: this.pre + "/Appointment",
+      Presentation: this.pre + "/Presentation",
+      WorkingDay: this.pre + "/WorkingDay",
+      Billing: this.pre + "/Billing",
+      Employee: this.pre + "/Employee",
+      Buy: this.pre + "/Buy",
+      PaymentType: this.pre + "/PaymentType",
+      PayrollRoute: this.pre + "/PayrollRoute",
+      OrganizationalUnits: this.pre + "/OrganizationalUnits",
     };
     this.connectDB();
     this.middlewares();
@@ -37,9 +95,37 @@ export class Server {
   }
 
   routes() {
-    this.app.use(this.paths.roles, roleRoute);
-    this.app.use(this.paths.services,serviceRoute);
-    this.app.use(this.paths.users, userRoute);
+    this.app.use(this.paths.Contract, ContractRoute);
+    this.app.use(this.paths.MedicalHistory, MedicalHistoryRoute);
+    this.app.use(this.paths.InventoryMovement, InventoryMovementRoute);
+    this.app.use(this.paths.Event, EventRoute);
+    this.app.use(this.paths.Contact, ContactRoute);
+    this.app.use(this.paths.Concept, ConceptRoute);
+    this.app.use(this.paths.Type, TypeRoute);
+    this.app.use(this.paths.Client, ClientRoute);
+    this.app.use(this.paths.Departament, DepartamentRoute);
+    this.app.use(this.paths.Charge, ChargeRoute);
+    this.app.use(this.paths.Actio, ActionRoute);
+    this.app.use(this.paths.EventDetails, EventDetailsRoute);
+    this.app.use(this.paths.EventType, EventTypeRoute);
+    this.app.use(this.paths.Product, ProductRoute);
+    this.app.use(this.paths.Patient, PatientRoute);
+    this.app.use(this.paths.User, UserRoute);
+    this.app.use(this.paths.Role, roleRoute);
+    this.app.use(this.paths.Class, ClassRoute);
+    this.app.use(this.paths.Attendance, AttendanceRoute);
+    this.app.use(this.paths.Sale, SaleRoute);
+    this.app.use(this.paths.Store, StoreRoute);
+    this.app.use(this.paths.PurchaseDetails, PurchaseDetailsRoute);
+    this.app.use(this.paths.Appointment, AppointmentRoute);
+    this.app.use(this.paths.Presentation, PresentationRoute);
+    this.app.use(this.paths.WorkingDay, WorkingDayRoute);
+    this.app.use(this.paths.Billing, BillingRoute);
+    this.app.use(this.paths.Employee, EmployeeRoute);
+    this.app.use(this.paths.Buy, BuyRoute);
+    this.app.use(this.paths.PaymentType, PaymentTypeRoute);
+    this.app.use(this.paths.Payroll, PayrollRoute);
+    this.app.use(this.paths.OrganizationalUnits, OrganizationalUnitsRoute);
   }
   async connectDB() {
     await db

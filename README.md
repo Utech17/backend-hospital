@@ -1,13 +1,14 @@
 # Nombre de la API
-**API IWU**
+**hospital**
 
 ## Introducción
-Esta es una API base que incluye ejemplos de dos tablas utilizando el ORM Sequelize. La programación de esta API está estructurada bajo el modelo de capas, donde cada capa tiene un objetivo específico. Aunque sigue el patrón MVC, tiene más profundidad, dedicando ciertas capas a un fin y haciendo el mantenimiento del código más legible.
+Esta API está diseñada para gestionar un sistema hospitalario. Utiliza el ORM Sequelize para interactuar con la base de datos y sigue un modelo de capas, inspirado en MVC, con una estructura que mejora la legibilidad, el mantenimiento y la escalabilidad.
+Actualmente, la API incluye 35 tablas para cubrir diversas funcionalidades y relaciones del sistema.
 
 ### Cómo Ejecutar
 
 **Paso 1:**  
-Crea la base de datos en el gestor de tu preferencia (MySQL, PostgreSQL, etc.). El nombre de la base de datos creada debe estar en minúsculas.
+Crea la base de datos en el gestor MySQL. El nombre de la base de datos hospital.
 
 **Paso 2:**  
 Copia el archivo `.env.example` y pégalo en la raíz del proyecto.
@@ -23,3 +24,15 @@ Instala las dependencias con el comando `npm install`.
 
 **Paso 6:**  
 Levanta el servidor con el comando `npm run dev`, que compila el código TypeScript y ejecuta el código JavaScript generado, ya que este es un script combinado.
+
+#### Estructura del Proyecto
+
+/src
+  ├── /config       
+  ├── /controllers  
+  ├── /interfaces   
+  ├── /middlewares  
+  ├── /models       
+  ├── /routes       
+  ├── /services     
+  ├── /validators 

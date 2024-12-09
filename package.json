@@ -1,5 +1,5 @@
 {
-  "name": "be-general-2024-2",
+  "name": "backend-hospital",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -7,7 +7,7 @@
     "start": "node dist/app.js",
     "dev": "tsc && node dist/app.js"
   },
-  "author": "Zedmous",
+  "author": "Utech17",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.17",
