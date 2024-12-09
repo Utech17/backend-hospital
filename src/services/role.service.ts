@@ -1,185 +1,162 @@
-
-import { exportExcelAtoA } from "../helpers";
 import { RoleDB } from "../config";
 import { RoleInterface } from "../interfaces";
 
-const roleServices = {
-  getAll: async () => {
-    try {
-      const roles = await RoleDB.findAll({ where: { status: true } });
-      if (roles.length === 0) {
-        return {
-          message: `Registros no encontrados`,
-          status: 404,
-          data: {
-            roles,
-          },
-        };
-      }
-      return {
-        message: `Registros encontrados`,
-        status: 200,
-        data: {
-          roles,
-        },
-      };
-    } catch (error) {
-      console.log(error);
-      return {
-        message: `Contacte con el administrador`,
-        status: 500,
-      };
-    }
-  },
-  getOne: async (id: number|string) => {
-    try {
-      const role = await RoleDB.findOne({
-        where: {
-          id: id,
-          status: true
+const RoleService = {
+    getAllRoles: async () => {
+        try {
+            const Roles = await RoleDB.findAll({
+                where: {
+                    status: true,
+                },
+            });
+
+            if (Roles.length === 0) {
+                return {
+                    message: `No records found`,
+                    status: 404,
+                    data: {
+                        Roles,
+                    },
+                };
+            }
+
+            return {
+                message: `Records found`,
+                status: 200,
+                data: {
+                },
+            };
+
+        } catch (error) {
+            console.error('Error fetching role:', error);
+            return {
+                message: 'Error fetching role',
+                status: 500,
+            };
         }
-      });
-      if (!role) {
+    },
+
+getOne: async (id: number | string) => {
+    try {
+      const Role = await RoleDB.findOne({
+        where: {
+          id,
+          status: true,
+        },
+      })
+
+      if (!Role) {
         return {
-          message: `Registro no encontrado`,
+          message: "Record not found",
           status: 404,
           data: {},
-        };
+        }
       } else {
         return {
-          message: `Registro encontrado`,
+          message: "Record found",
           status: 200,
           data: {
-            role,
+            Role,
           },
-        };
+        }
       }
     } catch (error) {
       console.log(error);
       return {
-        message: `Contacte con el administrador`,
+        message: "Error fetching roles",
         status: 500,
-      };
+      }
     }
   },
+
   create: async (data: Partial<RoleInterface>) => {
-    data.name=data.name?.toLowerCase();
     try {
-      const role = await RoleDB.create({ ...data });
+      const Role = await RoleDB.create({ ...data });
       return {
-        message: `Creación exitosa`,
+        message: "Successful creation",
         status: 201,
         data: {
-          role,
+          Role,
         },
-      };
+      }
     } catch (error) {
       console.log(error);
       return {
-        message: `Contacte con el administrador`,
+        message: "Error fetching role",
         status: 500,
-      };
+      }
     }
   },
-  update: async (id: number|string, dat: Partial<RoleInterface>) => {
-    dat.name=dat.name?.toLowerCase();
+
+  update: async (data: Partial<RoleInterface>, id: number | string) => {
     try {
-      let role: RoleInterface | any = await RoleDB.update(dat, { where: { id } });
-      const { data } = await roleServices.getOne(id);
+      await RoleDB.update(data, { where: { id } });
+      const { data: updatedRole } = await RoleService.getOne(id);
+
       return {
-        message: `Actualización exitosa`,
+        message: "Successful update",
         status: 200,
         data: {
-          role: data?.role,
+          Role: updatedRole,
         },
-      };
+      }
     } catch (error) {
       console.log(error);
       return {
-        message: `Contacte con el administrador`,
+        message: "Error fetching role",
         status: 500,
-      };
+      }
     }
   },
-  delete: async (id: number) => {
+
+  delete: async (id: number | string) => {
     try {
-      const role = await RoleDB.update(
+      await RoleDB.update(
         {
           status: false,
           deletedAt: new Date(),
         },
         { where: { id } }
-      );
+      )
       return {
-        message: `Eliminación exitosa`,
+        message: "Successful removal",
         status: 204,
-        data: {
-          role:null,
-        },
-      };
+        data: {},
+      }
     } catch (error) {
       return {
-        message: `Contacte con el administrador`,
+        message: "Error fetching role",
         status: 500,
-      };
+      }
     }
   },
-  findByName: async (name: string) => {
+
+  findByName: async (role_name: string) => {
     try {
-      const role = await RoleDB.findAll({ where: { name } });
-      if (role.length===0) {
-        console.log("Registro no encontrado")
+      const Role = await RoleDB.findOne({ where: { role_name } });
+      if (!Role) {
         return {
-          message: `Registro no encontrado`,
+          message: "Record not found",
           status: 404,
           data: {},
         };
       } else {
         return {
-          message: `Role encontrado`,
+          message: "Record found",
           status: 200,
           data: {
-            role:role[0],
+            Role,
           },
         };
       }
     } catch (error) {
       console.log(error);
       return {
-        message: `Contact the administrator: error`,
+        message: "Error fetching role",
         status: 500,
       };
     }
   },
-  reportToExcelRoles: async () => {
-    try {
-      const roles: any = await RoleDB.findAll();
-      let report = roles.map((role: any) => role.dataValues); // Accede a dataValues de cada rol
-      let mappedReport = report.map((res: any) => {
-        return [res.id, res.name]; // Mapea a un arreglo de arreglos
-      });
-      const { status, message, data } = await exportExcelAtoA(
-        ["id", "name"],
-        mappedReport,
-        "datosTest"
-      );//usamos el helper para pasarle los parametros 
-      return {
-        message,
-        status,
-        data,
-      };
-    } catch (error) {
-      console.log(error);
-      return {
-        message: `Contacte con el administrador`,
-        status: 500,
-      };
-    }
-  }
-};
-
-export {
-  roleServices
 }
 
-
+export { RoleService }

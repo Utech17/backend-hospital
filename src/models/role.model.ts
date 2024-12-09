@@ -1,24 +1,21 @@
-import { DataTypes } from "sequelize";
+import { DataTypes } from 'sequelize';
 
 const RoleModel = {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  name: {
-    type: DataTypes.STRING(25),
-    allowNull: false,
-    unique: true,
-  },
-  deletedAt: {
-    type: DataTypes.DATE,
-  },
-  status: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: true,
-  }, 
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
+    //nombre
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    //descripcion
+    description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 };
 
 export { RoleModel };
