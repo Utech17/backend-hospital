@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import {
+  ChargeModel,
   RoleModel,
   ServiceModel,
   UserModel,
@@ -20,6 +21,7 @@ const db = new Sequelize(dbName, dbUser, dbPassword, {
   logging: false,
 });
 // CREAMOS LAS TABLAS EN ORDEN ALFABETICO
+const ChargeDB = db.define("charges", ChargeModel);
 const RoleDB = db.define("roles", RoleModel);
 const ServiceDB = db.define("services", ServiceModel);
 const UserDB = db.define("users", UserModel);
@@ -42,6 +44,7 @@ const syncModels = async () => {
 syncModels();
 
 export {
+  ChargeDB,
   RoleDB,
   ServiceDB,
   UserDB,
