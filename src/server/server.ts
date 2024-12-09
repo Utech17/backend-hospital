@@ -4,6 +4,7 @@ import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
 import {
+  buyRoute,
   roleRoute,
   serviceRoute,
   userRoute,
@@ -20,6 +21,7 @@ export class Server {
     this.port = process.env.API_PORT || 3880;
     this.pre = "/api";
     this.paths = {
+      buys: this.pre + "/buys",
       roles: this.pre + "/roles",
       services: this.pre + "/services",
       users: this.pre + "/users",
@@ -37,6 +39,7 @@ export class Server {
   }
 
   routes() {
+    this.app.use(this.paths.buys, buyRoute);
     this.app.use(this.paths.roles, roleRoute);
     this.app.use(this.paths.services,serviceRoute);
     this.app.use(this.paths.users, userRoute);
