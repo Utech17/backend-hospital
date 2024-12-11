@@ -1,12 +1,13 @@
 import { UserDB } from "../config";
 import { UserInterface } from "../interfaces";
-const userServices = {
+
+const UserServices = {
   getAll: async () => {
     try {
       const users = await UserDB.findAll();
       if (users.length === 0) {
         return {
-          message: `Registros no encontrados`,
+          message: `No se encontraron usuarios`,
           status: 404,
           data: {
             users,
@@ -14,114 +15,103 @@ const userServices = {
         };
       }
       return {
-        message: `Registros encontrados exitosamente`,
+        message: `Usuarios obtenidos correctamente`,
         status: 200,
         data: {
           users,
         },
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: `Contacte con el administrador`,
+        message: `Por favor, contacte al administrador`,
         status: 500,
       };
     }
   },
+
   getOne: async (id: number) => {
     try {
-      const user = await UserDB.findOne({
-        where: {
-          id: id,
-          status: true,
-        },
-      });
+      const user = await UserDB.findOne({ where: { id } });
       if (!user) {
         return {
-          message: `Registro no encontrado`,
+          message: `Usuario no encontrado`,
           status: 404,
           data: {},
         };
-      } else {
-        return {
-          message: `Registro encontrado`,
-          status: 200,
-          data: {
-            user,
-          },
-        };
       }
-    } catch (error) {
-      console.log(error);
       return {
-        message: `Contacte con el administrador`,
+        message: `Usuario obtenido correctamente`,
+        status: 200,
+        data: {
+          user,
+        },
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        message: `Por favor, contacte al administrador`,
         status: 500,
       };
     }
   },
+
   create: async (data: Partial<UserInterface>) => {
-    data.name = data.name?.toLowerCase();
     try {
       const user = await UserDB.create({ ...data });
       return {
-        message: `Creacion exitosa`,
+        message: `Usuario creado exitosamente`,
         status: 201,
         data: {
           user,
         },
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: `Contacte con el administrador`,
+        message: `Por favor, contacte al administrador`,
         status: 500,
       };
     }
   },
-  update: async (id: number, dat: Partial<UserInterface>) => {
-    dat.name = dat.name?.toLowerCase();
+
+  update: async (id: number, data: Partial<UserInterface>) => {
     try {
-      const user = await UserDB.update(dat, { where: { id } });
-      const { data } = await userServices.getOne(id);
+      await UserDB.update(data, { where: { id } });
+      const { data: updatedData } = await UserServices.getOne(id);
       return {
-        message: `Actualización exitosa`,
-        status: 201,
+        message: `Usuario actualizado exitosamente`,
+        status: 200,
         data: {
-          user: data?.user,
+          user: updatedData?.user,
         },
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: `Contacte con el administrador`,
+        message: `Por favor, contacte al administrador`,
         status: 500,
       };
     }
   },
+
   delete: async (id: number) => {
     try {
-      const user = await UserDB.update(
-        {
-          status: false,
-          deletedAt: new Date(),
-        },
-        { where: { id } }
-      );
+      await UserDB.destroy({ where: { id } });
       return {
-        message: `Eliminación exitosa`,
+        message: `Usuario eliminado exitosamente`,
         status: 204,
-        data: {
-          user,
-        },
+        data: {},
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: `Contacte con el administrador`,
+        message: `Por favor, contacte al administrador`,
         status: 500,
       };
     }
   },
+
   getByEmail: async (email: string) => {
     try {
       const user: UserInterface | any = await UserDB.findAll({
@@ -152,6 +142,37 @@ const userServices = {
       };
     }
   },
+
+  updateStatus: async (id: number, status: boolean) => {
+    try {
+      const user = await UserDB.findByPk(id);
+
+      if (!user) {
+        return {
+          message: `Usuario con ID ${id} no encontrado`,
+          status: 404,
+          data: {},
+        };
+      }
+
+      // Actualizar el estado
+      await user.update({ status });
+
+      return {
+        message: `Estado del usuario actualizado correctamente`,
+        status: 200,
+        data: {
+          user,
+        },
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        message: "Por favor, contacte al administrador",
+        status: 500,
+      };
+    }
+  },
 };
 
-export { userServices };
+export { UserServices };

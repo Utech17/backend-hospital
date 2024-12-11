@@ -3,34 +3,46 @@ import { DataTypes } from "sequelize";
 const UserModel = {
   id: {
     type: DataTypes.INTEGER,
-    autoIncrement: true,
+    autoIncrement: true, 
     primaryKey: true,
   },
-  name: {
-    type: DataTypes.STRING(50),
-    allowNull: false
+  // Nombre
+  firstName: {
+    type: DataTypes.STRING(50), 
+    allowNull: false, 
   },
-  email: {
+  // Apellido
+  lastName: {
     type: DataTypes.STRING(50),
     allowNull: false,
+  },
+  // Correo
+  email: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
     unique: true,
-    validate: {
-      isEmail: true,
-      notEmpty: true,
-    },
   },
+  // Contraseña
   password: {
-    type: DataTypes.STRING(400),
+    type: DataTypes.STRING(255),
+    allowNull: false,
   },
-  role_id: {
-    type: DataTypes.INTEGER,
-  },
-  deletedAt: {
+  // Fecha de creación
+  createdAt: {
     type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
   },
+  // Estado del usuario (activo/inactivo)
   status: {
     type: DataTypes.BOOLEAN,
+    allowNull: false,
     defaultValue: true,
+  },
+  // ID del rol asociado al usuario
+  roleId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
 };
 
