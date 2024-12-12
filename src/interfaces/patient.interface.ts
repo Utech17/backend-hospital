@@ -7,5 +7,8 @@ export interface PatientInterface {
     gender: string;
     identifier: string; 
     registrationDate?: Date;
+    createdAt:Date;
+    updatedAt:Date;
+    deletedAt:Date;
   }
   
