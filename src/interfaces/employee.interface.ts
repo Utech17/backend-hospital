@@ -9,6 +9,9 @@ export interface EmployeeInterface {
     unit_id: number | string;
     status: boolean;
     user_id: number | string;
+    createdAt:Date;
+    updatedAt:Date;
+    deletedAt:Date;
     //Unit?: UnitInterface;
     User?: UserInterface;
 }
