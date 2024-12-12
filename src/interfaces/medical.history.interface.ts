@@ -7,5 +7,8 @@ export interface MedicalHistoryInterface {
     discharge_date?: Date;
     diagnosis: string;
     treatment: string;
-   patient?:PatientInterface;
+    createdAt:Date;
+    updatedAt:Date;
+    deletedAt:Date;
+    patient?:PatientInterface;
 }
