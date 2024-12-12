@@ -4,4 +4,7 @@ export interface PresentationInterface {
     unit: string;
     weight: number;
     status?: number;
+    createdAt:Date;
+    updatedAt:Date;
+    deletedAt:Date;
   }
