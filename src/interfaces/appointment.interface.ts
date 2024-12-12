@@ -8,6 +8,9 @@ export interface AppointmentInterface {
     appointment_date: Date;
     appointment_status: "Scheduled" | "Completed" | "Cancelled";
     appointment_area: "General" | "Specialty" | "Emergency";
+    createdAt:Date;
+    updatedAt:Date;
+    deletedAt:Date;
     Patient?: PatientInterface;
     Employee?: EmployeeInterface;
   }
