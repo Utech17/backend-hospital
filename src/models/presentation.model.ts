@@ -27,6 +27,15 @@ const PresentationModel = {
     allowNull: false,
     defaultValue: 1,
   },
+  createdAt: {
+    type: DataTypes.DATE,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+  },
 };
 
 export { PresentationModel };
