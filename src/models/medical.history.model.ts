@@ -31,6 +31,15 @@ const MedicalHistoryModel = {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  createdAt: {
+    type: DataTypes.DATE,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+  },
 };
 
 export { MedicalHistoryModel };
