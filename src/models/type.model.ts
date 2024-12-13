@@ -17,6 +17,15 @@ const TypeModel = {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  createdAt: {
+    type: DataTypes.DATE,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+  },
 };
 
 export { TypeModel };
