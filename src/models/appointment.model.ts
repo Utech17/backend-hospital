@@ -31,6 +31,15 @@ const AppointmentModel = {
     type: DataTypes.ENUM('General', 'Specialty', 'Emergency'),
     allowNull: false,
   },
+  createdAt: {
+    type: DataTypes.DATE,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+  },
 };
 
 export { AppointmentModel };
