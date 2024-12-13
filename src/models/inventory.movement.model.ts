@@ -21,6 +21,12 @@ const InventoryMovementModel = {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  updatedAt: {
+    type: DataTypes.DATE,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+  },
 };
 
 export { InventoryMovementModel };
