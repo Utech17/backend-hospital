@@ -31,6 +31,12 @@ const AttendanceEmployeeModel = {
     type: DataTypes.DECIMAL(5, 2),
     allowNull: false,
   },
+  updatedAt: {
+    type: DataTypes.DATE,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+  },
 };
 
 export { AttendanceEmployeeModel };

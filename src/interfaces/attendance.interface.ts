@@ -7,7 +7,6 @@ export interface AttendanceInterface {
     entry_time: Date;
     exit_time: Date;
     hours_worked: number;
-    createdAt:Date;
     updatedAt:Date;
     deletedAt:Date;
     Employee?:EmployeeInterface;
