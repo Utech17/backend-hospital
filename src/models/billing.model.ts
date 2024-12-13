@@ -21,9 +21,16 @@ const BillingModel = {
     type: DataTypes.ENUM("pending", "paid", "cancelled"),
     allowNull: false,
   },
-  client_id: { // id_clientes
+  // id_clientes
+  client_id: { 
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
   },
 };
 
