@@ -37,6 +37,30 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     updatedAt: new Date("2024-02-10T11:45:00Z"),
     deletedAt: new Date("2024-03-01T12:00:00Z"), 
   },
+  {
+    id: 4,
+    phone_number: "04125556677",
+    home_address: "Calle Bolívar, Barquisimeto, Venezuela",
+    postal_code: "3001",
+    unit_id: 4,
+    status: true,
+    user_id: 4,
+    createdAt: new Date("2024-01-20T06:45:00Z"),
+    updatedAt: new Date("2024-02-05T10:15:00Z"),
+    deletedAt: null,
+  },
+  {
+    id: 5,
+    phone_number: "04261234567",
+    home_address: "Sector Altamira, Puerto Ordaz, Venezuela",
+    postal_code: "8050",
+    unit_id: 5,
+    status: true,
+    user_id: 5,
+    createdAt: new Date("2024-03-01T08:30:00Z"),
+    updatedAt: new Date("2024-03-15T12:00:00Z"),
+    deletedAt: null,
+  },
 ];
 
 export { employeesSeeds };
