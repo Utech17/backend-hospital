@@ -1,0 +1,61 @@
+import { AppointmentInterface } from "../../interfaces";
+
+const appointmentsSeeds: Partial<AppointmentInterface>[] = [
+  {
+    id: 1,
+    patient_id: 1,
+    employee_id: 2,
+    appointment_date: new Date("2024-12-15T09:00:00Z"),
+    appointment_status: "Scheduled",
+    appointment_area: "General",
+    createdAt: new Date("2024-12-01T08:00:00Z"),
+    updatedAt: new Date("2024-12-01T08:30:00Z"),
+    deletedAt: null,
+  },
+  {
+    id: 2,
+    patient_id: 2,
+    employee_id: 1,
+    appointment_date: new Date("2024-12-16T10:00:00Z"),
+    appointment_status: "Completed",
+    appointment_area: "Specialty",
+    createdAt: new Date("2024-12-02T09:00:00Z"),
+    updatedAt: new Date("2024-12-02T09:45:00Z"),
+    deletedAt: null,
+  },
+  {
+    id: 3,
+    patient_id: 3,
+    employee_id: 3,
+    appointment_date: new Date("2024-12-17T11:00:00Z"),
+    appointment_status: "Cancelled",
+    appointment_area: "Emergency",
+    createdAt: new Date("2024-12-03T10:00:00Z"),
+    updatedAt: new Date("2024-12-03T10:30:00Z"),
+    deletedAt: new Date("2024-12-10T15:00:00Z"),
+  },
+  {
+    id: 4,
+    patient_id: 4,
+    employee_id: 2,
+    appointment_date: new Date("2024-12-18T12:00:00Z"),
+    appointment_status: "Scheduled",
+    appointment_area: "General",
+    createdAt: new Date("2024-12-04T11:00:00Z"),
+    updatedAt: new Date("2024-12-04T11:30:00Z"),
+    deletedAt: null,
+  },
+  {
+    id: 5,
+    patient_id: 5,
+    employee_id: 1,
+    appointment_date: new Date("2024-12-19T13:00:00Z"),
+    appointment_status: "Completed",
+    appointment_area: "Specialty",
+    createdAt: new Date("2024-12-05T12:00:00Z"),
+    updatedAt: new Date("2024-12-05T12:45:00Z"),
+    deletedAt: null,
+  },
+];
+
+export { appointmentsSeeds };
