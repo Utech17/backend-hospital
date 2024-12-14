@@ -1,5 +1,5 @@
-import { EventInterface } from "./event.interface"
-import { ActionInterface } from "./action.interface"
+import { EventInterface } from "../interfaces"
+import { ActionInterface } from "../interfaces"
 
 export interface EventDetailsInterface {
     id?: number | string;
