@@ -29,3 +29,8 @@ export * from './employee.interface';
 export * from './buy.interface';
 export * from './role.interface';
 export * from './organizational.units.interface';
+export * from './account.interface';
+export * from './account.record.interface';
+export * from './journal.interface';
+export * from './request.interface';
+export * from './request.type.interface';

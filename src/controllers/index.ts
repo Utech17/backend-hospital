@@ -29,3 +29,8 @@ export * from './employee.controller';
 export * from './buy.controller';
 export * from './role.controller';
 export * from './organizational.units.controller';
+export * from './account.controller';
+export * from './account.record.controller';
+export * from './journal.controller';
+export * from './request.controller';
+export * from './request.type.controller';
