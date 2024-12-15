@@ -1,34 +1,56 @@
-export const contractData =  [
-    {
-        id: 1,
-        id_employee: 26737737,
-        id_workingDay: 1,
-        id_charge: 1,
-        start_date: '2024-12-12T12:00:00-04:00',
-        end_date: '2025-12-12T12:00:00-04:00',
-        base_salary: 1500.00,
-        benefits: 'none',
-    },
+import { ContractInterface } from "../../interfaces";
 
-    {
-        id: 2,
-        id_employee: 5609825,
-        id_workingDay: 2,
-        id_charge: 2,
-        start_date: '2024-10-10T12:00:00-04:00',
-        end_date: '2025-10-10T12:00:00-04:00',
-        base_salary: 2312.78,
-        benefits: 'seguro de vida',
-    },
-
-    {
-        id: 3,
-        id_employee: 6244046,
-        id_workingDay: 1,
-        id_charge: 3,
-        start_date: '2022-08-08T12:00:00-04:00',
-        end_date: '2024-10-08T12:00:00-04:00',
-        base_salary: 3520.12,
-        benefits: 'bono de transporte y de alimentacion',
-    },
+const contractSeeds: Partial<ContractInterface>[] = [
+  {
+    id: 1,
+    id_employee: 1,
+    id_workingDay: 1,
+    id_charge: 3,
+    start_day: new Date("2023-01-01"),
+    end_day: new Date("2023-12-31"),
+    base_salary: 1500,
+    benefits: "Seguro médico, vacaciones pagadas, bono de transporte.",
+  },
+  {
+    id: 2,
+    id_employee: 2,
+    id_workingDay: 2,
+    id_charge: 2,
+    start_day: new Date("2023-03-01"),
+    end_day: new Date("2023-11-30"),
+    base_salary: 1200,
+    benefits: "Seguro dental, días de enfermedad pagados.",
+  },
+  {
+    id: 3,
+    id_employee: 3,
+    id_workingDay: 1,
+    id_charge: 4,
+    start_day: new Date("2023-06-01"),
+    end_day: new Date("2024-05-31"),
+    base_salary: 1800,
+    benefits: "Plan de retiro, seguro de vida, bonos por desempeño.",
+  },
+  {
+    id: 4,
+    id_employee: 4,
+    id_workingDay: 3,
+    id_charge: 5,
+    start_day: new Date("2022-09-01"),
+    end_day: new Date("2023-08-31"),
+    base_salary: 2000,
+    benefits: "Estipendio de educación, asistencia de vivienda.",
+  },
+  {
+    id: 5,
+    id_employee: 5,
+    id_workingDay: 1,
+    id_charge: 1,
+    start_day: new Date("2024-01-01"),
+    end_day: new Date("2024-12-31"),
+    base_salary: 1000,
+    benefits: "Seguro médico básico, transporte gratuito.",
+  },
 ];
+
+export { contractSeeds };
