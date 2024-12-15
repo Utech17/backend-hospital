@@ -1,4 +1,4 @@
-import { ActionInterface } from "../interfaces";
+import { ActionInterface } from "../../interfaces";
 
 const actionsSeeds: Partial<ActionInterface>[] = [
   {

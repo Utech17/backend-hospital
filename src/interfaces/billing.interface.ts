@@ -8,7 +8,7 @@ export interface BillingInterface {
   billing_status?: "pending" | "paid" | "cancelled";
   client_id: number | string;
   updatedAt:Date;
-  deletedAt:Date;
+  deletedAt?: string | Date | null;
   Client?:ClientInterface;
   Patient?:PatientInterface;
 }

@@ -6,6 +6,6 @@ export interface InventoryMovementInterface {
     movement_date: Date;
     quantity: number;
     updatedAt:Date;
-    deletedAt:Date;
+    deletedAt?: string | Date | null;
     Store?:StoreInterface;
   }
