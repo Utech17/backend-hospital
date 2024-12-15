@@ -1,0 +1,91 @@
+import { ProductInterface } from "../../interfaces/product.interface";
+
+enum ProductStatus {
+  ACTIVE = "active",
+  INACTIVE = "inactive",
+}
+
+const productSeeds: Partial<ProductInterface>[] = [
+  {
+    id: 1,
+    name: "Paracetamol 500mg",
+    description: "Medicamento analgésico y antipirético",
+    unit_measure: "tabletas",
+    quantity_xunit: 100,
+    weight: 0.5,
+    location: "Farmacia - Estante A1",
+    status: ProductStatus.ACTIVE,
+    cod_type: 1,
+    cod_class: 1, 
+    cod_pres: 1, 
+  },
+  {
+    id: 2,
+    name: "Amoxicilina 250mg",
+    description: "Antibiótico para infecciones bacterianas",
+    unit_measure: "cápsulas",
+    quantity_xunit: 50,
+    weight: 0.3,
+    location: "Farmacia - Estante B2",
+    status: ProductStatus.ACTIVE,
+    cod_type: 1,
+    cod_class: 2,
+    cod_pres: 1,
+  },
+
+  {
+    id: 3,
+    name: "Guantes de látex",
+    description: "Guantes desechables para laboratorio",
+    unit_measure: "paquetes",
+    quantity_xunit: 10,
+    weight: 0.8,
+    location: "Laboratorio - Almacén C3",
+    status: ProductStatus.ACTIVE,
+    cod_type: 2,
+    cod_class: 3,
+    cod_pres: 2,
+  },
+  {
+    id: 4,
+    name: "Microscopio óptico",
+    description: "Microscopio para análisis de muestras",
+    unit_measure: "unidades",
+    quantity_xunit: 1,
+    weight: 5.5,
+    location: "Laboratorio - Mesa de equipos",
+    status: ProductStatus.ACTIVE,
+    cod_type: 3,
+    cod_class: 4, 
+    cod_pres: 3,
+  },
+
+  {
+    id: 5,
+    name: "Papel higiénico industrial",
+    description: "Rollo de papel higiénico para baños",
+    unit_measure: "rollos",
+    quantity_xunit: 20,
+    weight: 2.0,
+    location: "Suministros - Estante D1",
+    status: ProductStatus.ACTIVE,
+    cod_type: 4,
+    cod_class: 5,
+    cod_pres: 4,
+  },
+  {
+    id: 6,
+    name: "Desinfectante multiusos",
+    description: "Producto para limpieza de superficies",
+    unit_measure: "litros",
+    quantity_xunit: 5,
+    weight: 6.0,
+    location: "Suministros - Estante D2",
+    status: ProductStatus.ACTIVE,
+    cod_type: 4,
+    cod_class: 6,
+    cod_pres: 2,
+  },
+];
+
+export { productSeeds };
