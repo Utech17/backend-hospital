@@ -1,15 +1,16 @@
-import { ConceptDB } from "../config";
-import { ConceptInterface } from "../interfaces";
-const conceptServices = {
+import { ContractDB } from "../config";
+import { ContractInterface } from "../interfaces";
+
+const ContractServices = {
   getAll: async () => {
     try {
-      const concepts = await ConceptDB.findAll();
-      if (concepts.length === 0) {
+      const contracts = await ContractDB.findAll();
+      if (contracts.length === 0) {
         return {
           message: `Registros no encontrados`,
           status: 404,
           data: {
-            concepts,
+            contracts,
           },
         };
       }
@@ -17,7 +18,7 @@ const conceptServices = {
         message: `Registros encontrados exitosamente`,
         status: 200,
         data: {
-          concepts,
+          contracts,
         },
       };
     } catch (error) {
@@ -30,13 +31,13 @@ const conceptServices = {
   },
   getOne: async (id: number) => {
     try {
-      const concept = await ConceptDB.findOne({
+      const contract = await ContractDB.findOne({
         where: {
           id: id,
           status: true,
         },
       });
-      if (!concept) {
+      if (!contract) {
         return {
           message: `Registro no encontrado`,
           status: 404,
@@ -47,7 +48,7 @@ const conceptServices = {
           message: `Registro encontrado`,
           status: 200,
           data: {
-            concept,
+            contract,
           },
         };
       }
@@ -59,15 +60,15 @@ const conceptServices = {
       };
     }
   },
-  create: async (data: Partial<ConceptInterface>) => {
-    data.name = data.name?.valueOf();
+  create: async (data: Partial<ContractInterface>) => {
+    data.id_employee = data.id_employee?.valueOf();
     try {
-      const concept = await ConceptDB.create({ ...data });
+      const contract = await ContractDB.create({ ...data });
       return {
         message: `Creacion exitosa`,
         status: 201,
         data: {
-          concept,
+          contract,
         },
       };
     } catch (error) {
@@ -78,16 +79,16 @@ const conceptServices = {
       };
     }
   },
-  update: async (id: number, dat: Partial<ConceptInterface>) => {
-    dat.name = dat.name?.valueOf();
+  update: async (id: number, dat: Partial<ContractInterface>) => {
+    dat.id_employee = dat.id_employee?.valueOf();
     try {
-      const concept = await ConceptDB.update(dat, { where: { id } });
-      const { data } = await conceptServices.getOne(id);
+      const contract = await ContractDB.update(dat, { where: { id } });
+      const { data } = await ContractServices.getOne(id);
       return {
         message: `Actualización exitosa`,
         status: 201,
         data: {
-          concept: data?.concept,
+          contract: data?.contract,
         },
       };
     } catch (error) {
@@ -100,4 +101,4 @@ const conceptServices = {
   },
 };
 
-export { conceptServices };
+export { ContractServices };
