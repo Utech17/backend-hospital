@@ -36,7 +36,8 @@ const ContractModel = {
   },
   // beneficios
   benefits: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(100),
+        allowNull: false,
   },
 };
 
