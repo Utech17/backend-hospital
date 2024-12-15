@@ -1,5 +1,5 @@
-import { PatientInterface } from "./patient.interface";
-import { EmployeeInterface } from "./employee.interface";
+import { PatientInterface } from "../interfaces";
+import { EmployeeInterface } from "../interfaces";
 
 export interface AppointmentInterface {
     id?: number | string;
@@ -10,7 +10,7 @@ export interface AppointmentInterface {
     appointment_area: "General" | "Specialty" | "Emergency";
     createdAt:Date;
     updatedAt:Date;
-    deletedAt:Date;
+    deletedAt?: string | Date | null;
     Patient?: PatientInterface;
     Employee?: EmployeeInterface;
   }

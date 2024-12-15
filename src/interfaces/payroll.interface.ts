@@ -1,4 +1,4 @@
-import { EmployeeInterface } from "./employee.interface"
+import { EmployeeInterface } from "../interfaces"
 
 export interface PayrollInterface {
     id?: number;

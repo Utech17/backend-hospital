@@ -1,5 +1,5 @@
-import { UnitInterface } from "./unit.interface";
-import { UserInterface } from "./user.interface";
+import { OrganizationalUnitsInterface } from "../interfaces";
+import { UserInterface } from "../interfaces";
 
 export interface EmployeeInterface {
     id?: number | string;
@@ -11,7 +11,7 @@ export interface EmployeeInterface {
     user_id: number | string;
     createdAt:Date;
     updatedAt:Date;
-    deletedAt:Date;
-    Unit?: UnitInterface;
+    deletedAt?: string | Date | null;
+    Unit?: OrganizationalUnitsInterface;
     User?: UserInterface;
 }

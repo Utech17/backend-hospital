@@ -4,5 +4,5 @@ export interface TypeInterface {
     status: number;
     createdAt:Date;
     updatedAt:Date;
-    deletedAt:Date;
+    deletedAt?: string | Date | null;
   }

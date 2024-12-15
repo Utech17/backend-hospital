@@ -1,4 +1,4 @@
-import { EmployeeInterface } from "./employee.interface"
+import { EmployeeInterface } from "../interfaces"
 
 export interface AttendanceInterface {
     id?: number;
@@ -8,6 +8,6 @@ export interface AttendanceInterface {
     exit_time: Date;
     hours_worked: number;
     updatedAt:Date;
-    deletedAt:Date;
+    deletedAt?: string | Date | null;
     Employee?:EmployeeInterface;
   }  

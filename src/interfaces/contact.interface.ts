@@ -1,4 +1,4 @@
-import { PatientInterface } from "./patient.interface"
+import { PatientInterface } from "../interfaces"
 
 export interface ContactInterface {
     id?: number | string;
