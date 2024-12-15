@@ -37,6 +37,7 @@ import {
   JournalModel,
   RequestModel,
   RequestTypeModel,
+  PayrollDetailModel,
 } 
 from "../models";
 
@@ -84,6 +85,7 @@ const MedicalHistoryDB = db.define("medical_history", MedicalHistoryModel);
 const OrganizationalUnitsDB = db.define("organizational_units", OrganizationalUnitsModel);
 const PatientDB = db.define("Patient", PatientModel);
 const PaymentTypeDB = db.define("payment_types", PaymentTypeModel);
+const PayrollDetailDB = db.define("payroll_detail", PayrollDetailModel);
 const PayrollDB = db.define("payroll", PayrollModel);
 const PresentationDB = db.define("presentation", PresentationModel);
 const RequestDB = db.define("request", RequestModel);
@@ -218,6 +220,13 @@ JournalDB.belongsTo(RequestDB, { foreignKey: "id_request" });
 AccountRecordDB.hasMany(JournalDB, { foreignKey: "id_account_record" });
 JournalDB.belongsTo(AccountRecordDB, { foreignKey: "id_account_record" });
 
+//PayrollDetailDB
+ConceptDB.hasMany(PayrollDetailDB, { foreignKey: "id_concept" });
+PayrollDetailDB.belongsTo(ConceptDB, { foreignKey: "id_concept" });
+
+PayrollDB.hasMany(PayrollDetailDB, { foreignKey: "id_payroll" });
+PayrollDetailDB.belongsTo(PayrollDB, { foreignKey: "id_payroll" });
+
 // Sincroniza los modelos con la base de datos
 const syncModels = async () => {
   await db.sync({ alter: true });
@@ -266,5 +275,6 @@ export {
   JournalDB,
   RequestDB,
   RequestTypeDB,
+  PayrollDetailDB,
   db,
 };

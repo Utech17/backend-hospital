@@ -34,3 +34,4 @@ export * from './account.record.controller';
 export * from './journal.controller';
 export * from './request.controller';
 export * from './request.type.controller';
+export * from './payroll.detail.controller';

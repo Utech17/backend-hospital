@@ -40,11 +40,13 @@ import {
   JournalRoute,
   RequestRoute,
   RequestTypeRoute,
+  PayrollDetailRoute
 } 
-
 from "../routes/index.route";
+
 import { db } from "../config/sequelize.config";
 import { swaggerOptions } from "../config";
+
 export class Server {
   private app: any;
   private port: string | number;
@@ -91,6 +93,7 @@ export class Server {
       Journal: this.pre + "/Journal",
       Request: this.pre + "/Request",
       RequestType: this.pre + "/RequestType",
+      PayrollDetail: this.pre + "/PayrollDetail",
     };
     this.connectDB();
     this.middlewares();
@@ -141,6 +144,7 @@ export class Server {
     this.app.use(this.paths.Journal, JournalRoute);
     this.app.use(this.paths.Request, RequestRoute);
     this.app.use(this.paths.RequestType, RequestTypeRoute);
+    this.app.use(this.paths.PayrollDetail, PayrollDetailRoute);
   }
   async connectDB() {
     await db
