@@ -29,3 +29,8 @@ export * from './employee.service';
 export * from './buy.service';
 export * from './role.service';
 export * from './organizational.units.service';
+export * from './account.service';
+export * from './account.record.service';
+export * from './journal.service';
+export * from './request.service';
+export * from './Request.type.service';

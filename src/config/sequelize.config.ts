@@ -32,6 +32,11 @@ import {
   BuyModel,
   RoleModel,
   OrganizationalUnitsModel,
+  AccountModel,
+  AccountRecordModel,
+  JournalModel,
+  RequestModel,
+  RequestTypeModel,
 } 
 from "../models";
 
@@ -55,6 +60,8 @@ const db = new Sequelize(dbName, dbUser, dbPassword, {
 });
 
 // CREAMOS LAS TABLAS EN ORDEN ALFABETICO
+const AccountDB = db.define("account", AccountModel);
+const AccountRecordDB = db.define("account_record", AccountRecordModel);
 const ActionDB = db.define("actions", ActionModel);
 const AppointmentDB = db.define("appointment", AppointmentModel);
 const AttendanceDB = db.define("attendance_employee", AttendanceEmployeeModel);
@@ -72,12 +79,15 @@ const EventDB = db.define("event", EventModel);
 const EventDetailsDB = db.define("event_details", EventDetailsModel);
 const EventTypeDB = db.define("event_type", EventTypeModel);
 const InventoryMovementDB = db.define("inventory_movement", InventoryMovementModel);
+const JournalDB = db.define("journal", JournalModel);
 const MedicalHistoryDB = db.define("medical_history", MedicalHistoryModel);
 const OrganizationalUnitsDB = db.define("organizational_units", OrganizationalUnitsModel);
 const PatientDB = db.define("Patient", PatientModel);
 const PaymentTypeDB = db.define("payment_types", PaymentTypeModel);
 const PayrollDB = db.define("payroll", PayrollModel);
 const PresentationDB = db.define("presentation", PresentationModel);
+const RequestDB = db.define("request", RequestModel);
+const RequestTypeDB = db.define("request_type", RequestTypeModel);
 const ProductDB = db.define("product", ProductModel);
 const PurchaseDetailsDB = db.define("purchase_details", PurchaseDetailsModel);
 const RoleDB = db.define("role", RoleModel);
@@ -193,6 +203,21 @@ EmployeeDB.belongsTo(UserDB, { foreignKey: 'id_user' });
 DepartamentDB.hasMany(OrganizationalUnitsDB, {foreignKey: 'id_departament'});
 OrganizationalUnitsDB.belongsTo(DepartamentDB, {foreignKey: 'id_departament'});
 
+// RequestDB
+RequestTypeDB.hasMany(RequestDB, { foreignKey: "id_request_type" });
+RequestDB.belongsTo(RequestTypeDB, { foreignKey: "id_request_type" });
+
+// AccountRecordDB
+AccountDB.hasMany(AccountRecordDB, { foreignKey: "id_account" });
+AccountRecordDB.belongsTo(AccountDB, { foreignKey: "id_account" });
+
+// JournalDB
+RequestDB.hasMany(JournalDB, { foreignKey: "id_request" });
+JournalDB.belongsTo(RequestDB, { foreignKey: "id_request" });
+
+AccountRecordDB.hasMany(JournalDB, { foreignKey: "id_account_record" });
+JournalDB.belongsTo(AccountRecordDB, { foreignKey: "id_account_record" });
+
 // Sincroniza los modelos con la base de datos
 const syncModels = async () => {
   await db.sync({ alter: true });
@@ -236,5 +261,10 @@ export {
   EmployeeDB,
   BuyDB,
   OrganizationalUnitsDB,
+  AccountDB,
+  AccountRecordDB,
+  JournalDB,
+  RequestDB,
+  RequestTypeDB,
   db,
 };

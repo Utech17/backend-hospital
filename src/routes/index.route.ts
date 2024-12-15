@@ -29,6 +29,11 @@ import EmployeeRoute from "./employee.route";
 import BuyRoute from "./buy.route";
 import roleRoute from "./role.route";
 import OrganizationalUnitsRoute from "./organizational.units.route";
+import AccountRoute from "./account.route";
+import AccounRecordRoute from "./account.record.route";
+import JournalRoute from "./journal.route";
+import RequestRoute from "./request.route";
+import RequestTypeRoute from "./request.type.route";
 
 export {
   MedicalHistoryRoute,
@@ -62,4 +67,9 @@ export {
   BuyRoute,
   roleRoute,
   OrganizationalUnitsRoute,
+  AccountRoute,
+  AccounRecordRoute,
+  JournalRoute,
+  RequestRoute,
+  RequestTypeRoute,
 };

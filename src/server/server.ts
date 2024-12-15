@@ -35,6 +35,11 @@ import {
   BuyRoute,
   roleRoute,
   OrganizationalUnitsRoute,
+  AccountRoute,
+  AccounRecordRoute,
+  JournalRoute,
+  RequestRoute,
+  RequestTypeRoute,
 } 
 
 from "../routes/index.route";
@@ -79,8 +84,13 @@ export class Server {
       Employee: this.pre + "/Employee",
       Buy: this.pre + "/Buy",
       PaymentType: this.pre + "/PaymentType",
-      PayrollRoute: this.pre + "/PayrollRoute",
+      Payroll: this.pre + "/Payroll",
       OrganizationalUnits: this.pre + "/OrganizationalUnits",
+      Account: this.pre + "/Account",
+      AccounRecord: this.pre + "/AccounRecord",
+      Journal: this.pre + "/Journal",
+      Request: this.pre + "/Request",
+      RequestType: this.pre + "/RequestType",
     };
     this.connectDB();
     this.middlewares();
@@ -126,6 +136,11 @@ export class Server {
     this.app.use(this.paths.PaymentType, PaymentTypeRoute);
     this.app.use(this.paths.Payroll, PayrollRoute);
     this.app.use(this.paths.OrganizationalUnits, OrganizationalUnitsRoute);
+    this.app.use(this.paths.Account, AccountRoute);
+    this.app.use(this.paths.AccounRecord, AccounRecordRoute);
+    this.app.use(this.paths.Journal, JournalRoute);
+    this.app.use(this.paths.Request, RequestRoute);
+    this.app.use(this.paths.RequestType, RequestTypeRoute);
   }
   async connectDB() {
     await db
