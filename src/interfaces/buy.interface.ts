@@ -7,5 +7,7 @@ export interface BuyInterface {
     amount: number;
     supplier_id: number | string;
     status: boolean;
+    updatedAt:Date;
+    deletedAt?: string | Date | null;
 //    Supplier?:SupplierInterface;
 }

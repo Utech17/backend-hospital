@@ -32,6 +32,12 @@ const BuyModel = {
         allowNull: false,
         defaultValue: true,
     },
+    updatedAt: {
+        type: DataTypes.DATE,
+      },
+      deletedAt: {
+        type: DataTypes.DATE,
+      },
 };
 
 export {BuyModel};
