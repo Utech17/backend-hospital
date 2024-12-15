@@ -1,4 +1,4 @@
-//import { UnitInterface } from "./unit.interface";
+import { UnitInterface } from "./unit.interface";
 import { UserInterface } from "./user.interface";
 
 export interface EmployeeInterface {
@@ -12,6 +12,6 @@ export interface EmployeeInterface {
     createdAt:Date;
     updatedAt:Date;
     deletedAt:Date;
-    //Unit?: UnitInterface;
+    Unit?: UnitInterface;
     User?: UserInterface;
 }

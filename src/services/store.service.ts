@@ -17,7 +17,6 @@ const StoreServices = {
       }
       return {
         message: `Registros encontrados`,
-        message: `Registros encontrados`,
         status: 200,
         data: {
           stores,
@@ -31,7 +30,6 @@ const StoreServices = {
       };
     }
   },
-  getOne: async (id: number|string) => {
   getOne: async (id: number|string) => {
     try {
       const store = await StoreDB.findOne({
@@ -90,7 +88,6 @@ const StoreServices = {
       return {
         message: `Actualización exitosa`,
         status: 200,
-        status: 200,
         data: {
           store: data?.store,
         },
@@ -127,7 +124,6 @@ const StoreServices = {
     }
   },
   findByName: async (name: string) => {
-  findByName: async (name: string) => {
     try {
       const store = await StoreDB.findAll({ where: { name } });
       if (store.length===0) {
@@ -135,7 +131,6 @@ const StoreServices = {
         return {
           message: `Registro no encontrado`,
           status: 404,
-          data: {},
           data: {},
         };
       } else {

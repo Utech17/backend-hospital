@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import { validateFields } from "../middlewares";
 import { ContactController } from "../controllers";
 import { ContactValidator } from "../validators";
