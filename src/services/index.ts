@@ -34,3 +34,4 @@ export * from './account.record.service';
 export * from './journal.service';
 export * from './request.service';
 export * from './Request.type.service';
+export * from './payroll.detail.services';
