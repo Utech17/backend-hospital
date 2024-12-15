@@ -2,12 +2,12 @@ import { RoleInterface } from "../interfaces";
 
 export interface UserInterface{
     id?: number | string;
-    firstName: string; // nombre
-    lastName: string;  // apellido
+    firstName: string;
+    lastName: string;
     email: string;
-    password: string;  // contraseña
-    createdAt?: Date;  // fecha_creacion
-    isActive?: boolean; // status
-    roleId: number | string; // id_rol
+    password: string;
+    createdAt?: Date;
+    isActive?: boolean;
+    roleId: number | string;
     role?:RoleInterface;
 }

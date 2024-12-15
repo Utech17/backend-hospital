@@ -8,6 +8,6 @@ export interface PatientInterface {
     identifier: string; 
     registrationDate?: Date;
     updatedAt:Date;
-    deletedAt:Date;
+    deletedAt?: string | Date | null;
   }
   

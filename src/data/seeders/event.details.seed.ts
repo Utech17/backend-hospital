@@ -1,4 +1,4 @@
-import { EventDetailsInterface } from "../interfaces";
+import { EventDetailsInterface } from "../../interfaces";
 
 const eventDetailsSeeds: Partial<EventDetailsInterface>[] = [
   {

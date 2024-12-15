@@ -5,4 +5,6 @@ export interface SaleInterface {
     amount: number;
     payment_type_code: number;
     status: boolean;
+    updatedAt:Date;
+    deletedAt?: string | Date | null;
 }

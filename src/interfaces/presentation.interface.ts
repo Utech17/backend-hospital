@@ -6,5 +6,5 @@ export interface PresentationInterface {
     status?: number;
     createdAt:Date;
     updatedAt:Date;
-    deletedAt:Date;
+    deletedAt?: string | Date | null;
   }
