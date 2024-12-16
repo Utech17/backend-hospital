@@ -3,7 +3,7 @@
 
 ## Introducción
 Esta API está diseñada para gestionar un sistema hospitalario. Utiliza el ORM Sequelize para interactuar con la base de datos y sigue un modelo de capas, inspirado en MVC, con una estructura que mejora la legibilidad, el mantenimiento y la escalabilidad.
-Actualmente, la API incluye 35 tablas para cubrir diversas funcionalidades y relaciones del sistema.
+Actualmente, la API incluye 40 tablas para cubrir diversas funcionalidades y relaciones del sistema.
 
 ### Cómo Ejecutar
 
