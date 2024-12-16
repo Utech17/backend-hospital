@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node dist/app.js",
-    "dev": "tsc && node dist/app.js"
+    "dev": "tsc && node dist/app.js",
+    "seeds-dev":"tsc && node dist/data/insert-seeders"
   },
   "author": "Utech17",
   "license": "ISC",

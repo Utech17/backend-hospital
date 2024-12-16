@@ -1,10 +1,12 @@
-import { BillingDB } from "../config";
-import { BillingInterface } from "../interfaces";
+import { db, BillingDB, InvoiceDetailDB } from "../config";
+import { BillingInterface, InvoiceDetailInterface } from "../interfaces";
 
 const BillingServices = {
   getAll: async () => {
     try {
-      const bills = await BillingDB.findAll();
+      const bills = await BillingDB.findAll({
+        include: [{ model: InvoiceDetailDB, as: 'InvoiceDetails' }]
+      });
       if (bills.length === 0) {
         return {
           message: `No se encontraron facturas`,
@@ -32,7 +34,10 @@ const BillingServices = {
 
   getOne: async (id: number) => {
     try {
-      const bill = await BillingDB.findOne({ where: { id } });
+      const bill = await BillingDB.findOne({
+        where: { id },
+        include: [{ model: InvoiceDetailDB, as: 'InvoiceDetails' }]
+      });
       if (!bill) {
         return {
           message: `Factura no encontrada`,
@@ -56,9 +61,22 @@ const BillingServices = {
     }
   },
 
-  create: async (data: Partial<BillingInterface>) => {
+  create: async (data: Partial<BillingInterface>, invoiceDetails: InvoiceDetailInterface[]) => {
+    const transaction = await db.transaction();
     try {
-      const bill = await BillingDB.create({ ...data });
+      const bill = await BillingDB.create({ ...data }, { transaction });
+
+      if (invoiceDetails && Array.isArray(invoiceDetails)) {
+        const billDetails = invoiceDetails.map(detail => ({
+          ...detail,
+          num_fact: bill.dataValues.id,
+        }));
+
+        await InvoiceDetailDB.bulkCreate(billDetails, { transaction });
+      }
+
+      await transaction.commit();
+
       return {
         message: `Factura creada exitosamente`,
         status: 201,
@@ -67,6 +85,7 @@ const BillingServices = {
         },
       };
     } catch (error) {
+      await transaction.rollback();
       console.error(error);
       return {
         message: `Por favor, contacte al administrador`,
@@ -75,10 +94,25 @@ const BillingServices = {
     }
   },
 
-  update: async (id: number, data: Partial<BillingInterface>) => {
+  update: async (id: number, data: Partial<BillingInterface>, invoiceDetails: InvoiceDetailInterface[]) => {
+    const transaction = await db.transaction();
     try {
-      await BillingDB.update(data, { where: { id } });
+      await BillingDB.update(data, { where: { id }, transaction });
+
+      await InvoiceDetailDB.destroy({ where: { num_fact: id }, transaction });
+
+      if (invoiceDetails && Array.isArray(invoiceDetails)) {
+        const billDetails = invoiceDetails.map(detail => ({
+          ...detail,
+          num_fact: id,
+        }));
+
+        await InvoiceDetailDB.bulkCreate(billDetails, { transaction });
+      }
+
+      await transaction.commit();
       const { data: updatedData } = await BillingServices.getOne(id);
+
       return {
         message: `Factura actualizada exitosamente`,
         status: 200,
@@ -87,6 +121,7 @@ const BillingServices = {
         },
       };
     } catch (error) {
+      await transaction.rollback();
       console.error(error);
       return {
         message: `Por favor, contacte al administrador`,
@@ -96,14 +131,21 @@ const BillingServices = {
   },
 
   delete: async (id: number) => {
+    const transaction = await db.transaction();
     try {
-      await BillingDB.destroy({ where: { id } });
+      await InvoiceDetailDB.destroy({ where: { num_fact: id }, transaction });
+
+      await BillingDB.destroy({ where: { id }, transaction });
+
+      await transaction.commit();
+
       return {
         message: `Factura eliminada exitosamente`,
         status: 204,
         data: {},
       };
     } catch (error) {
+      await transaction.rollback();
       console.error(error);
       return {
         message: `Por favor, contacte al administrador`,

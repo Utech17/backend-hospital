@@ -1,7 +1,7 @@
 import { EmployeeInterface } from "../interfaces"
 
 export interface PayrollInterface {
-    id?: number;
+    id: number;
     employeeId: number;
     startDate: Date;
     endDate: Date;
