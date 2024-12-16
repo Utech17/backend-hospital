@@ -35,3 +35,5 @@ export * from './journal.model';
 export * from './request.model';
 export * from './request.type.model';
 export * from './payroll.detail.model';
+export * from './invoice.detail.model';
+export * from './supplier.model';

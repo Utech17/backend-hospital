@@ -35,3 +35,5 @@ export * from './journal.validators';
 export * from './request.validators';
 export * from './request.type.validators';
 export * from './payroll.detail.validator';
+export * from './supplier.validators';
+export * from './invoice.detail.validators';

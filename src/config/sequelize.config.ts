@@ -38,6 +38,8 @@ import {
   RequestModel,
   RequestTypeModel,
   PayrollDetailModel,
+  SupplierModel,
+  InvoiceDetailModel,
 } 
 from "../models";
 
@@ -80,6 +82,7 @@ const EventDB = db.define("event", EventModel);
 const EventDetailsDB = db.define("event_details", EventDetailsModel);
 const EventTypeDB = db.define("event_type", EventTypeModel);
 const InventoryMovementDB = db.define("inventory_movement", InventoryMovementModel);
+const InvoiceDetailDB = db.define("invoice_detail", InvoiceDetailModel);
 const JournalDB = db.define("journal", JournalModel);
 const MedicalHistoryDB = db.define("medical_history", MedicalHistoryModel);
 const OrganizationalUnitsDB = db.define("organizational_units", OrganizationalUnitsModel);
@@ -95,6 +98,7 @@ const PurchaseDetailsDB = db.define("purchase_details", PurchaseDetailsModel);
 const RoleDB = db.define("role", RoleModel);
 const SaleDB = db.define("sales", SaleModel);
 const StoreDB = db.define("store", StoreModel);
+const SupplierDB = db.define("supplier", SupplierModel);
 const TypeDB = db.define("type", TypeModel);
 const UserDB = db.define("user", UserModel);
 const WorkingDayDB = db.define("working_day", WorkingDayModel);
@@ -198,8 +202,8 @@ UserDB.hasMany(EmployeeDB, { foreignKey: 'id_user' });
 EmployeeDB.belongsTo(UserDB, { foreignKey: 'id_user' });
 
 //BuyDB
-//SupplierDB.hasMany(BuyDB, {foreignKey: "id_supplier"});
-//BuyDB.belongsTo(SupplierDB, {foreignKey: "id_supplier"});
+SupplierDB.hasMany(BuyDB, {foreignKey: "id_supplier"});
+BuyDB.belongsTo(SupplierDB, {foreignKey: "id_supplier"});
 
 //OrganizationalUnitsDB
 DepartamentDB.hasMany(OrganizationalUnitsDB, {foreignKey: 'id_departament'});
@@ -226,6 +230,17 @@ PayrollDetailDB.belongsTo(ConceptDB, { foreignKey: "id_concept" });
 
 PayrollDB.hasMany(PayrollDetailDB, { foreignKey: "id_payroll" });
 PayrollDetailDB.belongsTo(PayrollDB, { foreignKey: "id_payroll" });
+
+// SupplierDB
+SupplierDB.hasMany(ProductDB, { foreignKey: "id_supplier" });
+ProductDB.belongsTo(SupplierDB, { foreignKey: "id_supplier" });
+
+// InvoiceDetailDB
+BillingDB.hasMany(InvoiceDetailDB, { foreignKey: "id_invoice" });
+InvoiceDetailDB.belongsTo(BillingDB, { foreignKey: "id_invoice" });
+
+ProductDB.hasMany(InvoiceDetailDB, { foreignKey: "id_product" });
+InvoiceDetailDB.belongsTo(ProductDB, { foreignKey: "id_product" });
 
 // Sincroniza los modelos con la base de datos
 const syncModels = async () => {
@@ -276,5 +291,7 @@ export {
   RequestDB,
   RequestTypeDB,
   PayrollDetailDB,
+  SupplierDB,
+  InvoiceDetailDB,
   db,
 };
