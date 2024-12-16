@@ -1,4 +1,4 @@
-//import { SupplierInterface } from "./supplier.interface";
+import { SupplierInterface } from "./supplier.interface";
 
 export interface BuyInterface {
     id?: number | string;
@@ -9,5 +9,5 @@ export interface BuyInterface {
     status: boolean;
     updatedAt:Date;
     deletedAt?: string | Date | null;
-//    Supplier?:SupplierInterface;
+    Supplier?:SupplierInterface;
 }
