@@ -65,21 +65,20 @@ class StoreValidator {
             errors: [
               {
                 type: "field",
-                msg: `Nombre en uso : ${name}, para el registro actual`,
-                path: "name",
+                msg: `Name in use : ${_role_name}, for the current record`,
+                path: "_role_name",
                 location: "body",
               },
             ],
           });
         }
       } else {
-        //caso si es para registrar un nuevo rol
         return res.status(400).json({
           errors: [
             {
               type: "field",
-              msg: `Nombre en uso : ${name}, para el nuevo rol`,
-              path: "name",
+              msg: `Name in use : ${_role_name}, for the new payment type name`,
+              path: "_role_name",
               location: "body",
             },
           ],
@@ -90,3 +89,5 @@ class StoreValidator {
   };
 }
 export { StoreValidator };
+
+export { RoleValidator }
