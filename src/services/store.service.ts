@@ -40,25 +40,25 @@ const StoreServices = {
       });
       if (!store) {
         return {
-          message: `Registro no encontrado`,
+          message: "Record not found",
           status: 404,
           data: {},
-        };
+        }
       } else {
         return {
-          message: `Registro encontrado`,
+          message: "Record found",
           status: 200,
           data: {
             store,
           },
-        };
+        }
       }
     } catch (error) {
       console.log(error);
       return {
-        message: `Contacte con el administrador`,
+        message: "Error fetching roles",
         status: 500,
-      };
+      }
     }
   },
   create: async (data: Partial<StoreInterface>) => {
@@ -66,18 +66,18 @@ const StoreServices = {
     try {
       const store = await StoreDB.create({ ...data });
       return {
-        message: `Creación exitosa`,
+        message: "Successful creation",
         status: 201,
         data: {
           store,
         },
-      };
+      }
     } catch (error) {
       console.log(error);
       return {
-        message: `Contacte con el administrador`,
+        message: "Error fetching role",
         status: 500,
-      };
+      }
     }
   },
   update: async (id: number|string, dat: Partial<StoreInterface>) => {
@@ -86,21 +86,22 @@ const StoreServices = {
       let store: StoreInterface | any = await StoreDB.update(dat, { where: { id } });
       const { data } = await StoreServices.getOne(id);
       return {
-        message: `Actualización exitosa`,
+        message: "Successful update",
         status: 200,
         data: {
           store: data?.store,
         },
-      };
+      }
     } catch (error) {
       console.log(error);
       return {
-        message: `Contacte con el administrador`,
+        message: "Error fetching role",
         status: 500,
-      };
+      }
     }
   },
-  delete: async (id: number) => {
+
+  delete: async (id: number | string) => {
     try {
       const store = await StoreDB.update(
         {
@@ -108,9 +109,9 @@ const StoreServices = {
           deletedAt: new Date(),
         },
         { where: { id } }
-      );
+      )
       return {
-        message: `Eliminación exitosa`,
+        message: "Successful removal",
         status: 204,
         data: {
           store:null,
@@ -118,18 +119,19 @@ const StoreServices = {
       };
     } catch (error) {
       return {
-        message: `Contacte con el administrador`,
+        message: "Error fetching role",
         status: 500,
-      };
+      }
     }
   },
-  findByName: async (name: string) => {
+
+  findByName: async (role_name: string) => {
     try {
       const store = await StoreDB.findAll({ where: { name } });
       if (store.length===0) {
         console.log("Registro no encontrado")
         return {
-          message: `Registro no encontrado`,
+          message: "Record not found",
           status: 404,
           data: {},
         };
@@ -145,7 +147,7 @@ const StoreServices = {
     } catch (error) {
       console.log(error);
       return {
-        message: `Contact the administrator: error`,
+        message: "Error fetching role",
         status: 500,
       };
     }
