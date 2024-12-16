@@ -35,3 +35,5 @@ export * from './journal.interface';
 export * from './request.interface';
 export * from './request.type.interface';
 export * from './payroll.detail.interface';
+export * from './invoice.detail.interface';
+export * from './supplier.interface';

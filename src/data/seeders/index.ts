@@ -35,3 +35,5 @@ export * from './journal.seed';
 export * from './request.seed';
 export * from './request.type.seed';
 export * from './payroll.detail.seed';
+export * from './supplier.seed';
+export * from './invoice.detail.seed';

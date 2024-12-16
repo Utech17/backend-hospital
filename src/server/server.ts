@@ -40,7 +40,9 @@ import {
   JournalRoute,
   RequestRoute,
   RequestTypeRoute,
-  PayrollDetailRoute
+  PayrollDetailRoute,
+  SupplierRoute,
+  InvoiceDetailRoute,
 } 
 from "../routes/index.route";
 
@@ -94,6 +96,8 @@ export class Server {
       Request: this.pre + "/Request",
       RequestType: this.pre + "/RequestType",
       PayrollDetail: this.pre + "/PayrollDetail",
+      Supplier: this.pre + "/Supplier",
+      InvoiceDetail: this.pre + "/InvoiceDetail",
     };
     this.connectDB();
     this.middlewares();
@@ -145,6 +149,8 @@ export class Server {
     this.app.use(this.paths.Request, RequestRoute);
     this.app.use(this.paths.RequestType, RequestTypeRoute);
     this.app.use(this.paths.PayrollDetail, PayrollDetailRoute);
+    this.app.use(this.paths.Supplier, SupplierRoute);
+    this.app.use(this.paths.InvoiceDetail, InvoiceDetailRoute);
   }
   async connectDB() {
     await db

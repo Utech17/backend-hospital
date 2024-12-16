@@ -35,6 +35,8 @@ import JournalRoute from "./journal.route";
 import RequestRoute from "./request.route";
 import RequestTypeRoute from "./request.type.route";
 import PayrollDetailRoute from "./payroll.detail.route";
+import SupplierRoute from "./supplier.route";
+import InvoiceDetailRoute from "./invoice.detail.route";
 
 export {
   MedicalHistoryRoute,
@@ -74,4 +76,6 @@ export {
   RequestRoute,
   RequestTypeRoute,
   PayrollDetailRoute,
+  SupplierRoute,
+  InvoiceDetailRoute,
 };
