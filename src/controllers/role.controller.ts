@@ -5,7 +5,7 @@ export class RoleController {
     constructor() {}
 
     all = async (req: Request, res: Response) => {
-        const { status, message, data } = await RoleService.getAllRoles();
+        const { status, message, data } = await RoleService.getAll();
         return res.status(status).json({
             message,
             data,
