@@ -1,8 +1,6 @@
 import { RoleInterface } from "../../interfaces";
 
-
 const rolesSeeds: Partial<RoleInterface>[] = [
-
     {
         id: 1,
         name: "Administrador",
@@ -26,6 +24,4 @@ const rolesSeeds: Partial<RoleInterface>[] = [
 
 ];
 
-export {
-    rolesSeeds
-}
+export { rolesSeeds }
