@@ -37,6 +37,7 @@ import RequestTypeRoute from "./request.type.routes";
 import PayrollDetailRoute from "./payroll.detail.routes";
 import SupplierRoute from "./supplier.routes";
 import InvoiceDetailRoute from "./invoice.detail.routes";
+import InventoryRoute from "./inventory.routes";
 
 export {
   MedicalHistoryRoute,
@@ -78,4 +79,5 @@ export {
   PayrollDetailRoute,
   SupplierRoute,
   InvoiceDetailRoute,
+  InventoryRoute,
 };

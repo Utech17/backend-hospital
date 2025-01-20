@@ -18,6 +18,7 @@ import {
   EventDB,
   EventDetailsDB,
   EventTypeDB,
+  InventoryDB,
   InventoryMovementDB,
   InvoiceDetailDB,
   JournalDB,
@@ -82,6 +83,7 @@ import {
   typeSeeds,
   usersSeeds,
   workingDaysSeeds,
+  InventorysSeeds,
 } from "../data/seeders";
 
 const eject = async () => {
@@ -116,6 +118,7 @@ async function insertSeeders() {
       "products",
       "presentations",
       "concepts",
+      "inventory",
     ],
     level5: [
       "contracts",
@@ -173,16 +176,14 @@ async function insertSeeders() {
     await ProductDB.bulkCreate(productSeeds, { ignoreDuplicates: true, validate: true });
     await PresentationDB.bulkCreate(PresentationSeeds, { ignoreDuplicates: true, validate: true });
     await ConceptDB.bulkCreate(conceptSeeds, { ignoreDuplicates: true, validate: true });
+    await InventoryDB.bulkCreate(InventorysSeeds, { ignoreDuplicates: true, validate: true });
 
     console.log("Insertando seeds de nivel 5...");
     await ContractDB.bulkCreate(contractSeeds, { ignoreDuplicates: true, validate: true });
     await AppointmentDB.bulkCreate(appointmentsSeeds, { ignoreDuplicates: true, validate: true });
     await SaleDB.bulkCreate(saleSeeds, { ignoreDuplicates: true, validate: true });
     await ContactDB.bulkCreate(contactsSeeds, { ignoreDuplicates: true, validate: true });
-    await InventoryMovementDB.bulkCreate(inventoryMovementsSeeds, {
-      ignoreDuplicates: true,
-      validate: true,
-    });
+    await InventoryMovementDB.bulkCreate(inventoryMovementsSeeds, { ignoreDuplicates: true, validate: true });
     await MedicalHistoryDB.bulkCreate(medicalHistoriesSeeds, { ignoreDuplicates: true, validate: true });
 
     console.log("Insertando seeds de nivel 6...");
@@ -198,10 +199,7 @@ async function insertSeeders() {
     await AccountDB.bulkCreate(accountsSeeds, { ignoreDuplicates: true, validate: true });
     await JournalDB.bulkCreate(journalsSeeds, { ignoreDuplicates: true, validate: true });
     await BillingDB.bulkCreate(billingSeeds, { ignoreDuplicates: true, validate: true });
-    await PurchaseDetailsDB.bulkCreate(purchaseDetailsSeeds, {
-      ignoreDuplicates: true,
-      validate: true,
-    });
+    await PurchaseDetailsDB.bulkCreate(purchaseDetailsSeeds, { ignoreDuplicates: true, validate: true });
     await BuyDB.bulkCreate(buySeeds, { ignoreDuplicates: true, validate: true });
     await InvoiceDetailDB.bulkCreate(invoiceDetailsSeeds, { ignoreDuplicates: true, validate: true });
 

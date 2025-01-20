@@ -37,3 +37,4 @@ export * from './request.type.controller';
 export * from './payroll.detail.controller';
 export * from './supplier.controller';
 export * from './invoice.detail.controller';
+export * from './inventory.controller';

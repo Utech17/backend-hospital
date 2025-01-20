@@ -43,6 +43,7 @@ import {
   PayrollDetailRoute,
   SupplierRoute,
   InvoiceDetailRoute,
+  InventoryRoute,
 } 
 from "../routes/index.route";
 
@@ -98,6 +99,7 @@ export class Server {
       PayrollDetail: this.pre + "/PayrollDetail",
       Supplier: this.pre + "/Supplier",
       InvoiceDetail: this.pre + "/InvoiceDetail",
+      Inventory: this.pre + "/Inventory",
     };
     this.connectDB();
     this.middlewares();
@@ -151,6 +153,7 @@ export class Server {
     this.app.use(this.paths.PayrollDetail, PayrollDetailRoute);
     this.app.use(this.paths.Supplier, SupplierRoute);
     this.app.use(this.paths.InvoiceDetail, InvoiceDetailRoute);
+    this.app.use(this.paths.Inventory, InventoryRoute);
   }
   async connectDB() {
     await db

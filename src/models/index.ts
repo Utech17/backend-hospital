@@ -37,3 +37,4 @@ export * from './request.type.model';
 export * from './payroll.detail.model';
 export * from './invoice.detail.model';
 export * from './supplier.model';
+export * from './inventory.model';
