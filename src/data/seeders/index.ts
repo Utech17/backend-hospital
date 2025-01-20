@@ -37,3 +37,4 @@ export * from './request.type.seed';
 export * from './payroll.detail.seed';
 export * from './supplier.seed';
 export * from './invoice.detail.seed';
+export * from './inventory.seed';

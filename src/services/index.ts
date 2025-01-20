@@ -37,3 +37,4 @@ export * from './Request.type.service';
 export * from './payroll.detail.service';
 export * from './invoice.detail.service';
 export * from './supplier.service';
+export * from './inventory.service';

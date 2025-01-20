@@ -40,6 +40,7 @@ import {
   PayrollDetailModel,
   SupplierModel,
   InvoiceDetailModel,
+  InventoryModel,
 } 
 from "../models";
 
@@ -102,6 +103,7 @@ const SupplierDB = db.define("supplier", SupplierModel);
 const TypeDB = db.define("type", TypeModel);
 const UserDB = db.define("user", UserModel);
 const WorkingDayDB = db.define("working_day", WorkingDayModel);
+const InventoryDB = db.define("inventory", InventoryModel);
 
 // En las relaciones importa el orden de la jerarquia
 // MedicalHistoryDB
@@ -242,6 +244,13 @@ InvoiceDetailDB.belongsTo(BillingDB, { foreignKey: "id_invoice" });
 ProductDB.hasMany(InvoiceDetailDB, { foreignKey: "id_product" });
 InvoiceDetailDB.belongsTo(ProductDB, { foreignKey: "id_product" });
 
+// InventoryDB
+ProductDB.hasMany(InventoryDB, { foreignKey: "id_product" });
+InventoryDB.belongsTo(ProductDB, { foreignKey: "id_product" });
+
+OrganizationalUnitsDB.hasMany(InventoryDB, { foreignKey: "id_organizational_units" });
+InventoryDB.belongsTo(OrganizationalUnitsDB, { foreignKey: "id_organizational_units" });
+
 // Sincroniza los modelos con la base de datos
 const syncModels = async () => {
   await db.sync({ alter: true });
@@ -293,5 +302,6 @@ export {
   PayrollDetailDB,
   SupplierDB,
   InvoiceDetailDB,
+  InventoryDB,
   db,
 };
