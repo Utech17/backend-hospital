@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { patientServices } from "../services";
+import { PatientServices } from "../services";
 
 export class PatientController {
   constructor() {}
 
   all = async (req: Request, res: Response) => {
-    const { status, message, data } = await patientServices.getAll();
+    const { status, message, data } = await PatientServices.getAll();
     return res.status(status).json({
       message,
       data,
@@ -14,7 +14,7 @@ export class PatientController {
 
   one = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await patientServices.getOne(parseInt(id) as number);
+    const { status, message, data } = await PatientServices.getOne(parseInt(id) as number);
     return res.status(status).json({
       message,
       data,
@@ -22,7 +22,7 @@ export class PatientController {
   };
 
   create = async (req: Request, res: Response) => {
-    const { status, message, data } = await patientServices.create(req.body);
+    const { status, message, data } = await PatientServices.create(req.body);
     return res.status(status).json({
       message,
       data,
@@ -31,7 +31,7 @@ export class PatientController {
 
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await patientServices.update(parseInt(id) as number, req.body);
+    const { status, message, data } = await PatientServices.update(parseInt(id) as number, req.body);
     return res.status(status).json({
       message,
       data,
@@ -40,7 +40,7 @@ export class PatientController {
 
   delete = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await patientServices.delete(parseInt(id) as number);
+    const { status, message, data } = await PatientServices.delete(parseInt(id) as number);
     return res.status(status).json({
       message,
       data,

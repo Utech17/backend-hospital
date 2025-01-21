@@ -35,9 +35,9 @@ const SaleModel = {
     updatedAt: {
         type: DataTypes.DATE,
       },
-      deletedAt: {
+    deletedAt: {
         type: DataTypes.DATE,
-      },
+    },
 };
 
 export { SaleModel };

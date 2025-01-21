@@ -111,6 +111,31 @@ const RequestServices = {
       };
     }
   },
+  findByName: async (name: string) => {
+    try {
+      const request = await RequestDB.findOne({ where: { name } });
+      if (!request) {
+        return {
+          message: "Registro no encontrado",
+          status: 404,
+          data: {},
+        };
+      }
+      return {
+        message: "Registro encontrado",
+        status: 200,
+        data: {
+          request,
+        },
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        message: "Contacte con el administrador",
+        status: 500,
+      };
+    }
+  },
 };
 
 export { RequestServices };

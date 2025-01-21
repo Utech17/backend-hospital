@@ -4,26 +4,24 @@ import { InventoryController } from "../controllers";
 import { InventoryValidator } from "../validators";
 
 const router = Router();
-const InventoryController = new InventoryController();
-const InventoryValidator = new InventoryValidator();
+const InventoryControllers = new InventoryController();
+const InventoryValidators = new InventoryValidator();
 
-router.get("/", InventoryController.all); 
-router.get("/:id", InventoryValidator.validateInventory, InventoryController.one); 
+router.get("/", InventoryControllers.all); 
+router.get("/:id", InventoryValidators.validateInventory, InventoryControllers.one); 
 router.post(
   "/",
-  InventoryValidator.validateInventory, 
-  InventoryValidator.validateIfNameIsUse, 
+  InventoryValidators.validateInventory, 
   validateFields, 
-  InventoryController.create 
+  InventoryControllers.create 
 );
 router.put(
   "/:id",
-  InventoryValidator.validateInventory,
-  InventoryValidator.validateIfIdExist, 
-  InventoryValidator.validateIfNameIsUse, 
+  InventoryValidators.validateInventory,
+  InventoryValidators.validateIfIdExist,
   validateFields, 
-  InventoryController.update 
+  InventoryControllers.update 
 );
-router.delete("/:id", InventoryController.delete); 
+router.delete("/:id", InventoryControllers.delete); 
 
 export default router;

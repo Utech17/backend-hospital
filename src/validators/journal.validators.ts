@@ -20,7 +20,7 @@ class JournalValidator {
     next: NextFunction
   ) => {
     const { id } = req.params;
-    const { status, message, data } = await JournalServices.getOne(id);
+    const { status, message, data } = await JournalServices.getOne(Number(id));
     if (status === 500) {
       return res.status(status).json({ message });
     } else if (status === 404) {

@@ -73,7 +73,7 @@ import {
   payrollDetailsSeeds,
   PresentationSeeds,
   productSeeds,
-  purchaseDetailsSeeds,
+  detailPurchaseSeeds,
   requestsSeeds,
   requestTypesSeeds,
   rolesSeeds,
@@ -199,7 +199,7 @@ async function insertSeeders() {
     await AccountDB.bulkCreate(accountsSeeds, { ignoreDuplicates: true, validate: true });
     await JournalDB.bulkCreate(journalsSeeds, { ignoreDuplicates: true, validate: true });
     await BillingDB.bulkCreate(billingSeeds, { ignoreDuplicates: true, validate: true });
-    await PurchaseDetailsDB.bulkCreate(purchaseDetailsSeeds, { ignoreDuplicates: true, validate: true });
+    await PurchaseDetailsDB.bulkCreate(detailPurchaseSeeds, { ignoreDuplicates: true, validate: true });
     await BuyDB.bulkCreate(buySeeds, { ignoreDuplicates: true, validate: true });
     await InvoiceDetailDB.bulkCreate(invoiceDetailsSeeds, { ignoreDuplicates: true, validate: true });
 

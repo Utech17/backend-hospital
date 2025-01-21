@@ -1,9 +1,9 @@
-import { DepartmentInterface } from "../interfaces";
+import { DepartamentInterface } from "../interfaces";
 
 export interface RequestTypeInterface {
     id?: number | string;
     name: string;
     bot: boolean;
     id_department?: number | string;
-    department?: DepartmentInterface;
+    department?: DepartamentInterface;
 }

@@ -111,6 +111,30 @@ const AccountServices = {
       };
     }
   },
+  findByName: async (name: string) => {
+    try {
+      const account = await AccountDB.findOne({ where: { name } });
+      if (!account) {
+        return {
+          message: "Cuenta no encontrada",
+          status: 404,
+        };
+      }
+      return {
+        message: "Consulta exitosa",
+        status: 200,
+        data: {
+          account,
+        },
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        message: "Contacte con el administrador",
+        status: 500,
+      };
+    }
+  },
 };
 
 export { AccountServices };

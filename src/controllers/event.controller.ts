@@ -23,7 +23,8 @@ export class EventController {
     }
 
     create = async (req: Request, res: Response) => {
-        const { status, message, data } = await eventServices.create(req.body)
+        const { eventDetails, ...eventData } = req.body;
+        const { status, message, data } = await eventServices.create(eventData, eventDetails);
         return res.status(status).json({
             message,
             data,
@@ -32,7 +33,8 @@ export class EventController {
 
     update = async (req: Request, res: Response) => {
         const { id } = req.params
-        const { status, message, data } = await eventServices.update(req.body, Number(id))
+        const { eventDetails, ...eventData } = req.body;
+        const { status, message, data } = await eventServices.update(eventData, Number(id), eventDetails);
         return res.status(status).json({
             message,
             data,

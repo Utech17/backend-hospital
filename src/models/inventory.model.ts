@@ -8,19 +8,19 @@ const InventoryModel = {
     },
    
     id_product: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
  
     id_organizational_unit: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
 
         
     },
 
     amount: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
 
 
@@ -28,7 +28,7 @@ const InventoryModel = {
     },
 
     status: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
 
         

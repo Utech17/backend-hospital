@@ -50,7 +50,7 @@ class DepartamentValidator {
   ) => {
     const { id } = req.params;
     let { name } = req.body;
-    const { status, message, data } = await DepartamentServices.findByName(name);
+    const { status, message, data } = await DepartamentServices.findBydepartment_name(name);
     if (status == 500) {
       return res.status(status).json({
         message,
