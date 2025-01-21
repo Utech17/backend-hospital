@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body } from "express-validator";
-import { patientServices, clientServices } from "../services";
+import { PatientServices, clientServices } from "../services";
 
 class BillingValidator {
   public validateBilling = [
@@ -33,7 +33,7 @@ class BillingValidator {
     next: NextFunction
   ) => {
     const { id_patient } = req.body;
-    const { status, message } = await patientServices.getOne(id_patient);
+    const { status, message } = await PatientServices.getOne(id_patient);
     if (status === 500) {
       return res.status(status).json({
         message,

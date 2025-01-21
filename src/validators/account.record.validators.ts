@@ -18,7 +18,8 @@ class AccountRecordValidator {
     next: NextFunction
   ) => {
     const { id } = req.params;
-    const { status, message, data } = await AccountRecordServices.getOne(id);
+    const numericId = Number(id); // Convertir id a número
+    const { status, message, data } = await AccountRecordServices.getOne(numericId);
     if (status === 500) {
       return res.status(status).json({ message });
     } else if (status === 404) {

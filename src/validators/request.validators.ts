@@ -16,7 +16,7 @@ class RequestValidator {
     next: NextFunction
   ) => {
     const { id } = req.params;
-    const { status, message, data } = await RequestServices.getOne(id);
+    const { status, message, data } = await RequestServices.getOne(Number(id));
     if (status === 500) {
       return res.status(status).json({ message });
     } else if (status === 404) {
@@ -46,7 +46,7 @@ class RequestValidator {
       return res.status(status).json({ message });
     } else if (status === 200) {
       const request = data?.request;
-      if (id && id !== request.id) {
+      if (id && request && 'id' in request && id !== request.id) {
         return res.status(400).json({
           errors: [
             {

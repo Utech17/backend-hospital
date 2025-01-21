@@ -16,7 +16,7 @@ class RequestTypeValidator {
     next: NextFunction
   ) => {
     const { id } = req.params;
-    const { status, message, data } = await RequestTypeServices.getOne(id);
+    const { status, message, data } = await RequestTypeServices.getOne(Number(id));
     if (status === 500) {
       return res.status(status).json({ message });
     } else if (status === 404) {
@@ -46,7 +46,7 @@ class RequestTypeValidator {
       return res.status(status).json({ message });
     } else if (status === 200) {
       const requestType = data?.requestType;
-      if (id && id !== requestType.id) {
+      if (id && requestType && id !== (requestType as any).id) {
         return res.status(400).json({
           errors: [
             {

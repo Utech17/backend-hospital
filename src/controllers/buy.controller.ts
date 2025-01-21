@@ -22,7 +22,8 @@ export class BuyController {
     };
 
     create = async (req: Request, res: Response) => {
-        const { status, message, data } = await BuyServices.create(req.body);
+        const { purchaseDetails, ...buyData } = req.body;
+        const { status, message, data } = await BuyServices.create(buyData, purchaseDetails);
         return res.status(status).json({
             message,
             data,
@@ -31,12 +32,13 @@ export class BuyController {
 
     update = async (req: Request, res: Response) => {
         const { id } = req.params;
-        const { status, message, data } = await BuyServices.update(req.body, Number(id));
+        const { purchaseDetails, ...buyData } = req.body;
+        const { status, message, data } = await BuyServices.update(buyData, Number(id), purchaseDetails);
         return res.status(status).json({
-            message,
-            data,
+          message,
+          data,
         });
-    };
+      };
 
     delete = async (req: Request, res: Response) => {
         const { id } = req.params;

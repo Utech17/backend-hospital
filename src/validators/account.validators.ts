@@ -16,7 +16,7 @@ class AccountValidator {
     next: NextFunction
   ) => {
     const { id } = req.params;
-    const { status, message, data } = await AccountServices.getOne(id);
+    const { status, message, data } = await AccountServices.getOne(Number(id));
     if (status === 500) {
       return res.status(status).json({ message });
     } else if (status === 404) {
@@ -46,7 +46,7 @@ class AccountValidator {
       return res.status(status).json({ message });
     } else if (status === 200) {
       const account = data?.account;
-      if (id && id !== account.id) {
+      if (id && account && id !== (account as any).id) {
         return res.status(400).json({
           errors: [
             {

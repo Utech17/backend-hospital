@@ -111,6 +111,31 @@ const RequestTypeServices = {
       };
     }
   },
+  findByName: async (name: string) => {
+    try {
+      const requestType = await RequestTypeDB.findOne({ where: { name } });
+      if (!requestType) {
+        return {
+          message: "Registro no encontrado",
+          status: 404,
+          data: {},
+        };
+      }
+      return {
+        message: "Registro encontrado",
+        status: 200,
+        data: {
+          requestType,
+        },
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        message: "Contacte con el administrador",
+        status: 500,
+      };
+    }
+  },
 };
 
 export { RequestTypeServices };

@@ -22,16 +22,18 @@ export class BillingController {
   };
 
   create = async (req: Request, res: Response) => {
-    const { status, message, data } = await BillingServices.create(req.body);
+    const { invoiceDetails, ...billingData } = req.body;
+    const { status, message, data } = await BillingServices.create(billingData, invoiceDetails);
     return res.status(status).json({
       message,
       data,
     });
   };
-
+  
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await BillingServices.update(parseInt(id) as number, req.body);
+    const { invoiceDetails, ...billingData } = req.body;
+    const { status, message, data } = await BillingServices.update(parseInt(id) as number, billingData, invoiceDetails);
     return res.status(status).json({
       message,
       data,

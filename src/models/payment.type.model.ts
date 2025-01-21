@@ -1,13 +1,14 @@
 import { DataTypes } from "sequelize";
 
 const PaymentTypeModel = {
-  paymentTypeCode: {
-    type: DataTypes.STRING,
+  payment_type_code: {
+    type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     unique: true,
+    autoIncrement: true,
   },
-  paymentTypeDescription: {
+  description: {
     type: DataTypes.STRING,
     allowNull: false,
   },

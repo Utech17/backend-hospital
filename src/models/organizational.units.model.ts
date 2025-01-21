@@ -19,7 +19,6 @@ const OrganizationalUnitsModel = {
     // ID del departamento al que pertenece la unidad
     id_departament: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
         primaryKey: true,
     },
     // Ubicación de la unidad organizativa

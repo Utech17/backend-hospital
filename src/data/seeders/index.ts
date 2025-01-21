@@ -19,7 +19,7 @@ export * from './attendance.seed';
 export * from './sale.seed';
 export * from './store.seed';
 export * from './payment.type.seed';
-export * from './purchase.details.seed';
+export * from './purchase.detail.seed';
 export * from './appointment.seed';
 export * from './presentation.seed';
 export * from './payroll.seed';
