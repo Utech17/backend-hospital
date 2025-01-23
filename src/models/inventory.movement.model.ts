@@ -7,7 +7,7 @@ const InventoryMovementModel = {
     primaryKey: true,
   },
   //id_almacen 
-  id_Store: {
+  store_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },

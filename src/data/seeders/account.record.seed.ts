@@ -6,7 +6,7 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     type: "income",
     description: "Ingreso por tratamiento quirúrgico",
     amount: 2000.00,
-    id_account: 1,
+    account_id: 1,
     status: true,
   },
   {
@@ -14,7 +14,7 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     type: "expense",
     description: "Gasto en medicamentos para urgencias",
     amount: 500.00,
-    id_account: 4,
+    account_id: 4,
     status: true,
   },
   {
@@ -22,7 +22,7 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     type: "income",
     description: "Ingreso por consulta médica general",
     amount: 150.00,
-    id_account: 1,
+    account_id: 1,
     status: true, 
   },
   {
@@ -30,7 +30,7 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     type: "expense",
     description: "Gasto en suministros médicos para operaciones",
     amount: 1200.00,
-    id_account: 2,
+    account_id: 2,
     status: true,
   },
   {
@@ -38,7 +38,7 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     type: "income",
     description: "Ingreso por venta de equipo médico",
     amount: 3000.00,
-    id_account: 5,
+    account_id: 5,
     status: true, 
   },
   {
@@ -46,7 +46,7 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     type: "expense",
     description: "Gasto por mantenimiento de equipo de rayos X",
     amount: 800.00,
-    id_account: 1,
+    account_id: 1,
     status: false, 
   },
 ];

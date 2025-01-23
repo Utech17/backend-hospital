@@ -22,7 +22,7 @@ const EmployeeModel = {
     allowNull: false,
   },
   // id_unidad
-  unit_id: {
+  organizational_unit_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },

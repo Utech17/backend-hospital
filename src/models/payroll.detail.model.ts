@@ -7,12 +7,12 @@ const PayrollDetailModel = {
     primaryKey: true,
   },
   // id_concepto
-  id_concept: {
+  concept_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   // id_nomina
-  id_payroll: {
+  payroll_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },

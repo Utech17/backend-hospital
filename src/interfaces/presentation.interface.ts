@@ -1,5 +1,5 @@
 export interface PresentationInterface {
-    cod_pres?: number | string;
+    cod_pres?: number;
     quantity: string;
     unit: string;
     weight: number;

@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 
 const RequestTypeModel = {
-    id: {
+    request_type_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,

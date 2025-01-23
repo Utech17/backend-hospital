@@ -1,12 +1,12 @@
-import { ProductInterface } from "../interfaces";
-import { BillingInterface } from "../interfaces";
+import { ProductInterface } from ".";
+import { BillingInterface } from ".";
 
-export interface InvoiceDetailInterface {
-    id?: number | string;
+export interface BillingDetailInterface {
+    billing_id?: number | string;
     quantity: number | string;
     price: number | string;
     num_fact: number | string;
-    id_product: number | string;
+    product_id: number | string;
     updatedAt: Date;
     deletedAt?: string | Date | null;
     Product?: ProductInterface;

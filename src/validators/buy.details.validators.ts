@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { body } from "express-validator";
-import { PurchaseDetailsServices } from "../services";
+import { BuyDetailsServices } from "../services";
 
-class PurchaseDetailsValidator {
-  public validatePurchaseDetails = [
+class BuyDetailsValidator {
+  public validateBuyDetails = [
     body("purchase_id").isInt().withMessage("purchase_id must be an integer"),
     body("product_id").isInt().withMessage("product_id must be an integer"),
     body("quantity").isInt().withMessage("quantity must be an integer"),
@@ -31,7 +31,7 @@ class PurchaseDetailsValidator {
       });
     }
 
-    const { status, message, data } = await PurchaseDetailsServices.getByCompositeKey(
+    const { status, message, data } = await BuyDetailsServices.getByCompositeKey(
       Number(purchase_id),
       Number(product_id)
     );
@@ -57,4 +57,4 @@ class PurchaseDetailsValidator {
   };
 }
 
-export { PurchaseDetailsValidator };
+export { BuyDetailsValidator };

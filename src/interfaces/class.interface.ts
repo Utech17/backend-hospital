@@ -1,5 +1,5 @@
 export interface ClassInterface{
-    id?:number;
-    des_clase: string;
+    cod_class?:number;
+    des_class: string;
     status: number;
 }

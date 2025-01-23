@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { DepartamentServices } from "../services";
-export class DepartamentController {
+import { DepartmentServices } from "../services";
+export class DepartmentController {
   constructor() {
   }
 
   all = async (req: Request, res: Response) => {
-    const { status, message, data } = await DepartamentServices.getAll();
+    const { status, message, data } = await DepartmentServices.getAll();
     return res.status(status).json({
       message, 
       data,
@@ -14,14 +14,14 @@ export class DepartamentController {
 
   one = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await DepartamentServices.getOne(Number(id));
+    const { status, message, data } = await DepartmentServices.getOne(Number(id));
     return res.status(status).json({
       message,
       data,
     });
   };
   create = async (req: Request, res: Response) => {
-    const { status, message, data } = await DepartamentServices.create(req.body);
+    const { status, message, data } = await DepartmentServices.create(req.body);
     return res.status(status).json({
       message,
       data,
@@ -29,7 +29,7 @@ export class DepartamentController {
   };
   update = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await DepartamentServices.update(Number(id),req.body);
+    const { status, message, data } = await DepartmentServices.update(Number(id),req.body);
     return res.status(status).json({
       message,
       data,
@@ -38,7 +38,7 @@ export class DepartamentController {
 
   delete = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await DepartamentServices.delete(Number(id));
+    const { status, message, data } = await DepartmentServices.delete(Number(id));
     return res.status(status).json({
       message,
       data,

@@ -6,46 +6,29 @@ const InventoryModel = {
         autoIncrement: true,
         primaryKey: true,
     },
-   
-    id_product: {
+    product_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
- 
-    id_organizational_unit: {
+    organizational_unit_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-
-        
+        allowNull: false, 
     },
-
     amount: {
         type: DataTypes.INTEGER,
         allowNull: false,
-
-
-        
     },
-
     status: {
         type: DataTypes.INTEGER,
         allowNull: false,
-
-        
     },
-
     batch: {
         type: DataTypes.STRING,
         allowNull: false,
-
-        
     },
-
     expiration_date: {
         type: DataTypes.DATE,
         allowNull: false,
-
-        
     },
 };
 

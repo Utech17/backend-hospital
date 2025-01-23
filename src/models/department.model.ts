@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 
-const DepartamentModel = {
+const DepartmentModel = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -24,4 +24,4 @@ const DepartamentModel = {
   },
 };
 
-export { DepartamentModel };
+export { DepartmentModel };

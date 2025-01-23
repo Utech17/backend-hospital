@@ -34,7 +34,7 @@ const ClassServices = {
     try {
       const clase = await ClassDB.findOne({
         where: {
-          cod_clase: id,
+          cod_class: id,
           status: true,
         },
       });
@@ -63,7 +63,7 @@ const ClassServices = {
   },
 
   create: async (data: Partial<ClassInterface>) => {
-    data.des_clase = data.des_clase?.toLowerCase();
+    data.des_class = data.des_class?.toLowerCase();
     try {
       const clase = await ClassDB.create({ ...data });
       return {
@@ -83,9 +83,9 @@ const ClassServices = {
   },
 
   update: async (id: number | string, data: Partial<ClassInterface>) => {
-    data.des_clase = data.des_clase?.toLowerCase();
+    data.des_class = data.des_class?.toLowerCase();
     try {
-      await ClassDB.update(data, { where: { cod_clase: id } });
+      await ClassDB.update(data, { where: { cod_class: id } });
       const { data: updatedData } = await ClassServices.getOne(id);
       return {
         message: `Clase actualizada exitosamente`,
@@ -110,7 +110,7 @@ const ClassServices = {
           status: false,
           deletedAt: new Date(),
         },
-        { where: { cod_clase: id } }
+        { where: { cod_class: id } }
       );
       return {
         message: `Clase eliminada exitosamente`,
@@ -130,7 +130,7 @@ const ClassServices = {
 
   findByName: async (name: string) => {
     try {
-      const clase = await ClassDB.findAll({ where: { des_clase: name } });
+      const clase = await ClassDB.findAll({ where: { des_class: name } });
       if (clase.length === 0) {
         console.log("Registro no encontrado");
         return {

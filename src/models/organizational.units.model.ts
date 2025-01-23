@@ -17,7 +17,7 @@ const OrganizationalUnitsModel = {
         allowNull: false,
     },
     // ID del departamento al que pertenece la unidad
-    id_departament: {
+    department_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
     },
@@ -25,7 +25,7 @@ const OrganizationalUnitsModel = {
     location: {
         type: DataTypes.STRING,
         allowNull: false,
-    }
+    },
 };
 
 export { OrganizationalUnitsModel };

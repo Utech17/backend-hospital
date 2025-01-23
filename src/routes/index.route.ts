@@ -6,7 +6,7 @@ import ContactRoute from "./contact.routes";
 import ConceptRoute from "./concept.routes";
 import TypeRoute from "./type.routes";
 import ClientRoute from "./client.routes";
-import DepartamentRoute from "./departament.routes";
+import DepartmentRoute from "./department.routes";
 import ChargeRoute from "./charge.routes";
 import ActionRoute from "./action.routes";
 import EventDetailsRoute from "./event.details.routes";
@@ -19,7 +19,7 @@ import AttendanceRoute from "./attendance.routes";
 import SaleRoute from "./sale.routes";
 import StoreRoute from "./store.routes";
 import PaymentTypeRoute from "./payment.type.routes";
-import PurchaseDetailsRoute from "./purchase.details.route";
+import BuyDetailsRoute from "./buy.details.routes";
 import AppointmentRoute from "./appointment.routes";
 import PresentationRoute from "./presentation.routes";
 import PayrollRoute from "./payroll.routes";
@@ -36,7 +36,7 @@ import RequestRoute from "./request.routes";
 import RequestTypeRoute from "./request.type.routes";
 import PayrollDetailRoute from "./payroll.detail.routes";
 import SupplierRoute from "./supplier.routes";
-import InvoiceDetailRoute from "./invoice.detail.routes";
+import BillingDetailRoute from "./billing.detail.routes";
 import InventoryRoute from "./inventory.routes";
 
 export {
@@ -48,7 +48,7 @@ export {
   ConceptRoute,
   TypeRoute,
   ClientRoute,
-  DepartamentRoute,
+  DepartmentRoute,
   ChargeRoute,
   ActionRoute,
   EventDetailsRoute,
@@ -61,7 +61,7 @@ export {
   SaleRoute,
   StoreRoute,
   PaymentTypeRoute,
-  PurchaseDetailsRoute,
+  BuyDetailsRoute,
   AppointmentRoute,
   PresentationRoute,
   PayrollRoute,
@@ -78,6 +78,6 @@ export {
   RequestTypeRoute,
   PayrollDetailRoute,
   SupplierRoute,
-  InvoiceDetailRoute,
+  BillingDetailRoute,
   InventoryRoute,
 };

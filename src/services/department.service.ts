@@ -1,10 +1,10 @@
-import { DepartamentDB } from "../config";
-import { DepartamentInterface } from "../interfaces";
+import { DepartmentDB } from "../config";
+import { DepartmentInterface } from "../interfaces";
 
-const DepartamentServices = {
+const DepartmentServices = {
   getAll: async () => {
     try {
-      const departaments = await DepartamentDB.findAll({ where: { status: true } });
+      const departaments = await DepartmentDB.findAll({ where: { status: true } });
       if (departaments.length === 0) {
         return {
           message: `Registros no encontrados`,
@@ -31,7 +31,7 @@ const DepartamentServices = {
   },
   getOne: async (id: number|string) => {
     try {
-      const departament = await DepartamentDB.findOne({
+      const departament = await DepartmentDB.findOne({
         where: {
           id: id,
           status: true
@@ -60,10 +60,10 @@ const DepartamentServices = {
       };
     }
   },
-  create: async (data: Partial<DepartamentInterface>) => {
+  create: async (data: Partial<DepartmentInterface>) => {
     data.department_name=data.department_name?.toLowerCase();
     try {
-      const departament = await DepartamentDB.create({ ...data });
+      const departament = await DepartmentDB.create({ ...data });
       return {
         message: `Creación exitosa`,
         status: 201,
@@ -79,11 +79,11 @@ const DepartamentServices = {
       };
     }
   },
-  update: async (id: number|string, dat: Partial<DepartamentInterface>) => {
+  update: async (id: number|string, dat: Partial<DepartmentInterface>) => {
     dat.department_name=dat.department_name?.toLowerCase();
     try {
-      let departament: DepartamentInterface | any = await DepartamentDB.update(dat, { where: { id } });
-      const { data } = await DepartamentServices.getOne(id);
+      let departament: DepartmentInterface | any = await DepartmentDB.update(dat, { where: { id } });
+      const { data } = await DepartmentServices.getOne(id);
       return {
         message: `Actualización exitosa`,
         status: 200,
@@ -101,7 +101,7 @@ const DepartamentServices = {
   },
   delete: async (id: number) => {
     try {
-      const departament = await DepartamentDB.update(
+      const departament = await DepartmentDB.update(
         {
           status: false,
           deletedAt: new Date(),
@@ -124,7 +124,7 @@ const DepartamentServices = {
   },
   findBydepartment_name: async (department_name: string) => {
     try {
-      const departament = await DepartamentDB.findAll({ where: { department_name } });
+      const departament = await DepartmentDB.findAll({ where: { department_name } });
       if (departament.length===0) {
         console.log("Registro no encontrado")
         return {
@@ -152,7 +152,7 @@ const DepartamentServices = {
 };
 
 export {
-  DepartamentServices
+  DepartmentServices
 }
 
 

@@ -1,10 +1,10 @@
-import { DepartamentInterface } from "./departament.interface";
+import { DepartmentInterface } from "./department.interface";
 
 export interface OrganizationalUnitsInterface {
-    id?: number | string; 
+    id?: number; 
     units_name: string;
     units_type: string;
-    id_departament: number;
+    department_id: number;
     location: string; 
-    Departament?:DepartamentInterface;
+    department?:DepartmentInterface;
 }

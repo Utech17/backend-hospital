@@ -3,8 +3,8 @@ import { PayrollInterface } from "./payroll.interface";
 
 export interface PayrollDetailInterface {
   id: number;
-  id_concept: number;
-  id_payroll: number;
+  concept_id: number;
+  payroll_id: number;
   amount: number;
   Concept?: ConceptInterface;
   Payroll?: PayrollInterface;

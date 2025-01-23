@@ -6,12 +6,12 @@ export interface EmployeeInterface {
     phone_number: string;
     home_address: string;
     postal_code: string;
-    unit_id: number | string;
+    organizational_unit_id: number | string;
     status: boolean;
     user_id: number | string;
     createdAt:Date;
     updatedAt:Date;
     deletedAt?: string | Date | null;
-    Unit?: OrganizationalUnitsInterface;
+    organizational_unit?: OrganizationalUnitsInterface;
     User?: UserInterface;
 }

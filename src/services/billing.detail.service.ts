@@ -1,10 +1,10 @@
-import { InvoiceDetailDB } from "../config";
-import { InvoiceDetailInterface } from "../interfaces";
+import { BillingDetailDB } from "../config";
+import { BillingDetailInterface } from "../interfaces";
 
-const invoiceDetailServices = {
+const BillingDetailServices = {
   getAll: async () => {
     try {
-      const details = await InvoiceDetailDB.findAll();
+      const details = await BillingDetailDB.findAll();
       if (details.length === 0) {
         return {
           message: `No se encontraron detalles de facturas`,
@@ -28,7 +28,7 @@ const invoiceDetailServices = {
 
   getOne: async (id: number) => {
     try {
-      const detail = await InvoiceDetailDB.findOne({ where: { id } });
+      const detail = await BillingDetailDB.findOne({ where: { id } });
       if (!detail) {
         return {
           message: `Detalle de factura no encontrado`,
@@ -50,9 +50,9 @@ const invoiceDetailServices = {
     }
   },
 
-  create: async (data: Partial<InvoiceDetailInterface>) => {
+  create: async (data: Partial<BillingDetailInterface>) => {
     try {
-      const detail = await InvoiceDetailDB.create({ ...data });
+      const detail = await BillingDetailDB.create({ ...data });
       return {
         message: `Detalle de factura creado exitosamente`,
         status: 201,
@@ -67,10 +67,10 @@ const invoiceDetailServices = {
     }
   },
 
-  update: async (id: number, data: Partial<InvoiceDetailInterface>) => {
+  update: async (id: number, data: Partial<BillingDetailInterface>) => {
     try {
-      await InvoiceDetailDB.update(data, { where: { id } });
-      const { data: updatedData } = await invoiceDetailServices.getOne(id);
+      await BillingDetailDB.update(data, { where: { id } });
+      const { data: updatedData } = await BillingDetailServices.getOne(id);
       return {
         message: `Detalle de factura actualizado exitosamente`,
         status: 200,
@@ -87,7 +87,7 @@ const invoiceDetailServices = {
 
   delete: async (id: number) => {
     try {
-      await InvoiceDetailDB.destroy({ where: { id } });
+      await BillingDetailDB.destroy({ where: { id } });
       return {
         message: `Detalle de factura eliminado exitosamente`,
         status: 204,
@@ -103,4 +103,4 @@ const invoiceDetailServices = {
   },
 };
 
-export { invoiceDetailServices };
+export { BillingDetailServices };

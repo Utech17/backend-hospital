@@ -1,5 +1,5 @@
-import { BuyDB, PurchaseDetailsDB, SupplierDB } from "../config";
-import { BuyInterface, PurchaseDetailsInterface } from "../interfaces";
+import { BuyDB, BuyDetailsDB, SupplierDB } from "../config";
+import { BuyInterface, BuyDetailsInterface } from "../interfaces";
 
 const BuyServices = {
     getAll: async () => {
@@ -10,7 +10,7 @@ const BuyServices = {
                 },
                 include: [
                     {
-                        model: PurchaseDetailsDB,
+                        model: BuyDetailsDB,
                         as: "purchaseDetails",
                     },
                     {
@@ -55,7 +55,7 @@ const BuyServices = {
                 },
                 include: [
                     {
-                        model: PurchaseDetailsDB,
+                        model: BuyDetailsDB,
                         as: "purchaseDetails",
                     },
                     {
@@ -89,11 +89,11 @@ const BuyServices = {
         }
     },
 
-    create: async (data: Partial<BuyInterface>, purchaseDetails: PurchaseDetailsInterface[]) => {
+    create: async (data: Partial<BuyInterface>, purchaseDetails: BuyDetailsInterface[]) => {
         try {
             const buy = await BuyDB.create({ ...data });
             for (const detail of purchaseDetails) {
-                await PurchaseDetailsDB.create({
+                await BuyDetailsDB.create({
                     ...detail,
                     purchaseId: buy.dataValues.id,
                 });
@@ -115,11 +115,11 @@ const BuyServices = {
         }
     },
 
-    update: async (data: Partial<BuyInterface>, id: number | string, purchaseDetails: PurchaseDetailsInterface[]) => {
+    update: async (data: Partial<BuyInterface>, id: number | string, purchaseDetails: BuyDetailsInterface[]) => {
         try {
             await BuyDB.update(data, { where: { id } });
             for (const detail of purchaseDetails) {
-                await PurchaseDetailsDB.upsert({
+                await BuyDetailsDB.upsert({
                     ...detail,
                     purchaseId: id,
                 });
@@ -151,7 +151,7 @@ const BuyServices = {
                 },
                 { where: { id } }
             );
-            await PurchaseDetailsDB.update(
+            await BuyDetailsDB.update(
                 { status: false },
                 { where: { purchaseId: id } }
             );

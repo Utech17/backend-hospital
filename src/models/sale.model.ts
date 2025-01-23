@@ -22,7 +22,7 @@ const SaleModel = {
         allowNull: false,
     },
     // Código del tipo de pago
-    payment_type_code: {
+    payment_type_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },

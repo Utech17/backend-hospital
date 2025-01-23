@@ -2,9 +2,9 @@ import { ProductInterface } from "./product.interface";
 import { OrganizationalUnitsInterface } from "./organizational.units.interface";
 
 export interface InventoryInterface {
-    id?: number | string;
-    id_product: number;
-    id_organizational_unit: string;
+    id?: number;
+    product_id: number;
+    organizational_unit_id: number;
     amount: number;
     status: number;
     batch: string;

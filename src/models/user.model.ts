@@ -40,7 +40,7 @@ const UserModel = {
     defaultValue: true,
   },
   // ID del rol asociado al usuario
-  roleId: {
+  role_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },

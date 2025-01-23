@@ -1,11 +1,11 @@
 import { body } from "express-validator";
 import { NextFunction, Request, Response } from "express";
-import { invoiceDetailServices } from "../services";
+import { BillingDetailServices } from "../services";
 
-class InvoiceDetailValidator {
-  public validateInvoiceDetail = [
-    body("invoice_id").notEmpty().withMessage("Invoice ID is required"),
-    body("invoice_id").isNumeric().withMessage("Invoice ID must be numeric"),
+class BillingDetailValidator {
+  public validateBillingDetail = [
+    body("Billing_id").notEmpty().withMessage("Billing ID is required"),
+    body("Billing_id").isNumeric().withMessage("Billing ID must be numeric"),
     body("product_id").notEmpty().withMessage("Product ID is required"),
     body("product_id").isNumeric().withMessage("Product ID must be numeric"),
     body("quantity").notEmpty().withMessage("Quantity is required"),
@@ -14,10 +14,10 @@ class InvoiceDetailValidator {
     body("price").isFloat({ min: 0 }).withMessage("Price must be a positive number"),
   ];
 
-  // Middleware to validate invoice detail existence by ID
-  public validateInvoiceDetailId = async (req: Request, res: Response, next: NextFunction) => {
+  // Middleware to validate Billing detail existence by ID
+  public validateBillingDetailId = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    const { status, message, data } = await invoiceDetailServices.getOne(parseInt(id));
+    const { status, message, data } = await BillingDetailServices.getOne(parseInt(id));
     if (status === 500) {
       return res.status(status).json({
         message,
@@ -27,7 +27,7 @@ class InvoiceDetailValidator {
         errors: [
           {
             type: "field",
-            msg: `The invoice detail with ID: ${id} does not exist`,
+            msg: `The Billing detail with ID: ${id} does not exist`,
             path: "id",
             location: "params",
           },
@@ -38,4 +38,4 @@ class InvoiceDetailValidator {
   };
 }
 
-export { InvoiceDetailValidator };
+export { BillingDetailValidator };

@@ -7,12 +7,12 @@ const EventModel = {
         primaryKey: true,
     },
     // id_historia_medica
-    id_history: {
+    history_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
     // id_tipo_evento
-    id_type_events: {
+    type_events_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
