@@ -8,6 +8,6 @@ export interface UserInterface{
     password: string;
     createdAt?: Date;
     isActive?: boolean;
-    roleId: number | string;
+    role_id: number | string;
     role?:RoleInterface;
 }

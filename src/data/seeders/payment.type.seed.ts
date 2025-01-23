@@ -2,53 +2,53 @@ import { PaymentTypeInterface } from "../../interfaces";
 
 const paymentTypeSeeds: Partial<PaymentTypeInterface>[] = [
   {
-    paymentTypeCode: 1,
-    paymentTypeDescription: "Cash",
+    id: 1,
+    description: "Cash",
     status: true,
   },
   {
-    paymentTypeCode: 2,
-    paymentTypeDescription: "Credit Card",
+    id: 2,
+    description: "Credit Card",
     status: true,
   },
   {
-    paymentTypeCode: 3,
-    paymentTypeDescription: "Bank Transfer",
+    id: 3,
+    description: "Bank Transfer",
     status: true,
   },
   {
-    paymentTypeCode: 4,
-    paymentTypeDescription: "Check",
+    id: 4,
+    description: "Check",
     status: false,
   },
   {
-    paymentTypeCode: 5,
-    paymentTypeDescription: "Digital Wallet",
+    id: 5,
+    description: "Digital Wallet",
     status: true,
   },
   {
-    paymentTypeCode: 6,
-    paymentTypeDescription: "Mobile Payment",
+    id: 6,
+    description: "Mobile Payment",
     status: true,
   },
   {
-    paymentTypeCode: 7,
-    paymentTypeDescription: "Cryptocurrency",
+    id: 7,
+    description: "Cryptocurrency",
     status: false,
   },
   {
-    paymentTypeCode: 8,
-    paymentTypeDescription: "Debit Card",
+    id: 8,
+    description: "Debit Card",
     status: true,
   },
   {
-    paymentTypeCode: 9,
-    paymentTypeDescription: "PayPal",
+    id: 9,
+    description: "PayPal",
     status: true,
   },
   {
-    paymentTypeCode: 10,
-    paymentTypeDescription: "Gift Card",
+    id: 10,
+    description: "Gift Card",
     status: false,
   },
 ];

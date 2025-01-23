@@ -61,7 +61,7 @@ const ContractServices = {
     }
   },
   create: async (data: Partial<ContractInterface>) => {
-    data.id_employee = data.id_employee?.valueOf();
+    data.employee_id = data.employee_id?.valueOf();
     try {
       const contract = await ContractDB.create({ ...data });
       return {
@@ -80,7 +80,7 @@ const ContractServices = {
     }
   },
   update: async (id: number, dat: Partial<ContractInterface>) => {
-    dat.id_employee = dat.id_employee?.valueOf();
+    dat.employee_id = dat.employee_id?.valueOf();
     try {
       const contract = await ContractDB.update(dat, { where: { id } });
       const { data } = await ContractServices.getOne(id);

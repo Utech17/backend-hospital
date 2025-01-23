@@ -3,7 +3,7 @@ import { PayrollInterface } from "../../interfaces";
 const payrollSeeds: Partial<PayrollInterface>[] = [
   {
     id: 1,
-    employeeId: 1,
+    employee_id: 1,
     startDate: new Date("2024-01-01"),
     endDate: new Date("2024-01-15"),
     grossSalary: 1500,
@@ -12,7 +12,7 @@ const payrollSeeds: Partial<PayrollInterface>[] = [
   },
   {
     id: 2,
-    employeeId: 2,
+    employee_id: 2,
     startDate: new Date("2024-01-01"),
     endDate: new Date("2024-01-15"),
     grossSalary: 2000,
@@ -21,7 +21,7 @@ const payrollSeeds: Partial<PayrollInterface>[] = [
   },
   {
     id: 3,
-    employeeId: 3,
+    employee_id: 3,
     startDate: new Date("2024-01-01"),
     endDate: new Date("2024-01-15"),
     grossSalary: 1800,
@@ -30,7 +30,7 @@ const payrollSeeds: Partial<PayrollInterface>[] = [
   },
   {
     id: 4,
-    employeeId: 4,
+    employee_id: 4,
     startDate: new Date("2024-01-16"),
     endDate: new Date("2024-01-31"),
     grossSalary: 1700,
@@ -39,7 +39,7 @@ const payrollSeeds: Partial<PayrollInterface>[] = [
   },
   {
     id: 5,
-    employeeId: 5,
+    employee_id: 5,
     startDate: new Date("2024-01-16"),
     endDate: new Date("2024-01-31"),
     grossSalary: 1900,

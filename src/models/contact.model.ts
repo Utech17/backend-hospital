@@ -32,7 +32,7 @@ const ContactModel = {
         allowNull: false,
     },
     // id_pacientes
-    id_patients: {
+    patient_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },

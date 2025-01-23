@@ -1,10 +1,9 @@
-import { DepartamentInterface } from "../interfaces"
+import { DepartmentInterface } from "../interfaces"
 
 export interface StoreInterface{
     id?:number;
-    id_departament?:number;
+    department_id?:number;
     name:string;
     location:string;
     description:string;
-    departament?:DepartamentInterface;
 }

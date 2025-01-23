@@ -9,7 +9,7 @@ const usersSeeds: Partial<UserInterface>[] = [
     password: "securePassword123",
     createdAt: new Date("2024-01-01T08:00:00Z"),
     isActive: true,
-    roleId: 1,
+    role_id: 1,
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const usersSeeds: Partial<UserInterface>[] = [
     password: "anotherSecurePassword456",
     createdAt: new Date("2024-02-01T09:00:00Z"),
     isActive: true,
-    roleId: 2,
+    role_id: 2,
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const usersSeeds: Partial<UserInterface>[] = [
     password: "yetAnotherPassword789",
     createdAt: new Date("2024-03-01T10:00:00Z"),
     isActive: false,
-    roleId: 3,
+    role_id: 3,
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ const usersSeeds: Partial<UserInterface>[] = [
     password: "securePasswordDebora",
     createdAt: new Date("2024-04-01T11:00:00Z"),
     isActive: true,
-    roleId: 2,
+    role_id: 2,
   },
   {
     id: 5,
@@ -49,7 +49,7 @@ const usersSeeds: Partial<UserInterface>[] = [
     password: "securePasswordLeticia",
     createdAt: new Date("2024-05-01T12:00:00Z"),
     isActive: true,
-    roleId: 1,
+    role_id: 1,
   },
 ];
 

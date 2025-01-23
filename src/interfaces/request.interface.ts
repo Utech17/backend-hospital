@@ -1,10 +1,9 @@
 import { RequestTypeInterface } from "../interfaces";
 
 export interface RequestInterface {
-    id?: number | string;
+    request_id?: number | string;
     description: string;
-    id_request_type?: number | string;
+    request_type_id?: number | string;
     amount: number;
     status: "pending" | "approved" | "rejected";
-    request_type?: RequestTypeInterface;
 }

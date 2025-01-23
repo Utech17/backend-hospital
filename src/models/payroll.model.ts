@@ -7,7 +7,7 @@ const PayrollModel = {
     primaryKey: true,
   },
   //id_empleado 
-  employeeId: {
+  employee_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     unique: true,

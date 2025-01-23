@@ -25,7 +25,7 @@ const StoreModel = {
     unique: true,
   },
   // ID del departamento al que pertenece
-  id_departament: {
+  department_id: {
     type: DataTypes.INTEGER,
   },
 };

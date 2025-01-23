@@ -1,5 +1,5 @@
 export interface PaymentTypeInterface {
-    paymentTypeCode?: number | string;
-    paymentTypeDescription: string;
-    status: boolean;
-  }
+  id?: number;
+  description: string;
+  status: boolean;
+}

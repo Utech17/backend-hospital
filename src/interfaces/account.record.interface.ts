@@ -5,7 +5,7 @@ export interface AccountRecordInterface {
     type: "income" | "expense";
     description: string;
     amount: number;
-    id_account?: number | string;
+    account_id?: number | string;
     status?: boolean;
     account?: AccountInterface;
 }

@@ -11,7 +11,7 @@ import {
   ConceptRoute,
   TypeRoute,
   ClientRoute,
-  DepartamentRoute,
+  DepartmentRoute,
   ChargeRoute,
   ActionRoute,
   EventDetailsRoute,
@@ -24,7 +24,7 @@ import {
   SaleRoute,
   StoreRoute,
   PaymentTypeRoute,
-  PurchaseDetailsRoute,
+  BuyDetailsRoute,
   AppointmentRoute,
   PresentationRoute,
   PayrollRoute,
@@ -41,7 +41,7 @@ import {
   RequestTypeRoute,
   PayrollDetailRoute,
   SupplierRoute,
-  InvoiceDetailRoute,
+  BillingDetailRoute,
   InventoryRoute,
 } from "../routes/index.route";
 import { db } from "../config/sequelize.config";
@@ -65,7 +65,7 @@ export class Server {
       Concept: this.pre + "/Concept",
       Type: this.pre + "/Type",
       Client: this.pre + "/Client",
-      Departament: this.pre + "/Departament",
+      Department: this.pre + "/Department",
       Charge: this.pre + "/Charge",
       Action: this.pre + "/Action",
       EventDetails: this.pre + "/EventDetails",
@@ -78,7 +78,7 @@ export class Server {
       Sale: this.pre + "/Sale",
       Store: this.pre + "/Store",
       PaymentType: this.pre + "/PaymentType",
-      PurchaseDetails: this.pre + "/PurchaseDetails",
+      BuyDetails: this.pre + "/BuyDetails",
       Appointment: this.pre + "/Appointment",
       Presentation: this.pre + "/Presentation",
       Payroll: this.pre + "/Payroll",
@@ -95,7 +95,7 @@ export class Server {
       RequestType: this.pre + "/RequestType",
       PayrollDetail: this.pre + "/PayrollDetail",
       Supplier: this.pre + "/Supplier",
-      InvoiceDetail: this.pre + "/InvoiceDetail",
+      BillingDetail: this.pre + "/BillingDetail",
       Inventory: this.pre + "/Inventory",
     };
 
@@ -120,7 +120,7 @@ export class Server {
     this.app.use(this.paths.Concept, ConceptRoute);
     this.app.use(this.paths.Type, TypeRoute);
     this.app.use(this.paths.Client, ClientRoute);
-    this.app.use(this.paths.Departament, DepartamentRoute);
+    this.app.use(this.paths.Department, DepartmentRoute);
     this.app.use(this.paths.Charge, ChargeRoute);
     this.app.use(this.paths.Action, ActionRoute);
     this.app.use(this.paths.EventDetails, EventDetailsRoute);
@@ -133,7 +133,7 @@ export class Server {
     this.app.use(this.paths.Sale, SaleRoute);
     this.app.use(this.paths.Store, StoreRoute);
     this.app.use(this.paths.PaymentType, PaymentTypeRoute);
-    this.app.use(this.paths.PurchaseDetails, PurchaseDetailsRoute);
+    this.app.use(this.paths.BuyDetails, BuyDetailsRoute);
     this.app.use(this.paths.Appointment, AppointmentRoute);
     this.app.use(this.paths.Presentation, PresentationRoute);
     this.app.use(this.paths.Payroll, PayrollRoute);
@@ -150,22 +150,22 @@ export class Server {
     this.app.use(this.paths.RequestType, RequestTypeRoute);
     this.app.use(this.paths.PayrollDetail, PayrollDetailRoute);
     this.app.use(this.paths.Supplier, SupplierRoute);
-    this.app.use(this.paths.InvoiceDetail, InvoiceDetailRoute);
+    this.app.use(this.paths.BillingDetail, BillingDetailRoute);
     this.app.use(this.paths.Inventory, InventoryRoute);
   }
 
   private async dbConnection() {
     try {
       await db.authenticate();
-      console.log("Database connected...");
+      console.log("Conexión exitosa a la base de datos...");
     } catch (error) {
-      console.error("Unable to connect to the database:", error);
+      console.error("No se pudo conectar a la base de datos:", error);
     }
   }
 
   public listen() {
     this.app.listen(this.port, () => {
-      console.log(`Server running on port ${this.port}`);
+      console.log(`Servidor corriendo en el puerto ${this.port}`);
     });
   }
 }

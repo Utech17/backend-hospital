@@ -10,19 +10,16 @@ const ProductModel = {
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: false,
   },
   // Descripción del producto
   description: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: false,
   },
   // Unidad de medida
   unit_measure: {
     type: DataTypes.STRING(20),
     allowNull: false,
-    unique: false,
   },
   // Cantidad por unidad
   quantity_xunit: {
@@ -38,7 +35,6 @@ const ProductModel = {
   location: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: false,
   },
   // Estado del producto (activo o inactivo)
   status: {
@@ -46,17 +42,17 @@ const ProductModel = {
     defaultValue: "active",
   },
   // ID del tipo de producto
-  type_id: {
+  cod_type: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   // ID de la clase del producto
-  class_id: {
+  cod_class: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   // ID de la presentación del producto
-  pres_id: {
+  cod_pres: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },

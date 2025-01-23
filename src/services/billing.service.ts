@@ -1,11 +1,11 @@
-import { db, BillingDB, InvoiceDetailDB } from "../config";
-import { BillingInterface, InvoiceDetailInterface } from "../interfaces";
+import { db, BillingDB, BillingDetailDB } from "../config";
+import { BillingInterface, BillingDetailInterface } from "../interfaces";
 
 const BillingServices = {
   getAll: async () => {
     try {
       const bills = await BillingDB.findAll({
-        include: [{ model: InvoiceDetailDB, as: 'InvoiceDetails' }]
+        include: [{ model: BillingDetailDB, as: 'BillingDetails' }]
       });
       if (bills.length === 0) {
         return {
@@ -36,7 +36,7 @@ const BillingServices = {
     try {
       const bill = await BillingDB.findOne({
         where: { id },
-        include: [{ model: InvoiceDetailDB, as: 'InvoiceDetails' }]
+        include: [{ model: BillingDetailDB, as: 'BillingDetails' }]
       });
       if (!bill) {
         return {
@@ -61,18 +61,18 @@ const BillingServices = {
     }
   },
 
-  create: async (data: Partial<BillingInterface>, invoiceDetails: InvoiceDetailInterface[]) => {
+  create: async (data: Partial<BillingInterface>, BillingDetails: BillingDetailInterface[]) => {
     const transaction = await db.transaction();
     try {
       const bill = await BillingDB.create({ ...data }, { transaction });
 
-      if (invoiceDetails && Array.isArray(invoiceDetails)) {
-        const billDetails = invoiceDetails.map(detail => ({
+      if (BillingDetails && Array.isArray(BillingDetails)) {
+        const billDetails = BillingDetails.map(detail => ({
           ...detail,
           num_fact: bill.dataValues.id,
         }));
 
-        await InvoiceDetailDB.bulkCreate(billDetails, { transaction });
+        await BillingDetailDB.bulkCreate(billDetails, { transaction });
       }
 
       await transaction.commit();
@@ -94,20 +94,20 @@ const BillingServices = {
     }
   },
 
-  update: async (id: number, data: Partial<BillingInterface>, invoiceDetails: InvoiceDetailInterface[]) => {
+  update: async (id: number, data: Partial<BillingInterface>, BillingDetails: BillingDetailInterface[]) => {
     const transaction = await db.transaction();
     try {
       await BillingDB.update(data, { where: { id }, transaction });
 
-      await InvoiceDetailDB.destroy({ where: { num_fact: id }, transaction });
+      await BillingDetailDB.destroy({ where: { num_fact: id }, transaction });
 
-      if (invoiceDetails && Array.isArray(invoiceDetails)) {
-        const billDetails = invoiceDetails.map(detail => ({
+      if (BillingDetails && Array.isArray(BillingDetails)) {
+        const billDetails = BillingDetails.map(detail => ({
           ...detail,
           num_fact: id,
         }));
 
-        await InvoiceDetailDB.bulkCreate(billDetails, { transaction });
+        await BillingDetailDB.bulkCreate(billDetails, { transaction });
       }
 
       await transaction.commit();
@@ -133,7 +133,7 @@ const BillingServices = {
   delete: async (id: number) => {
     const transaction = await db.transaction();
     try {
-      await InvoiceDetailDB.destroy({ where: { num_fact: id }, transaction });
+      await BillingDetailDB.destroy({ where: { num_fact: id }, transaction });
 
       await BillingDB.destroy({ where: { id }, transaction });
 

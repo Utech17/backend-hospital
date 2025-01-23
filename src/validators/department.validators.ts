@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { body } from "express-validator";
- import { DepartamentServices } from "../services";
+ import { DepartmentServices } from "../services";
 
-class DepartamentValidator {
-  public validateDepartament = [
+class DepartmentValidator {
+  public validateDepartment = [
     body("department_type").notEmpty().withMessage("Departament Type is required"),
     body("department_type").isNumeric().withMessage("Departament Type must be numeric"),
     body("department_name").notEmpty().withMessage("Departament Name is required"),
@@ -20,7 +20,7 @@ class DepartamentValidator {
     next: NextFunction
   ) => {
     const { id } = req.params;
-    const { status, message, data } = await DepartamentServices.getOne(id);
+    const { status, message, data } = await DepartmentServices.getOne(id);
     if (status == 500) {
       return res.status(status).json({
         message,
@@ -50,7 +50,7 @@ class DepartamentValidator {
   ) => {
     const { id } = req.params;
     let { name } = req.body;
-    const { status, message, data } = await DepartamentServices.findBydepartment_name(name);
+    const { status, message, data } = await DepartmentServices.findBydepartment_name(name);
     if (status == 500) {
       return res.status(status).json({
         message,
@@ -88,4 +88,4 @@ class DepartamentValidator {
     next();
   };
 }
-export { DepartamentValidator };
+export { DepartmentValidator };

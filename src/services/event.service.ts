@@ -83,7 +83,7 @@ const eventServices = {
             if (eventDetails.length > 0) {
                 const eventDetailsData = eventDetails.map((detail) => ({
                     id_events: event.dataValues.id,
-                    id_actions: detail.id_actions,
+                    actions_id: detail.actions_id,
                     value_detail: detail.value_detail,
                 }));
 
@@ -118,7 +118,7 @@ const eventServices = {
             if (eventDetails.length > 0) {
                 const eventDetailsData = eventDetails.map((detail) => ({
                     id_events: id,
-                    id_actions: detail.id_actions,
+                    actions_id: detail.actions_id,
                     value_detail: detail.value_detail,
                 }));
 

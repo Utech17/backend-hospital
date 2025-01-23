@@ -1,7 +1,7 @@
-import { DepartamentInterface } from "../../interfaces";
+import { DepartmentInterface } from "../../interfaces";
 
 
-const departamentSeeds: Partial<DepartamentInterface>[] = [
+const departmentSeeds: Partial<DepartmentInterface>[] = [
     {
         id:1,
         department_type: 1, 
@@ -41,5 +41,5 @@ const departamentSeeds: Partial<DepartamentInterface>[] = [
     ];
 
 export{
-    departamentSeeds
+    departmentSeeds
 }

@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 
-const InvoiceDetailModel = {
+const BillingDetailModel = {
   // num_detalle
-  id: {
+  billing_id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
@@ -23,7 +23,7 @@ const InvoiceDetailModel = {
     allowNull: false,
   },
   // producto_id
-  id_product: {
+  product_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
@@ -35,4 +35,4 @@ const InvoiceDetailModel = {
   },
 };
 
-export { InvoiceDetailModel };
+export { BillingDetailModel };

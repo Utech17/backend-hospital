@@ -7,17 +7,17 @@ const ContractModel = {
     primaryKey: true,
   },
   // id_empleado
-  id_employee: {
+  employee_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     unique: true,
   },
   // id_jornada
-  id_workingDay: {
+  working_day_id: {
     type: DataTypes.INTEGER,
   },
   // id_cargo
-  id_charge: {
+  charge_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: true,

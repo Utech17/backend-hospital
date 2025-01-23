@@ -7,6 +7,6 @@ export interface ContactInterface {
     phone: string;
     email: string;
     relationship: "family" | "friend" | "colleague" | "other"; // Examples
-    id_patients?: number | string;
+    patient_id?: number | string;
     patient?: PatientInterface;
 }

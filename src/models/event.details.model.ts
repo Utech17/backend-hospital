@@ -7,12 +7,12 @@ const EventDetailsModel = {
         primaryKey: true,
     },
     // ID del evento
-    id_events: {
+    events_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
     // ID de la acción
-    id_actions: {
+    actions_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },

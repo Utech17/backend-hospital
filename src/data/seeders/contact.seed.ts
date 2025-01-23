@@ -8,7 +8,7 @@ const contactsSeeds: Partial<ContactInterface>[] = [
     phone: "04140000011",
     email: "eliana.jimenez@example.com",
     relationship: "family",
-    id_patients: 1,
+    patient_id: 1,
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const contactsSeeds: Partial<ContactInterface>[] = [
     phone: "04140000012",
     email: "carlos.fernandez@example.com",
     relationship: "friend",
-    id_patients: 2,
+    patient_id: 2,
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const contactsSeeds: Partial<ContactInterface>[] = [
     phone: "04140000013",
     email: "adriana.rojas@example.com",
     relationship: "colleague",
-    id_patients: 3,
+    patient_id: 3,
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ const contactsSeeds: Partial<ContactInterface>[] = [
     phone: "04140000014",
     email: "luis.ramirez@example.com",
     relationship: "other",
-    id_patients: 4,
+    patient_id: 4,
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ const contactsSeeds: Partial<ContactInterface>[] = [
     phone: "04140000015",
     email: "sara.vargas@example.com",
     relationship: "family",
-    id_patients: 5,
+    patient_id: 5,
   },
 ];
 

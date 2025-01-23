@@ -1,10 +1,10 @@
-import { PurchaseDetailsDB } from "../config";
-import { PurchaseDetailsInterface, PurchaseDetailsCreationInterface} from "../interfaces";
+import { BuyDetailsDB } from "../config";
+import { BuyDetailsInterface, BuyDetailsCreationInterface} from "../interfaces";
 
-const PurchaseDetailsServices = {
+const BuyDetailsServices = {
   getAll: async () => {
     try {
-      const detalleCompras = await PurchaseDetailsDB.findAll();
+      const detalleCompras = await BuyDetailsDB.findAll();
 
       if (detalleCompras.length === 0) {
         return {
@@ -34,7 +34,7 @@ const PurchaseDetailsServices = {
 
   getByCompositeKey: async (id_compra: number, id_producto: number) => {
     try {
-      const detalleCompra = await PurchaseDetailsDB.findOne({
+      const detalleCompra = await BuyDetailsDB.findOne({
         where: {
           id_compra,
           id_producto,
@@ -65,9 +65,9 @@ const PurchaseDetailsServices = {
     }
   },
 
-  create: async (data: PurchaseDetailsCreationInterface) => {
+  create: async (data: BuyDetailsCreationInterface) => {
     try {
-      const detalleCompra = await PurchaseDetailsDB.create(data);
+      const detalleCompra = await BuyDetailsDB.create(data);
       return {
         message: "Successful creation",
         status: 201,
@@ -84,9 +84,9 @@ const PurchaseDetailsServices = {
     }
   },
 
-  update: async (id_compra: number, id_producto: number, data: Partial<PurchaseDetailsInterface>) => {
+  update: async (id_compra: number, id_producto: number, data: Partial<BuyDetailsInterface>) => {
     try {
-      const detalleCompra = await PurchaseDetailsDB.update(data, {
+      const detalleCompra = await BuyDetailsDB.update(data, {
         where: {
           id_compra,
           id_producto,
@@ -101,7 +101,7 @@ const PurchaseDetailsServices = {
         };
       }
 
-      const updatedDetalleCompra = await PurchaseDetailsDB.findOne({
+      const updatedDetalleCompra = await BuyDetailsDB.findOne({
         where: { id_compra, id_producto },
       });
 
@@ -123,7 +123,7 @@ const PurchaseDetailsServices = {
 
   delete: async (id_compra: number, id_producto: number) => {
     try {
-      const result = await PurchaseDetailsDB.destroy({
+      const result = await BuyDetailsDB.destroy({
         where: {
           id_compra,
           id_producto,
@@ -153,4 +153,4 @@ const PurchaseDetailsServices = {
   },
 };
 
-export { PurchaseDetailsServices };
+export { BuyDetailsServices };

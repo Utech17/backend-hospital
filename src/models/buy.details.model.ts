@@ -1,13 +1,13 @@
 import { DataTypes } from "sequelize";
 
-const PurchaseDetailsModel = {
-  purchaseId: {
+const buyDetailsModel = {
+  buy_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
   },
   // ID del producto
-  productId: {
+  product_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
@@ -17,10 +17,10 @@ const PurchaseDetailsModel = {
     allowNull: false,
   },
   // Precio de compra
-  purchasePrice: {
+  buy_price: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
   },
 };
 
-export { PurchaseDetailsModel };
+export { buyDetailsModel };

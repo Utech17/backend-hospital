@@ -58,7 +58,7 @@ const PayrollServices = {
     try {
       const payroll = await PayrollDB.create(
         {
-          employeeId: data.employeeId,
+          employee_id: data.employee_id,
           startDate: data.startDate,
           endDate: data.endDate,
           grossSalary: data.grossSalary,
@@ -71,17 +71,17 @@ const PayrollServices = {
       if (data.details && Array.isArray(data.details)) {
         const payrollDetails = await Promise.all(
           data.details.map(async (detail) => {
-            const concept = await ConceptDB.findByPk(detail.id_concept, {
+            const concept = await ConceptDB.findByPk(detail.concept_id, {
               transaction,
             });
 
             if (!concept) {
-              throw new Error(`Concept with ID ${detail.id_concept} not found`);
+              throw new Error(`Concept with ID ${detail.concept_id} not found`);
             }
 
             return {
               id_payroll: payroll.dataValues.id,
-              id_concept: detail.id_concept,
+              concept_id: detail.concept_id,
               amount: detail.amount,
               Concept: concept,
             };
@@ -91,7 +91,7 @@ const PayrollServices = {
         await PayrollDetailDB.bulkCreate(
           payrollDetails.map((detail) => ({
             id_payroll: detail.id_payroll,
-            id_concept: detail.id_concept,
+            concept_id: detail.concept_id,
             amount: detail.amount,
           })),
           { transaction }
@@ -143,15 +143,15 @@ const PayrollServices = {
   
         const payrollDetails = await Promise.all(
           data.details.map(async (detail: PayrollDetailInterface) => { 
-            const concept = await ConceptDB.findByPk(detail.id_concept, { transaction });
+            const concept = await ConceptDB.findByPk(detail.concept_id, { transaction });
   
             if (!concept) {
-              throw new Error(`Concept with ID ${detail.id_concept} not found`);
+              throw new Error(`Concept with ID ${detail.concept_id} not found`);
             }
   
             return {
               id_payroll: id,
-              id_concept: detail.id_concept,
+              concept_id: detail.concept_id,
               amount: detail.amount,
               Concept: concept,
             };
@@ -161,7 +161,7 @@ const PayrollServices = {
         await PayrollDetailDB.bulkCreate(
           payrollDetails.map((detail) => ({
             id_payroll: detail.id_payroll,
-            id_concept: detail.id_concept,
+            concept_id: detail.concept_id,
             amount: detail.amount,
           })),
           { transaction }

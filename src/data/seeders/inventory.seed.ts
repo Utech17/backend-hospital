@@ -4,8 +4,8 @@ const InventorysSeeds: Partial<InventoryInterface>[] = [
    
   {
     id: 1,
-    id_product: 1,
-    id_organizational_unit: "ALMACEN_CENTRAL",
+    product_id: 1,
+    organizational_unit_id: 1,
     amount: 100,
     status: 1,
     batch: "A12345",
@@ -13,8 +13,8 @@ const InventorysSeeds: Partial<InventoryInterface>[] = [
   },
   {
     id: 2,
-    id_product: 2,
-    id_organizational_unit: "URGENCIAS",
+    product_id: 2,
+    organizational_unit_id: 2,
     amount: 50,
     status: 1,
     batch: "B7890",
@@ -22,18 +22,17 @@ const InventorysSeeds: Partial<InventoryInterface>[] = [
   },
   {
     id: 3,
-    id_product: 3,
-    id_organizational_unit: "QUIRÓFANO",
+    product_id: 3,
+    organizational_unit_id: 3,
     amount: 5,
     status: 1,
     batch: "C1234",
     expiration_date: new Date("2023-12-31"),
   },
-
   {
     id: 4,
-    id_product: 4,
-    id_organizational_unit: "ALMACEN_GENERAL",
+    product_id: 4,
+    organizational_unit_id: 2,
     amount: 500,
     status: 1,
     batch: "LOT202311",
@@ -42,6 +41,4 @@ const InventorysSeeds: Partial<InventoryInterface>[] = [
 
 ];
 
-export {
-    InventorysSeeds
-}
+export { InventorysSeeds};

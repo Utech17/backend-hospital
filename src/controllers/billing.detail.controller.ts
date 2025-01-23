@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { invoiceDetailServices } from "../services";
+import { BillingDetailServices } from "../services";
 
-export class InvoiceDetailController {
+export class BillingDetailController {
   constructor() {}
 
   all = async (req: Request, res: Response) => {
-    const { status, message, data } = await invoiceDetailServices.getAll();
+    const { status, message, data } = await BillingDetailServices.getAll();
     return res.status(status).json({
       message,
       data,
@@ -14,7 +14,7 @@ export class InvoiceDetailController {
 
   one = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await invoiceDetailServices.getOne(parseInt(id) as number);
+    const { status, message, data } = await BillingDetailServices.getOne(parseInt(id) as number);
     return res.status(status).json({
       message,
       data,
@@ -22,7 +22,7 @@ export class InvoiceDetailController {
   };
 
   create = async (req: Request, res: Response) => {
-    const { status, message, data } = await invoiceDetailServices.create(req.body);
+    const { status, message, data } = await BillingDetailServices.create(req.body);
     return res.status(status).json({
       message,
       data,
@@ -31,7 +31,7 @@ export class InvoiceDetailController {
 
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await invoiceDetailServices.update(parseInt(id) as number, req.body);
+    const { status, message, data } = await BillingDetailServices.update(parseInt(id) as number, req.body);
     return res.status(status).json({
       message,
       data,
@@ -40,7 +40,7 @@ export class InvoiceDetailController {
 
   delete = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await invoiceDetailServices.delete(parseInt(id) as number);
+    const { status, message, data } = await BillingDetailServices.delete(parseInt(id) as number);
     return res.status(status).json({
       message,
       data,

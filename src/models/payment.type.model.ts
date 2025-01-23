@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 
 const PaymentTypeModel = {
-  payment_type_code: {
+  id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -9,7 +9,7 @@ const PaymentTypeModel = {
     autoIncrement: true,
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   status: {
