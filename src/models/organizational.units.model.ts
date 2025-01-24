@@ -19,7 +19,7 @@ const OrganizationalUnitsModel = {
     // ID del departamento al que pertenece la unidad
     department_id: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
+        allowNull: false, 
     },
     // Ubicación de la unidad organizativa
     location: {
