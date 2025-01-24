@@ -1,13 +1,13 @@
-import { RoleInterface } from "./role.interface";
+import { RoleInterface } from "../interfaces";
+
 export interface UserInterface{
-    id?:number|string;
-    name:string;
-    email:string;
-    password:string;
-    role_id?:number |string;
-    status?:boolean;
-    createdAt:Date;
-    updatedAt:Date;
-    deletedAt:Date;
+    id?: number | string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    createdAt?: Date;
+    isActive?: boolean;
+    role_id: number | string;
     role?:RoleInterface;
 }

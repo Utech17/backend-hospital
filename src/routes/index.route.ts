@@ -1,9 +1,83 @@
-import roleRoute from "./role.route";
-import serviceRoute from "./service.route";
-import userRoute from "./user.route";
+import MedicalHistoryRoute from "./medical.history.routes";
+import InventoryMovementRoute from "./inventory.movement.routes";
+import ContractRoute from "./contract.routes";
+import EventRoute from "./event.routes";
+import ContactRoute from "./contact.routes";
+import ConceptRoute from "./concept.routes";
+import TypeRoute from "./type.routes";
+import ClientRoute from "./client.routes";
+import DepartmentRoute from "./department.routes";
+import ChargeRoute from "./charge.routes";
+import ActionRoute from "./action.routes";
+import EventDetailsRoute from "./event.details.routes";
+import EventTypeRoute from "./event.type.routes";
+import ProductRoute from "./product.routes";
+import PatientRoute from "./patient.routes";
+import UserRoute from "./user.routes";
+import ClassRoute from "./class.routes";
+import AttendanceRoute from "./attendance.routes";
+import SaleRoute from "./sale.routes";
+import StoreRoute from "./store.routes";
+import PaymentTypeRoute from "./payment.type.routes";
+import BuyDetailsRoute from "./buy.details.routes";
+import AppointmentRoute from "./appointment.routes";
+import PresentationRoute from "./presentation.routes";
+import PayrollRoute from "./payroll.routes";
+import WorkingDayRoute from "./working.day.routes";
+import BillingRoute from "./billing.routes";
+import EmployeeRoute from "./employee.routes";
+import BuyRoute from "./buy.routes";
+import roleRoute from "./role.routes";
+import OrganizationalUnitsRoute from "./organizational.units.routes";
+import AccountRoute from "./account.routes";
+import AccounRecordRoute from "./account.record.routes";
+import JournalRoute from "./journal.routes";
+import RequestRoute from "./request.routes";
+import RequestTypeRoute from "./request.type.routes";
+import PayrollDetailRoute from "./payroll.detail.routes";
+import SupplierRoute from "./supplier.routes";
+import BillingDetailRoute from "./billing.detail.routes";
+import InventoryRoute from "./inventory.routes";
 
 export {
+  MedicalHistoryRoute,
+  ContractRoute,
+  InventoryMovementRoute,
+  EventRoute,
+  ContactRoute,
+  ConceptRoute,
+  TypeRoute,
+  ClientRoute,
+  DepartmentRoute,
+  ChargeRoute,
+  ActionRoute,
+  EventDetailsRoute,
+  EventTypeRoute,
+  ProductRoute,
+  PatientRoute,
+  UserRoute,
+  ClassRoute,
+  AttendanceRoute,
+  SaleRoute,
+  StoreRoute,
+  PaymentTypeRoute,
+  BuyDetailsRoute,
+  AppointmentRoute,
+  PresentationRoute,
+  PayrollRoute,
+  WorkingDayRoute,
+  BillingRoute,
+  EmployeeRoute,
+  BuyRoute,
   roleRoute,
-  serviceRoute,
-  userRoute,
+  OrganizationalUnitsRoute,
+  AccountRoute,
+  AccounRecordRoute,
+  JournalRoute,
+  RequestRoute,
+  RequestTypeRoute,
+  PayrollDetailRoute,
+  SupplierRoute,
+  BillingDetailRoute,
+  InventoryRoute,
 };

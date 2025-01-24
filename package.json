@@ -1,13 +1,15 @@
 {
-  "name": "be-general-2024-2",
+  "name": "backend-hospital",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node dist/app.js",
-    "dev": "tsc && node dist/app.js"
+    "dev": "tsc && node dist/app.js",
+    "seeds-dev":"tsc && node dist/data/insert-seeders",
+    "seeds":"node dist/data/insert-seeders"
   },
-  "author": "Zedmous",
+  "author": "Utech17",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.17",
