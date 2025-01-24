@@ -25,6 +25,12 @@ const EmployeeModel = {
   organizational_unit_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'organizational_units',
+      key: 'id',
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
   // status
   status: {
