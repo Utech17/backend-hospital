@@ -54,7 +54,7 @@ export class Server {
 
   constructor() {
     this.app = express();
-    this.port = process.env.API_PORT || 3880;
+    this.port = process.env.API_PORT || 3900;
     this.pre = "/api";
     this.paths = {
       Contract: this.pre + "/Contracts",

@@ -10,6 +10,7 @@ const contractSeeds: Partial<ContractInterface>[] = [
     end_day: new Date("2023-12-31"),
     base_salary: 1500,
     benefits: "Seguro médico, vacaciones pagadas, bono de transporte.",
+    status: true,
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const contractSeeds: Partial<ContractInterface>[] = [
     end_day: new Date("2023-11-30"),
     base_salary: 1200,
     benefits: "Seguro dental, días de enfermedad pagados.",
+    status: true,
   },
   {
     id: 3,
@@ -30,6 +32,7 @@ const contractSeeds: Partial<ContractInterface>[] = [
     end_day: new Date("2024-05-31"),
     base_salary: 1800,
     benefits: "Plan de retiro, seguro de vida, bonos por desempeño.",
+    status: true,
   },
   {
     id: 4,
@@ -40,6 +43,7 @@ const contractSeeds: Partial<ContractInterface>[] = [
     end_day: new Date("2023-08-31"),
     base_salary: 2000,
     benefits: "Estipendio de educación, asistencia de vivienda.",
+    status: true,
   },
   {
     id: 5,
@@ -50,6 +54,7 @@ const contractSeeds: Partial<ContractInterface>[] = [
     end_day: new Date("2024-12-31"),
     base_salary: 1000,
     benefits: "Seguro médico básico, transporte gratuito.",
+    status: true,
   },
 ];
 
