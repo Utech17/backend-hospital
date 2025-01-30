@@ -11,6 +11,7 @@ export interface ContractInterface{
   end_day: Date;
   base_salary:number;
   benefits: string;
+  status: boolean;
   Employee?:EmployeeInterface;
   WorkingDay?:WorkingDayInterface;
   Charge?:ChargeInterface;

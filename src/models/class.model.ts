@@ -12,8 +12,9 @@ const ClassModel= {
     allowNull: false,
   },
   status: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BOOLEAN,
     allowNull: false,
+    defaultValue: true,
   }, 
 };
 
