@@ -2,7 +2,7 @@ const port = process.env.API_PORT || 3900;
 const pre = "/api";
 const swaggerOptions = {
   swaggerDefinition: {
-    openapi: "3.1.0",
+    openapi: "3.0.0",
     info: {
       title: "API MEDIPLUS",
       version: "1.0.0",
@@ -15,7 +15,7 @@ const swaggerOptions = {
     ],
   },
   basePath: '/api',
-  apis: ["./src/routes/*.ts"], 
+  apis: ["src/docs/*.yml"], 
 };
 export {
     swaggerOptions
