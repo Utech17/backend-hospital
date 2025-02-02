@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { swaggerOptions } from "../config";
 import {
@@ -101,13 +102,13 @@ export class Server {
     this.middlewares();
     this.routes();
     this.dbConnection();
+    this.swaggerSetup();
   }
 
   private middlewares() {
-    this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: false }));
     this.app.use(cors());
-    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
+    this.app.use(express.json());
+    this.app.use(express.static("src/public"));
   }
 
   private routes() {
@@ -166,6 +167,11 @@ export class Server {
     this.app.listen(this.port, () => {
       console.log(`Servidor corriendo en el puerto ${this.port}`);
     });
+  }
+
+  swaggerSetup() {
+    const swaggerDocs = swaggerJsDoc(swaggerOptions);
+    this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
   }
 }
 
