@@ -8,7 +8,7 @@ Actualmente, la API incluye 40 tablas para cubrir diversas funcionalidades y rel
 ### Cómo Ejecutar
 
 **Paso 1:**  
-Crea la base de datos en el gestor MySQL. El nombre de la base de datos hospital.
+Crea la base de datos en el gestor MySQL. El nombre de la base de datos 'hospital'.
 
 **Paso 2:**  
 Copia el archivo `.env.example` y pégalo en la raíz del proyecto.
@@ -21,9 +21,14 @@ Rellena las variables de entorno correspondientes. La variable `DATABASE_NAME` d
 
 **Paso 5:**  
 Instala las dependencias con el comando `npm install`.
+Instala las dependencias con el comando `npm i jsonwebtoken`.
+Instala las dependencias con el comando `npm i @types/jsonwebtoken`.
 
 **Paso 6:**  
 Levanta el servidor con el comando `npm run dev`, que compila el código TypeScript y ejecuta el código JavaScript generado, ya que este es un script combinado.
+
+**Paso 7:**  
+Ejecuta los seeders para poblar la base de datos con datos iniciales usando el comando `npm run seeds-dev`.
 
 #### Estructura del Proyecto
 
