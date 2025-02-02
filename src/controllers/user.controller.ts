@@ -46,8 +46,8 @@ export class UserController {
   };
   
   login = async (req: Request, res: Response) => {
-
-    const { status, message, data } = await UserServices.getByEmail(req.body);
+    const { email, password } = req.body;
+    const { status, message, data } = await UserServices.login(email, password);
     return res.status(status).json({
       message,
       data,

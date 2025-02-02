@@ -7,13 +7,13 @@ const router = Router();
 const inventoryMovementController = new InventoryMovementController();
 const inventoryMovementValidator = new InventoryMovementValidator();
 
-router.get("/", inventoryMovementController.all); // GET: http://localhost:3800/api/inventory-movements
-router.get("/:id", inventoryMovementController.one); // GET: http://localhost:3800/api/inventory-movements/:id
+router.get("/", inventoryMovementController.all); // GET: http://localhost:3900/api/inventory-movement
+router.get("/:id", inventoryMovementController.one); // GET: http://localhost:3900/api/inventory-movement/1
 router.post("/",inventoryMovementValidator.validateInventoryMovement,inventoryMovementValidator.validateStoreId,validateFields,
   inventoryMovementController.create
-); // POST: http://localhost:3800/api/inventory-movements
+); // POST: http://localhost:3900/api/inventory-movement
 router.put("/:id",inventoryMovementValidator.validateInventoryMovement,validateFields,inventoryMovementController.update
-); // PUT: http://localhost:3800/api/inventory-movements/:id
-router.delete("/:id", inventoryMovementController.delete); // DELETE: http://localhost:3800/api/inventory-movements/:id
+); // PUT: http://localhost:3900/api/inventory-movement/2
+router.delete("/:id", inventoryMovementController.delete); // DELETE: http://localhost:3900/api/inventory-movement/3
 
 export default router;
