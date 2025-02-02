@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body } from "express-validator";
-import { UserServices } from "../services";
+import { RoleService, UserServices } from "../services";
 
 class UserValidator {
   // Validaciones para crear y actualizar un usuario
@@ -12,11 +12,16 @@ class UserValidator {
     body("email").notEmpty().withMessage("El correo electrónico es requerido"),
     body("email").isEmail().withMessage("El correo electrónico debe ser válido"),
     body("contraseña").notEmpty().withMessage("La contraseña es requerida"),
-    body("contraseña")
-      .isLength({ min: 8 })
-      .withMessage("La contraseña debe tener al menos 8 caracteres"),
+    body("contraseña").isLength({ min: 8 }).withMessage("La contraseña debe tener al menos 8 caracteres"),
     body("id_rol").notEmpty().withMessage("El ID de rol es requerido"),
     body("id_rol").isNumeric().withMessage("El ID de rol debe ser numérico"),
+  ];
+
+  public validateLogin = [
+    body("email").notEmpty().withMessage("Email is required"),
+    body("email").isEmail().withMessage("Email must be email"),
+    body("password").notEmpty().withMessage("Passowrd is required"),
+    body("password").isString().withMessage("Passowrd must be string"),
   ];
 
   // Validación para actualizar el estado del usuario (activo/inactivo)
@@ -74,6 +79,34 @@ class UserValidator {
           },
         ],
       });
+    }
+    next();
+  };
+
+  //un middleware en el caso de campo unico
+  public validateRoleId = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const{ role_id } = req.body;
+    const { status, message, data } = await RoleService.getOne(role_id);
+    if (status == 500) {
+      return res.status(status).json({
+        message,
+      });
+    } else if (status == 404) {
+      
+          return res.status(400).json({
+            errors: [
+              {
+                type: "field",
+                msg: `El role id : ${role_id}, no existe`,
+                path: "role_id",
+                location: "body",
+              },
+            ],
+          });
     }
     next();
   };

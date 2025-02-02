@@ -24,7 +24,7 @@ const UserModel = {
   },
   // Contraseña
   password: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING(400),
     allowNull: false,
   },
   // Fecha de creación

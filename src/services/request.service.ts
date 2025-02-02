@@ -29,10 +29,10 @@ const RequestServices = {
       };
     }
   },
-  getOne: async (id: number) => {
+  getOne: async (request_id: number) => {
     try {
       const request = await RequestDB.findOne({
-        where: { id },
+        where: { request_id },
       });
       if (!request) {
         return {
@@ -74,10 +74,10 @@ const RequestServices = {
       };
     }
   },
-  update: async (id: number, data: Partial<RequestInterface>) => {
+  update: async (request_id: number, data: Partial<RequestInterface>) => {
     try {
-      const request = await RequestDB.update(data, { where: { id } });
-      const { data: updatedData } = await RequestServices.getOne(id);
+      const request = await RequestDB.update(data, { where: { request_id } });
+      const { data: updatedData } = await RequestServices.getOne(request_id);
       return {
         message: `Actualización exitosa`,
         status: 200,
@@ -93,45 +93,29 @@ const RequestServices = {
       };
     }
   },
-  delete: async (id: number) => {
+   delete: async (request_id: number) => {
     try {
-      const request = await RequestDB.destroy({ where: { id } });
+      const request = await RequestDB.findOne({ where: { request_id } });
+      if (!request) {
+        return {
+          message: `Registro no encontrado`,
+          status: 404,
+          data: {},
+        };
+      }
+  
+      await RequestDB.destroy({ where: { request_id } });
       return {
         message: `Eliminación exitosa`,
-        status: 204,
+        status: 200,
         data: {
-          request,
+          request_id,
         },
       };
     } catch (error) {
       console.log(error);
       return {
         message: `Contacte con el administrador`,
-        status: 500,
-      };
-    }
-  },
-  findByName: async (name: string) => {
-    try {
-      const request = await RequestDB.findOne({ where: { name } });
-      if (!request) {
-        return {
-          message: "Registro no encontrado",
-          status: 404,
-          data: {},
-        };
-      }
-      return {
-        message: "Registro encontrado",
-        status: 200,
-        data: {
-          request,
-        },
-      };
-    } catch (error) {
-      console.log(error);
-      return {
-        message: "Contacte con el administrador",
         status: 500,
       };
     }
