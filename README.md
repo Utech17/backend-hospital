@@ -21,8 +21,6 @@ Rellena las variables de entorno correspondientes. La variable `DATABASE_NAME` d
 
 **Paso 5:**  
 Instala las dependencias con el comando `npm install`.
-Instala las dependencias con el comando `npm i jsonwebtoken`.
-Instala las dependencias con el comando `npm i @types/jsonwebtoken`.
 
 **Paso 6:**  
 Levanta el servidor con el comando `npm run dev`, que compila el código TypeScript y ejecuta el código JavaScript generado, ya que este es un script combinado.
