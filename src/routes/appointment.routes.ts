@@ -7,13 +7,13 @@ const router = Router();
 const appointmentController = new AppointmentController();
 const appointmentValidator = new AppointmentValidator();
 
-router.get("/", appointmentController.all); // GET: http://localhost:3800/api/appointments
-router.get("/:id", appointmentController.one); // GET: http://localhost:3800/api/appointments/:id
+router.get("/", appointmentController.all); // GET: http://localhost:3900/api/appointment
+router.get("/:id", appointmentController.one); // GET: http://localhost:3900/api/appointment/1
 router.post("/", appointmentValidator.validateAppointment, appointmentValidator.validatePatientId, 
   appointmentValidator.validateEmployeeId, validateFields, appointmentController.create
-); // POST: http://localhost:3800/api/appointments
+); // POST: http://localhost:3900/api/appointment
 router.put("/:id", appointmentValidator.validateAppointmentUpdate, validateFields, 
-  appointmentController.update); // PUT: http://localhost:3800/api/appointments/:id
-router.delete("/:id", appointmentController.delete); // DELETE: http://localhost:3800/api/appointments/:id
+  appointmentController.update); // PUT: http://localhost:3900/api/appointment/2
+router.delete("/:id", appointmentController.delete); // DELETE: http://localhost:3900/api/appointment/3
 
 export default router;

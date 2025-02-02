@@ -4,10 +4,15 @@ import { RequestServices } from "../services";
 
 class RequestValidator {
   public validateRequest = [
-    body("name").notEmpty().withMessage("Request Name is required"),
-    body("name").isString().withMessage("Request Name must be string"),
+    body("request_id").optional().isInt().withMessage("Request ID must be an integer"),
+    body("description").notEmpty().withMessage("Description is required"),
+    body("description").isString().withMessage("Description must be a string"),
+    body("request_type_id").notEmpty().withMessage("Request Type ID is required"),
+    body("request_type_id").isInt().withMessage("Request Type ID must be an integer"),
+    body("amount").notEmpty().withMessage("Amount is required"),
+    body("amount").isDecimal().withMessage("Amount must be a decimal value"),
     body("status").notEmpty().withMessage("Request Status is required"),
-    body("status").isBoolean().withMessage("Request Status must be boolean"),
+    body("status").isIn(['pending', 'approved', 'rejected']).withMessage("Request Status must be one of 'pending', 'approved', 'rejected'"),
   ];
 
   public validateIfIdExist = async (
@@ -15,8 +20,8 @@ class RequestValidator {
     res: Response,
     next: NextFunction
   ) => {
-    const { id } = req.params;
-    const { status, message, data } = await RequestServices.getOne(Number(id));
+    const { request_id } = req.params;
+    const { status, message, data } = await RequestServices.getOne(Number(request_id));
     if (status === 500) {
       return res.status(status).json({ message });
     } else if (status === 404) {
@@ -24,40 +29,12 @@ class RequestValidator {
         errors: [
           {
             type: "field",
-            msg: `The id ${id} does not exist in the database.`,
+            msg: `The id ${request_id} does not exist in the database.`,
             path: "id",
             location: "param",
           },
         ],
       });
-    }
-    next();
-  };
-
-  public validateIfNameIsUse = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    const { id } = req.params;
-    const { name } = req.body;
-    const { status, message, data } = await RequestServices.findByName(name);
-    if (status === 500) {
-      return res.status(status).json({ message });
-    } else if (status === 200) {
-      const request = data?.request;
-      if (id && request && 'id' in request && id !== request.id) {
-        return res.status(400).json({
-          errors: [
-            {
-              type: "field",
-              msg: `Name "${name}" is already in use for another request.`,
-              path: "name",
-              location: "body",
-            },
-          ],
-        });
-      }
     }
     next();
   };
