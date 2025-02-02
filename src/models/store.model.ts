@@ -8,21 +8,18 @@ const StoreModel = {
   },
   // Nombre del almacen
   name: {
-    type: DataTypes.STRING(25),
+    type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true,
   },
   // Ubicación
   location: {
-    type: DataTypes.STRING(25),
+    type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true,
   },
   // Descripción
   description: {
-    type: DataTypes.STRING(25),
+    type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true,
   },
   // ID del departamento al que pertenece
   department_id: {
