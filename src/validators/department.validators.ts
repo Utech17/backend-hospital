@@ -9,7 +9,7 @@ class DepartmentValidator {
     body("department_name").notEmpty().withMessage("Departament Name is required"),
     body("department_name").isString().withMessage("Departament Name must be string"),
     body("description").notEmpty().withMessage("Departament description is required"),
-    body("description").isNumeric().withMessage("Departament description must be string"),
+    body("description").isString().withMessage("Departament description must be string"),
 
   ];
 
