@@ -7,9 +7,9 @@ const router = Router();
 const departamentValidator = new DepartmentValidator();
 const departamentController = new DepartmentController();
 
-router.get("/", departamentController.all);
+router.get("/", departamentController.all); // http://localhost:3900/api/departament
 router.get("/:id", departamentController.one);
-router.post("/",departamentValidator.validateDepartment,departamentValidator.validateIfNameIsUse,
+router.post("/",departamentValidator.validateDepartment,
   validateFields,departamentController.create);
 router.put("/:id",departamentValidator.validateDepartment,departamentValidator.validateIfIdExist,
   departamentValidator.validateIfNameIsUse,validateFields,departamentController.update);
