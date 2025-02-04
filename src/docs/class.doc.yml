@@ -1,0 +1,324 @@
+swagger: "2.0"
+info:
+  description: "API para gestionar clases."
+  version: "1.0.0"
+  title: "API de Clases"
+host: "localhost:3900"
+basePath: "/api"
+schemes:
+  - "http"
+paths:
+  /class:
+    get:
+      summary: "Obtener lista de clases"
+      tags:
+        - "Clases"
+      description: "Devuelve una lista de clases existentes."
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Registros encontrados correctamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registros encontrados correctamente"
+                  data:
+                    type: "object"
+                    properties:
+                      classes:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            cod_class:
+                              type: "integer"
+                              example: 1
+                            des_class:
+                              type: "string"
+                              example: "wdadsa"
+                            status:
+                              type: "boolean"
+                              example: true
+                            createdAt:
+                              type: "string"
+                              format: "date-time"
+                              example: "2025-02-04T17:06:47.000Z"
+                            updatedAt:
+                              type: "string"
+                              format: "date-time"
+                              example: "2025-02-04T17:06:47.000Z"
+        "404":
+          description: "No se encontraron registros"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "No se encontraron registros"
+                  data:
+                    type: "object"
+                    properties:
+                      classes:
+                        type: "array"
+                        items: {}
+                        example: []
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+    post: 
+      summary: "Crear Clase"
+      tags:
+        - "Clases"
+      description: "Endpoint para crear una clase."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Datos de la nueva clase"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              des_class:
+                type: "string"
+                example: "EWEWDA"
+              status:
+                type: "boolean"
+                example: true
+      responses:
+        "201":
+          description: "Clase creada exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Clase creada exitosamente"
+                  data:
+                    type: "object"
+                    properties:
+                      clase:
+                        type: "object"
+                        properties:
+                          cod_class:
+                            type: "integer"
+                            example: 1
+                          des_class:
+                            type: "string"
+                            example: "nombre de la clase"
+                          status:
+                            type: "boolean"
+                            example: true
+                          createdAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T17:06:47.000Z"
+                          updatedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T17:06:47.000Z"
+        "400":
+          description: "Solicitud incorrecta"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Solicitud incorrecta. Verifique los datos enviados."
+        "500":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+  /class/{cod_class}: 
+    get:
+      summary: "Obtener clase por ID"
+      tags:
+        - "Clases"
+      description: "Devuelve una clase por su ID."
+      produces:
+        - "application/json"
+      parameters:
+        - name: "cod_class"
+          in: "path"
+          description: "ID de la clase"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "Registro encontrado correctamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registro encontrado correctamente"
+                  data:
+                    type: "object"
+                    properties:
+                      clase:
+                        type: "object"
+                        properties:
+                          cod_class:
+                            type: "integer"
+                            example: 1
+                          des_class:
+                            type: "string"
+                            example: "nombre de la clase"
+                          status:
+                            type: "boolean"
+                            example: true
+                          createdAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T17:06:47.000Z"
+                          updatedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T17:06:47.000Z"
+        "404":
+          description: "No se encontraron registros"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "No se encontraron registros"
+                  data:
+                    type: "object"
+                    properties:
+                      clase:
+                        type: "object"
+                        example: {}
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+    put:
+      summary: "Actualizar clase"
+      tags:
+        - "Clases"
+      description: "Endpoint para actualizar una clase."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "cod_class"
+          in: "path"
+          description: "ID de la clase"
+          required: true
+          type: "integer"
+        - in: "body"
+          name: "body"
+          description: "Datos actualizados de la clase"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              des_class:
+                type: "string"
+                example: "nombre de la clase actualizada"
+              status:
+                type: "boolean"
+                example: true
+      responses:
+        "200":
+          description: "Clase actualizada exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Clase actualizada exitosamente"
+                  data:
+                    type: "object"
+                    properties:
+                      clase:
+                        type: "object"
+                        properties:
+                          cod_class:
+                            type: "integer"
+                            example: 1
+                          des_class:
+                            type: "string"
+                            example: "nombre de la clase actualizada"
+                          status:
+                            type: "boolean"
+                            example: true
+                          createdAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T17:06:47.000Z"
+                          updatedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T17:06:47.000Z"
+        "400":
+          description: "Solicitud incorrecta"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Solicitud incorrecta. Verifique los datos enviados."
+        "404":
+          description: "No se encontraron registros"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "No se encontraron registros"
+        "500":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
