@@ -63,6 +63,10 @@ const db = new Sequelize(dbName, dbUser, dbPassword, {
   logging: false,
 });
 
+const Options = {
+  timestamps: false, // Deshabilitar createdAt y updatedAt
+};
+
 // CREAMOS LAS TABLAS EN ORDEN ALFABETICO
 const AccountDB = db.define("account", AccountModel);
 const AccountRecordDB = db.define("account_record", AccountRecordModel);
@@ -87,7 +91,7 @@ const EventTypeDB = db.define("event_type", EventTypeModel);
 const InventoryDB = db.define("inventory", InventoryModel);
 const InventoryMovementDB = db.define("inventory_movement", InventoryMovementModel);
 const JournalDB = db.define("journal", JournalModel);
-const MedicalHistoryDB = db.define("medical_history", MedicalHistoryModel);
+const MedicalHistoryDB = db.define("medical_history", MedicalHistoryModel, Options);
 const OrganizationalUnitsDB = db.define("organizational_unit", OrganizationalUnitsModel);
 const PatientDB = db.define("Patient", PatientModel);
 const PaymentTypeDB = db.define("payment_type", PaymentTypeModel);

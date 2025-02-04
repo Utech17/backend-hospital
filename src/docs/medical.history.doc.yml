@@ -1,0 +1,432 @@
+/medicalhistory:
+  get:
+    summary: "Obtener Historiales Médicos"
+    tags:
+      - "Historial Médico"
+    description: "Endpoint para obtener la lista de historiales médicos"
+    produces:
+      - "application/json"
+    responses:
+      "200":
+        description: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros encontrados exitosamente"
+                data:
+                  type: "object"
+                  properties:
+                    medicalHistory:
+                      type: "array"
+                      items:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          patient_id:
+                            type: "integer"
+                            example: 1
+                          admission_date:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-01-01T00:00:00.000Z"
+                          discharge_date:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-01-05T00:00:00.000Z"
+                          diagnosis:
+                            type: "string"
+                            example: "Neumonía leve"
+                          treatment:
+                            type: "string"
+                            example: "Antibióticos y reposo en casa"
+                      example:
+                        - id: 1
+                          patient_id: 1
+                          admission_date: "2024-01-01T00:00:00.000Z"
+                          discharge_date: "2024-01-05T00:00:00.000Z"
+                          diagnosis: "Neumonía leve"
+                          treatment: "Antibióticos y reposo en casa"
+                        - id: 2
+                          patient_id: 2
+                          admission_date: "2024-02-10T00:00:00.000Z"
+                          discharge_date: "2024-02-15T00:00:00.000Z"
+                          diagnosis: "Fractura de pierna"
+                          treatment: "Inmovilización, yeso y analgésicos"
+      "404":
+        description: "Registros no encontrados"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros no encontrados"
+                data:
+                  type: "array"
+                  items: {}
+                  example: []
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  post:
+    summary: "Crear un nuevo Historial Médico"
+    tags:
+      - "Historial Médico"
+    description: "Endpoint para crear un nuevo historial médico"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              patient_id:
+                type: "integer"
+                example: 2
+              diagnosis:
+                type: "string"
+                example: "Neumonía leve"
+              treatment:
+                type: "string"
+                example: "Antibióticos y reposo en casa"
+    responses:
+      201:
+        description: "Creación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Creación exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    history:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 11
+                        patient_id:
+                          type: "integer"
+                          example: 2
+                        treatment:
+                          type: "string"
+                          example: "Antibióticos"
+      400:
+        description: "Error en la solicitud"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "Patient ID is required"
+                      path:
+                        type: "string"
+                        example: "patient_id"
+                      location:
+                        type: "string"
+                        example: "body"
+      500:
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+/medicalhistory/{id}:
+  get:
+    summary: "Obtener un Historial Médico"
+    tags:
+      - "Historial Médico"
+    description: "Endpoint para obtener un historial médico por su id"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del historial médico"
+        schema:
+          type: "integer"
+    responses:
+      200:
+        description: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro encontrado"
+                data:
+                  type: "object"
+                  properties:
+                    history:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 2
+                        patient_id:
+                          type: "integer"
+                          example: 2
+                        admission_date:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-02-10T00:00:00.000Z"
+                        discharge_date:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-02-15T00:00:00.000Z"
+                        diagnosis:
+                          type: "string"
+                          example: "Fractura de pierna"
+                        treatment:
+                          type: "string"
+                          example: "Inmovilización, yeso y analgésicos"
+      404:
+        description: "Registro no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro no encontrado"
+                data:
+                  type: "object"
+                  properties: {}
+      500:
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  put:
+    summary: "Actualizar un Historial Médico"
+    tags:
+      - "Historial Médico"
+    description: "Endpoint para actualizar un historial médico por su id"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del historial médico"
+        schema:
+          type: "integer"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              patient_id:
+                type: "integer"
+                example: 1
+              admission_date:
+                type: "string"
+                format: "date-time"
+                example: "2024-01-01T00:00:00.000Z"
+              discharge_date:
+                type: "string"
+                format: "date-time"
+                example: "2024-01-05T00:00:00.000Z"
+              diagnosis:
+                type: "string"
+                example: "Neumonía leve"
+              treatment:
+                type: "string"
+                example: "Antibióticos y reposo en casa"
+    responses:
+      200:
+        description: "Actualización exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Actualización exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    history:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        patient_id:
+                          type: "integer"
+                          example: 1
+                        admission_date:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-01-01T00:00:00.000Z"
+                        discharge_date:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-01-06T00:00:00.000Z"
+                        diagnosis:
+                          type: "string"
+                          example: "Neumonía grave xd"
+                        treatment:
+                          type: "string"
+                          example: "Antibióticos y reposo en casa"
+      400:
+        description: "Error en la solicitud"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "Patient ID is required"
+                      path:
+                        type: "string"
+                        example: "patient_id"
+                      location:
+                        type: "string"
+                        example: "body"
+      404:
+        description: "Registro no encontrado para actualizar"
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: "string"
+                        example: "id"
+                      location:
+                        type: "string"
+                        example: "param"
+      500:
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  delete:
+    summary: "Eliminar un Historial Médico"
+    tags:
+      - "Historial Médico"
+    description: "Endpoint para eliminar un historial médico"
+    parameters:
+      - name: "id"
+        in: "path"
+        description: "ID del historial médico a eliminar"
+        required: true
+        schema:
+          type: "integer"
+    responses:
+      200:
+        description: "Historial médico eliminado exitosamente"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Eliminación exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    history:
+                      type: "array"
+                      items:
+                        type: "integer"
+                        example: 1
+      404:
+        description: "Registro no encontrado para eliminar"
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: "string"
+                        example: "id"
+                      location:
+                        type: "string"
+                        example: "param"
+      500:
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
