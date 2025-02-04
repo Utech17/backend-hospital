@@ -35,7 +35,6 @@ const ChargeServices = {
           const charge = await ChargeDB.findOne({
             where: {
               id: id,
-              status: true,
             },
           });
           if (!charge) {
@@ -104,7 +103,6 @@ const ChargeServices = {
         try {
           const charge = await ChargeDB.update(
             {
-              status: false,
               deletedAt: new Date(),
             },
             { where: { id } }
@@ -124,9 +122,9 @@ const ChargeServices = {
           };
         }
       },
-      findBychargeName: async (name: string) => {
+      findBychargeName: async (charge_name: string) => {
         try {
-          const charge = await ChargeDB.findAll({ where: { name } });
+          const charge = await ChargeDB.findAll({ where: { charge_name } });
           if (charge.length===0) {
             console.log("Registro no encontrado")
             return {
