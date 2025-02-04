@@ -1,0 +1,389 @@
+/charge:
+  get:
+    summary: "Obtener Cargos"
+    tags:
+      - "Cargos"
+    description: "Endpoint para obtener la lista de cargos"
+    produces:
+      - "application/json"
+    responses:
+      "200":
+        description: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros encontrados exitosamente"
+                data:
+                  type: "object"
+                  properties:
+                    charges:
+                      type: "array"
+                      items:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          charge_name:
+                            type: "string"
+                            example: "Médico de Base"
+                          description:
+                            type: "string"
+                            example: "Médico experimentado"
+                          createdAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T04:06:15.000Z"
+                          updatedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T04:06:15.000Z"
+                          deletedAt:
+                            type: "string"
+                            format: "null"
+                            example: null
+      "404":
+        description: "Registros no encontrados"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros no encontrados"
+                data:
+                  type: "object"
+                  properties:
+                    charges:
+                      type: "array"
+                      items: {}
+                      example: []
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  post:
+    summary: "Crear un nuevo Cargo"
+    tags:
+      - "Cargos"
+    description: "Endpoint para crear un nuevo cargo"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              charge_name:
+                type: "string"
+                example: "Médico de vacas"
+              description:
+                type: "string"
+                example: "Experto en vacas"
+              createdAt:
+                type: "string"
+                format: "date-time"
+                example: "2055-02-04T02:53:49.000Z"
+              updatedAt:
+                type: "string"
+                format: "date-time"
+                example: "2055-02-04T02:53:49.000Z"
+    responses:
+      201:
+        description: "Creación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Creacion exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    charge:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 16
+                        charge_name:
+                          type: "string"
+                          example: "médico de vacas"
+                        description:
+                          type: "string"
+                          example: "Experto en vacas"
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2055-02-04T02:53:49.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2055-02-04T02:53:49.000Z"
+      400:
+        description: "Error en la solicitud"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "Charge Name is required"
+                      path:
+                        type: "string"
+                        example: "charge_name"
+                      location:
+                        type: "string"
+                        example: "body"
+      500:
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+/charge/{id}:
+  get:
+    summary: "Obtener un Cargo por ID"
+    tags:
+      - "Cargos"
+    description: "Endpoint para obtener un cargo por ID"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: "integer"
+          example: 1
+    responses:
+      200:
+        description: "Cargo encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Cargo encontrado"
+                data:
+                  type: "object"
+                  properties:
+                    charge:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        charge_name:
+                          type: "string"
+                          example: "Médico de vacas"
+                        description:
+                          type: "string"
+                          example: "Experto en vacas"
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2055-02-04T02:53:49.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2055-02-04T02:53:49.000Z"
+      404:
+        description: "Cargo no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Cargo no encontrado"
+      500:
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  put:
+    summary: "Actualizar un Cargo"
+    tags:
+      - "Cargos"
+    description: "Endpoint para actualizar un cargo"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: "integer"
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              charge_name:
+                type: "string"
+                example: "Médico de vacas"
+              description:
+                type: "string"
+                example: "Experto en vacas"
+              createdAt:
+                type: "string"
+                format: "date-time"
+                example: "2055-02-04T02:53:49.000Z"
+              updatedAt:
+                type: "string"
+                format: "date-time"
+                example: "2055-02-04T02:53:49.000Z"
+    responses:
+      201:
+        description: "Cargo actualizado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Cargo actualizado"
+                data:
+                  type: "object"
+                  properties:
+                    charge:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        charge_name:
+                          type: "string"
+                          example: "Médico de vacas"
+                        description:
+                          type: "string"
+                          example: "Experto en vacas"
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2055-02-04T02:53:49.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2055-02-04T02:53:49.000Z"
+      404:
+        description: "Cargo no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Cargo no encontrado"
+      500:
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  delete:
+    summary: "Eliminar un Cargo"
+    tags:
+      - "Cargos"
+    description: "Endpoint para eliminar un cargo"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: "integer"
+          example: 1
+    responses:
+      204:
+        description: "Eliminación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Eliminación exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    charge:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        charge_name:
+                          type: "string"
+                          example: "Médico de vacas"
+                        description:
+                          type: "string"
+                          example: "Experto en vacas"
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2055-02-04T02:53:49.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2055-02-04T02:53:49.000Z"
+      404:
+        description: "Registro no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro no encontrado"
+      500:
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
