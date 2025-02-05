@@ -40,8 +40,7 @@ getOne: async (id: number | string) => {
     try {
       const Role = await RoleDB.findOne({
         where: {
-          id,
-          status: true,
+          id  
         },
       })
 
@@ -74,7 +73,7 @@ getOne: async (id: number | string) => {
       const Role = await RoleDB.create({ ...data });
       return {
         message: "Successful creation",
-        status: 201,
+        status: 200,
         data: {
           Role,
         },
