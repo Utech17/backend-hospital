@@ -6,8 +6,10 @@ class RequestTypeValidator {
   public validateRequestType = [
     body("name").notEmpty().withMessage("Request Type Name is required"),
     body("name").isString().withMessage("Request Type Name must be string"),
-    body("description").notEmpty().withMessage("Request Type Description is required"),
-    body("description").isString().withMessage("Request Type Description must be string"),
+    body("bot").notEmpty().withMessage("Request Type bot is required"),
+    body("bot").isBoolean().withMessage("Bot must be a boolean value"),
+    body("department_id").notEmpty().withMessage("Request Type department_id is required"),
+    body("department_id").isInt().withMessage("Department ID must be an integer"),
   ];
 
   public validateIfIdExist = async (
@@ -46,12 +48,12 @@ class RequestTypeValidator {
       return res.status(status).json({ message });
     } else if (status === 200) {
       const requestType = data?.requestType;
-      if (id && requestType && id !== (requestType as any).id) {
+      if (id && requestType && id !== (requestType as any).request_type_id) {
         return res.status(400).json({
           errors: [
             {
               type: "field",
-              msg: `Name "${name}" is already in use for another request type.`,
+              msg: `The name ${name} is already in use.`,
               path: "name",
               location: "body",
             },
