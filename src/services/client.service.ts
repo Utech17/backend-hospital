@@ -35,7 +35,6 @@ const clientServices = {
           const client = await ClientDB.findOne({
             where: {
               id: id,
-              status: true,
             },
           });
           if (!client) {
@@ -104,7 +103,6 @@ const clientServices = {
         try {
           const client = await ClientDB.update(
             {
-              status: false,
               deletedAt: new Date(),
             },
             { where: { id } }
@@ -125,13 +123,21 @@ const clientServices = {
         }
       },
       getByEmail: async (email: string) => {
+        if (!email) {
+          return {
+            message: 'Email is required',
+            status: 400,
+          };
+        }
+      
         try {
-          const client: ClientInterface | any = await ClientDB.findAll({
+          const client: ClientInterface | any = await ClientDB.findOne({
             where: { email },
           });
+      
           if (!client) {
             return {
-              message: `Registro no encontrado`,
+              message: 'Registro no encontrado',
               status: 404,
               data: {
                 client,
@@ -139,7 +145,7 @@ const clientServices = {
             };
           } else {
             return {
-              message: `Registro encontrado`,
+              message: 'Registro encontrado',
               status: 200,
               data: {
                 client,
@@ -149,20 +155,28 @@ const clientServices = {
         } catch (error) {
           console.log(error);
           return {
-            message: `Contact the administrator: error`,
+            message: 'Contact the administrator: error',
             status: 500,
           };
         }
       },
 
       getByPhone_number: async (phone_number: string) => {
+        if (!phone_number) {
+          return {
+            message: 'Phone number is required',
+            status: 400,
+          };
+        }
+      
         try {
-          const client: ClientInterface | any = await ClientDB.findAll({
+          const client: ClientInterface | any = await ClientDB.findOne({
             where: { phone_number },
           });
+      
           if (!client) {
             return {
-              message: `Registro no encontrado`,
+              message: 'Registro no encontrado',
               status: 404,
               data: {
                 client,
@@ -170,7 +184,7 @@ const clientServices = {
             };
           } else {
             return {
-              message: `Registro encontrado`,
+              message: 'Registro encontrado',
               status: 200,
               data: {
                 client,
@@ -180,7 +194,7 @@ const clientServices = {
         } catch (error) {
           console.log(error);
           return {
-            message: `Contact the administrator: error`,
+            message: 'Contact the administrator: error',
             status: 500,
           };
         }
