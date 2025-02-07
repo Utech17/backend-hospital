@@ -59,13 +59,17 @@ const dbPassword: string | undefined = process.env.DATABASE_PASSWORD
 // Instanciamos el objeto Sequelize
 const db = new Sequelize(dbName, dbUser, dbPassword, {
   dialect: "mysql",
-  host: "localhost",
+  host: "https://backend-hospital-skii.onrender.com",
   logging: false,
 });
 
+const Options = {
+  timestamps: false, // Deshabilitar createdAt y updatedAt
+};
+
 // CREAMOS LAS TABLAS EN ORDEN ALFABETICO
-const AccountDB = db.define("account", AccountModel);
-const AccountRecordDB = db.define("account_record", AccountRecordModel);
+const AccountDB = db.define("account", AccountModel, Options);
+const AccountRecordDB = db.define("account_record", AccountRecordModel, Options);
 const ActionDB = db.define("action", ActionModel);
 const AppointmentDB = db.define("appointment", AppointmentModel);
 const AttendanceDB = db.define("attendance", AttendanceEmployeeModel);
@@ -96,7 +100,7 @@ const PayrollDetailDB = db.define("payroll_detail", PayrollDetailModel);
 const PresentationDB = db.define("presentation", PresentationModel);
 const ProductDB = db.define("product", ProductModel);
 const RequestDB = db.define("request", RequestModel);
-const RequestTypeDB = db.define("request_type", RequestTypeModel);
+const RequestTypeDB = db.define("request_type", RequestTypeModel, Options);
 const RoleDB = db.define("role", RoleModel);
 const SaleDB = db.define("sale", SaleModel);
 const StoreDB = db.define("store", StoreModel);
