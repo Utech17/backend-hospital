@@ -1,4 +1,4 @@
-const port = process.env.API_PORT || 3900;
+const port = process.env.PORT || 3900;
 const pre = "/api";
 const swaggerOptions = {
   swaggerDefinition: {
