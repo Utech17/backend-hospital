@@ -1,0 +1,476 @@
+
+  /api/payroll:
+    get:
+      summary: obtener todas las nominas
+      tags: [ Payroll ]
+      responses: endpoint para ver los registros de nómina
+    '200':
+      description: Registros encontrados
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Registros encontrados
+              data:
+                type: object
+                properties:
+                  payrolls:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        employee_id:
+                          type: integer
+                          example: 1
+                        startDate:
+                          type: string
+                          format: date-time
+                          example: 2024-01-01T00:00:00.000Z
+                        endDate:
+                          type: string
+                          format: date-time
+                          example: 2024-01-15T00:00:00.000Z
+                        grossSalary:
+                          type: string
+                          example: "1500.00"
+                        deductions:
+                          type: string
+                          example: "300.00"
+                        netSalary:
+                          type: string
+                          example: "1200.00"
+                        createdAt:
+                          type: string
+                          format: date-time
+                          example: 2025-02-03T17:41:27.000Z
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          example: 2025-02-03T17:41:27.000Z
+    '400':
+      description: Error en la solicitud
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Error en la solicitud
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    field:
+                      type: string
+                      example: employee_id
+                    message:
+                      type: string
+                      example: El campo employee_id es inválido o está vacío
+    '500':
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Error interno del servidor
+              details:
+                type: string
+                example: Ocurrió un error inesperado al intentar recuperar los registros
+    post:
+      summary: Crear un registro de nómina
+      tags: [ Payroll ]
+      responses: endpoint para crear un registro de nómina
+      requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            employee_id:
+              type: integer
+              example: 1
+            startDate:
+              type: string
+              format: date-time
+              example: 2024-01-01T00:00:00.000Z
+            endDate:
+              type: string
+              format: date-time
+              example: 2024-01-15T00:00:00.000Z
+            grossSalary:
+              type: string
+              example: "1500.00"
+            deductions:
+              type: string
+              example: "300.00"
+            netSalary:
+              type: string
+              example: "1200.00"
+  responses:
+    '201':
+      description: Registro creado exitosamente
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Registro creado exitosamente
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  employee_id:
+                    type: integer
+                    example: 1
+                  startDate:
+                    type: string
+                    format: date-time
+                    example: 2024-01-01T00:00:00.000Z
+                  endDate:
+                    type: string
+                    format: date-time
+                    example: 2024-01-15T00:00:00.000Z
+                  grossSalary:
+                    type: string
+                    example: "1500.00"
+                  deductions:
+                    type: string
+                    example: "300.00"
+                  netSalary:
+                    type: string
+                    example: "1200.00"
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: 2025-02-03T17:41:27.000Z
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    example: 2025-02-03T17:41:27.000Z
+    '400':
+      description: Error en la solicitud
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Error en la solicitud
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    field:
+                      type: string
+                      example: employee_id
+                    message:
+                      type: string
+                      example: El campo employee_id es requerido o inválido
+    '500':
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Error interno del servidor
+              details:
+                type: string
+                example: Ocurrió un error inesperado al intentar crear el registro
+  /payroll/{id}
+  get:
+    summary: obtener una nomina por el ID
+    tags: [ Payroll ]
+    decription: Endpoint para  obtener una nomina por el ID
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: ID del registro de nómina a buscar
+      schema:
+        type: integer
+        example: 1
+  responses:
+    '200':
+      description: Registro encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Registro encontrado
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  employee_id:
+                    type: integer
+                    example: 1
+                  startDate:
+                    type: string
+                    format: date-time
+                    example: 2024-01-01T00:00:00.000Z
+                  endDate:
+                    type: string
+                    format: date-time
+                    example: 2024-01-15T00:00:00.000Z
+                  grossSalary:
+                    type: string
+                    example: "1500.00"
+                  deductions:
+                    type: string
+                    example: "300.00"
+                  netSalary:
+                    type: string
+                    example: "1200.00"
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: 2025-02-03T17:41:27.000Z
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    example: 2025-02-03T17:41:27.000Z
+   
+    '404':
+      description: Registro no encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Registro no encontrado
+    '500':
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Error interno del servidor
+              details:
+                type: string
+                example: Ocurrió un error inesperado al intentar recuperar el registr
+  put:
+    summary: actualizar un registro de nómina
+    tags: [ Payroll ]
+    description: Endpoint para actualizar un registro de nómina
+    parameters:
+      name: id
+    - in: path
+      required: true
+      description: ID del registro de nómina a actualizar
+      schema:
+        type: integer
+        example: 1
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            employee_id:
+              type: integer
+              example: 1
+            startDate:
+              type: string
+              format: date-time
+              example: 2024-01-01T00:00:00.000Z
+            endDate:
+              type: string
+              format: date-time
+              example: 2024-01-15T00:00:00.000Z
+            grossSalary:
+              type: string
+              example: "1500.00"
+            deductions:
+              type: string
+              example: "300.00"
+            netSalary:
+              type: string
+              example: "1200.00"
+  responses:
+    '200':
+      description: Registro actualizado exitosamente
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Registro actualizado exitosamente
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  employee_id:
+                    type: integer
+                    example: 1
+                  startDate:
+                    type: string
+                    format: date-time
+                    example: 2024-01-01T00:00:00.000Z
+                  endDate:
+                    type: string
+                    format: date-time
+                    example: 2024-01-15T00:00:00.000Z
+                  grossSalary:
+                    type: string
+                    example: "1500.00"
+                  deductions:
+                    type: string
+                    example: "300.00"
+                  netSalary:
+                    type: string
+                    example: "1200.00"
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: 2025-02-03T17:41:27.000Z
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    example: 2025-02-07T17:41:27.000Z
+    '400':
+      description: Error en la solicitud
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Error en la solicitud
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    field:
+                      type: string
+                      example: grossSalary
+                    message:
+                      type: string
+                      example: El campo grossSalary es inválido o está vacío
+    '404':
+      description: Registro no encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Registro no encontrado
+    '500':
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Error interno del servidor
+              details:
+                type: string
+                example: Ocurrió un error inesperado al intentar actualizar el registro
+  delete:
+    summary: eliminar registro de nomina por su ID
+    tags: [ Payroll ]
+    description: Endpoint para eliminar un registro de nómina
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: ID del registro de nómina a eliminar
+      schema:
+        type: integer
+        example: 1
+  responses:
+    '200':
+      description: Registro eliminado exitosamente
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Registro eliminado exitosamente
+    '400':
+      description: Error en la solicitud
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Error en la solicitud
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    field:
+                      type: string
+                      example: id
+                    message:
+                      type: string
+                      example: El campo id es inválido o está vacío
+    '404':
+      description: Registro no encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Registro no encontrado
+    '500':
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Error interno del servidor
+              details:
+                type: string
+                example: Ocurrió un error inesperado al intentar eliminar el registro
