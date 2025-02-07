@@ -60,7 +60,10 @@ const dbPassword: string | undefined = process.env.DATABASE_PASSWORD
 const db = new Sequelize(dbName, dbUser, dbPassword, {
   dialect: "mysql",
   host: "hospital-backend-hospital.h.aivencloud.com",
-  logging: false,
+  logging: console.log, // Habilita el registro de consultas SQL y mensajes de depuración
+  dialectOptions: {
+    connectTimeout: 60000, // Aumenta el tiempo de espera de la conexión a 60 segundos
+  },
 });
 
 const Options = {
