@@ -44,15 +44,15 @@ class ProductValidator {
       .isIn(["active", "inactive"]).withMessage("El estado debe ser 'active' o 'inactive'"),
 
     // Validaciones de claves foráneas
-    body("type_id")
+    body("cod_type")
       .notEmpty().withMessage("El tipo es requerido")
       .isInt({ min: 1 }).withMessage("El tipo debe ser un número entero positivo"),
 
-    body("class_id")
+    body("cod_class")
       .notEmpty().withMessage("La clase es requerida")
       .isInt({ min: 1 }).withMessage("La clase debe ser un número entero positivo"),
 
-    body("pres_id")
+    body("cod_pres")
       .notEmpty().withMessage("La presentación es requerida")
       .isInt({ min: 1 }).withMessage("La presentación debe ser un número entero positivo"),
   ];

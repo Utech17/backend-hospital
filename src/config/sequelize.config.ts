@@ -63,6 +63,10 @@ const db = new Sequelize(dbName, dbUser, dbPassword, {
   logging: false,
 });
 
+const Options = {
+  timestamps: false, // Deshabilitar createdAt y updatedAt
+};
+
 // CREAMOS LAS TABLAS EN ORDEN ALFABETICO
 const AccountDB = db.define("account", AccountModel);
 const AccountRecordDB = db.define("account_record", AccountRecordModel);
@@ -94,7 +98,7 @@ const PaymentTypeDB = db.define("payment_type", PaymentTypeModel);
 const PayrollDB = db.define("payroll", PayrollModel);
 const PayrollDetailDB = db.define("payroll_detail", PayrollDetailModel);
 const PresentationDB = db.define("presentation", PresentationModel);
-const ProductDB = db.define("product", ProductModel);
+const ProductDB = db.define("product", ProductModel, Options);
 const RequestDB = db.define("request", RequestModel);
 const RequestTypeDB = db.define("request_type", RequestTypeModel);
 const RoleDB = db.define("role", RoleModel);
