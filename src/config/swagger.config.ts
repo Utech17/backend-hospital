@@ -10,7 +10,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `https://backend-hospital-skii.onrender.com:${port}${pre}`,
+        url: `backend-hospital-skii.onrender.com:${port}${pre}`,
       },
     ],
   },
