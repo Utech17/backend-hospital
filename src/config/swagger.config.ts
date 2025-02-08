@@ -1,5 +1,7 @@
 const port = process.env.API_PORT || 3900;
+const apiUrl = process.env.API_URL || 'http://localhost';
 const pre = "/api";
+
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
@@ -10,14 +12,12 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `https://backend-hospital-skii.onrender.com:${port}${pre}`,
+        url: `${apiUrl}:${port}${pre}`,
       },
     ],
   },
   basePath: '/api',
   apis: ["src/docs/*.yml"], 
 };
-export {
-    swaggerOptions
-}
 
+export { swaggerOptions }

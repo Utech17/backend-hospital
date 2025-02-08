@@ -1,4 +1,5 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, Dialect } from "sequelize";
+import dotenv from 'dotenv';
 
 import {
   MedicalHistoryModel,
@@ -44,26 +45,28 @@ import {
 } 
 from "../models";
 
-const dbName: string | undefined = process.env.DATABASE_NAME
-  ? process.env.DATABASE_NAME
-  : "hospital";
+dotenv.config();
 
-const dbUser: string | undefined = process.env.DATABASE_USER
-  ? process.env.DATABASE_USER
-  : "root";
+const dbName: string = process.env.DATABASE_NAME!;
 
-const dbPassword: string | undefined = process.env.DATABASE_PASSWORD
-  ? process.env.DATABASE_PASSWORD
-  : "";
+const dbUser: string = process.env.DATABASE_USER!;
+
+const dbPassword: string = process.env.DATABASE_PASSWORD!;
+
+const dbDialect: Dialect = process.env.DATABASE_DIALECT! as Dialect;
+
+const dbHost: string = process.env.DATABASE_HOST!;
+
+const dbPort: number = Number(process.env.DATABASE_PORT);
 
 // Instanciamos el objeto Sequelize
 const db = new Sequelize(dbName, dbUser, dbPassword, {
-  dialect: "postgres",
-  host: "dpg-cujan22j1k6c73cpvbp0-a",
-  port: Number(process.env.API_PORT),
-  logging: console.log, // Habilita el registro de consultas SQL y mensajes de depuración
+  dialect: dbDialect,
+  host: dbHost,
+  port: dbPort,
+  logging: console.log, 
   dialectOptions: {
-    connectTimeout: 60000, // Aumenta el tiempo de espera de la conexión a 60 segundos
+    connectTimeout: 60000,
   },
 });
 
