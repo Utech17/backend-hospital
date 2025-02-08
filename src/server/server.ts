@@ -57,7 +57,7 @@ export class Server {
 
   constructor() {
     this.app = express();
-    this.port = process.env.API_PORT || 3900;
+    this.port = process.env.DATABASE_PORT!;
     this.pre = "/api";
     this.paths = {
       Action: this.pre + "/Action",
