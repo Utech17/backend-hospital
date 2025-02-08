@@ -58,9 +58,13 @@ const dbPassword: string | undefined = process.env.DATABASE_PASSWORD
 
 // Instanciamos el objeto Sequelize
 const db = new Sequelize(dbName, dbUser, dbPassword, {
-  dialect: "mysql",
-  host: "https://backend-hospital-skii.onrender.com",
-  logging: false,
+  dialect: "postgres",
+  host: "dpg-cujan22j1k6c73cpvbp0-a",
+  port: Number(process.env.API_PORT),
+  logging: console.log, // Habilita el registro de consultas SQL y mensajes de depuración
+  dialectOptions: {
+    connectTimeout: 60000, // Aumenta el tiempo de espera de la conexión a 60 segundos
+  },
 });
 
 const Options = {
