@@ -3,6 +3,7 @@ import cors from "cors";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { swaggerOptions } from "../config";
+
 import {
   MedicalHistoryRoute,
   ContractRoute,
@@ -45,6 +46,7 @@ import {
   BillingDetailRoute,
   InventoryRoute,
 } from "../routes/index.route";
+
 import { db } from "../config/sequelize.config";
 
 export class Server {
