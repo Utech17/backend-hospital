@@ -1,4 +1,4 @@
-const port = process.env.DATABASE_PORT || 3900;
+const port = process.env.DATABASE_PORT!;
 const apiUrl = process.env.API_URL || 'http://localhost';
 const pre = "/api";
 
