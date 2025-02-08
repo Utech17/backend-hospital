@@ -30,6 +30,7 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.10.1",
     "node": "^20.14.0",
+    "pg": "^8.13.1",
     "sequelize": "^6.37.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
