@@ -59,7 +59,7 @@ const dbPassword: string | undefined = process.env.DATABASE_PASSWORD
 // Instanciamos el objeto Sequelize
 const db = new Sequelize(dbName, dbUser, dbPassword, {
   dialect: "mysql",
-  host: "hospital-backend-hospital.h.aivencloud.com",
+  host: "https://backend-hospital-skii.onrender.com",
   logging: false,
 });
 
