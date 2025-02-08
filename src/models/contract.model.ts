@@ -20,7 +20,6 @@ const ContractModel = {
   charge_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: true,
   },
   // fecha_inicio
   start_date: {

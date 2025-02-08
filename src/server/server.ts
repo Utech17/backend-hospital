@@ -3,6 +3,7 @@ import cors from "cors";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { swaggerOptions } from "../config";
+
 import {
   MedicalHistoryRoute,
   ContractRoute,
@@ -45,6 +46,7 @@ import {
   BillingDetailRoute,
   InventoryRoute,
 } from "../routes/index.route";
+
 import { db } from "../config/sequelize.config";
 
 export class Server {
@@ -55,7 +57,7 @@ export class Server {
 
   constructor() {
     this.app = express();
-    this.port = process.env.API_PORT || 3900;
+    this.port = process.env.DATABASE_PORT!;
     this.pre = "/api";
     this.paths = {
       Action: this.pre + "/Action",
