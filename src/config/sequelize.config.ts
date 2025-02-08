@@ -48,27 +48,34 @@ from "../models";
 dotenv.config();
 
 const dbName: string = process.env.DATABASE_NAME!;
-
 const dbUser: string = process.env.DATABASE_USER!;
-
 const dbPassword: string = process.env.DATABASE_PASSWORD!;
-
 const dbDialect: Dialect = process.env.DATABASE_DIALECT! as Dialect;
-
 const dbHost: string = process.env.DATABASE_HOST!;
-
 const dbPort: number = Number(process.env.DATABASE_PORT);
 
-// Instanciamos el objeto Sequelize
-const db = new Sequelize(dbName, dbUser, dbPassword, {
+const sequelizeOptions: any = {
   dialect: dbDialect,
   host: dbHost,
-  port: dbPort,
-  logging: console.log, 
+  logging: console.log, // Habilita el registro de consultas SQL y mensajes de depuración
   dialectOptions: {
-    connectTimeout: 60000,
+    connectTimeout: 60000, // Aumenta el tiempo de espera de la conexión a 60 segundos
   },
-});
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
+};
+
+// Si el host no es localhost, agrega el puerto a las opciones
+if (dbHost !== 'localhost') {
+  sequelizeOptions.port = dbPort;
+}
+
+// Instanciamos el objeto Sequelize
+const db = new Sequelize(dbName, dbUser, dbPassword, sequelizeOptions);
 
 const Options = {
   timestamps: false, // Deshabilitar createdAt y updatedAt
