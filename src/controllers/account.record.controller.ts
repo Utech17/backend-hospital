@@ -45,12 +45,11 @@ export class AccountRecordController {
 
   delete = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await AccountRecordServices.delete(
+    const { status, message } = await AccountRecordServices.delete(
       Number(id)
     );
     return res.status(status).json({
       message,
-      data,
     });
   };
 }

@@ -1,0 +1,413 @@
+/request:
+  get:
+    summary: Obtener todas las solicitudes
+    tags:
+      - Request
+    description: Endpoint para obtener la lista de solicitudes
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registros encontrados exitosamente
+                data:
+                  type: object
+                  properties:
+                    requests:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          request_id:
+                            type: integer
+                            example: 1
+                          description:
+                            type: string
+                            example: "Compra de suministros médicos"
+                          request_type_id:
+                            type: integer
+                            example: 2
+                          amount:
+                            type: number
+                            format: double
+                            example: 1500.50
+                          status:
+                            type: string
+                            example: "pending"
+      '404':
+        description: Registros no encontrados
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registros no encontrados
+                data:
+                  type: array
+                  items: {}
+                  example: []
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Contacte con el administrador
+  post:
+    summary: Crear una nueva solicitud
+    tags:
+      - Request
+    description: Endpoint para crear una nueva solicitud
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+                example: "Compra de suministros médicos"
+              request_type_id:
+                type: integer
+                example: 2
+              amount:
+                type: number
+                format: double
+                example: 1500.50
+              status:
+                type: string
+                example: "pending"
+    responses:
+      '201':
+        description: Creación exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Creación exitosa
+                data:
+                  type: object
+                  properties:
+                    request:
+                      type: object
+                      properties:
+                        request_id:
+                          type: integer
+                          example: 1
+                        description:
+                          type: string
+                          example: "Compra de suministros médicos"
+                        request_type_id:
+                          type: integer
+                          example: 2
+                        amount:
+                          type: number
+                          format: double
+                          example: 1500.50
+                        status:
+                          type: string
+                          example: "pending"
+      '400':
+        description: Error en la solicitud
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "Description is required"
+                      path:
+                        type: string
+                        example: "description"
+                      location:
+                        type: string
+                        example: "body"
+      '500':
+        description: Error del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Contacte con el administrador
+
+/request/{id}:
+  get:
+    summary: Obtener una solicitud
+    tags:
+      - Request
+    description: Endpoint para obtener una solicitud por su id
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Id de la solicitud
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registro encontrado
+                data:
+                  type: object
+                  properties:
+                    request:
+                      type: object
+                      properties:
+                        request_id:
+                          type: integer
+                          example: 1
+                        description:
+                          type: string
+                          example: "Compra de suministros médicos"
+                        request_type_id:
+                          type: integer
+                          example: 2
+                        amount:
+                          type: number
+                          format: double
+                          example: 1500.50
+                        status:
+                          type: string
+                          example: "pending"
+      '404':
+        description: Registro no encontrado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registro no encontrado
+                data:
+                  type: object
+                  properties: {}
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Contacte con el administrador
+  put:
+    summary: Actualizar una solicitud
+    tags:
+      - Request
+    description: Endpoint para actualizar una solicitud por su id
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Id de la solicitud
+        schema:
+          type: integer
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+                example: "Compra de suministros médicos"
+              request_type_id:
+                type: integer
+                example: 2
+              amount:
+                type: number
+                format: double
+                example: 1500.50
+              status:
+                type: string
+                example: "pending"
+    responses:
+      '200':
+        description: Actualización exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Actualización exitosa
+                data:
+                  type: object
+                  properties:
+                    request:
+                      type: object
+                      properties:
+                        request_id:
+                          type: integer
+                          example: 1
+                        description:
+                          type: string
+                          example: "Compra de suministros médicos"
+                        request_type_id:
+                          type: integer
+                          example: 2
+                        amount:
+                          type: number
+                          format: double
+                          example: 1500.50
+                        status:
+                          type: string
+                          example: "pending"
+      '400':
+        description: Error en la solicitud
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "Description is required"
+                      path:
+                        type: string
+                        example: "description"
+                      location:
+                        type: string
+                        example: "body"
+      '404':
+        description: Registro no encontrado para actualizar
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: string
+                        example: "id"
+                      location:
+                        type: string
+                        example: "param"
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Contacte con el administrador
+  delete:
+    summary: Eliminar una solicitud
+    tags:
+      - Request
+    description: Endpoint para eliminar una solicitud
+    parameters:
+      - name: id
+        in: path
+        description: ID de la solicitud a eliminar
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Solicitud eliminada exitosamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Eliminación exitosa
+                data:
+                  type: object
+                  properties:
+                    request_id:
+                      type: integer
+                      example: 1
+      '404':
+        description: Registro no encontrado para eliminar
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: string
+                        example: "id"
+                      location:
+                        type: string
+                        example: "param"
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Contacte con el administrador

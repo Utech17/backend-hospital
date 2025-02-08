@@ -98,10 +98,7 @@ const AccountRecordServices = {
       const accountRecord = await AccountRecordDB.destroy({ where: { id } });
       return {
         message: `Eliminación exitosa`,
-        status: 204,
-        data: {
-          accountRecord,
-        },
+        status: 200,
       };
     } catch (error) {
       console.log(error);
