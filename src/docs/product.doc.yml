@@ -1,0 +1,469 @@
+/product:
+  get:
+    summary: "Obtener Productos"
+    tags:
+      - "Productos"
+    description: "Endpoint para obtener la lista de productos"
+    produces:
+      - "application/json"
+    responses:
+      "200":
+        description: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros encontrados exitosamente"
+                data:
+                  type: "object"
+                  properties:
+                    products:
+                      type: "array"
+                      items:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          name:
+                            type: "string"
+                            example: "producto ejemplo"
+                          description:
+                            type: "string"
+                            example: "descripción del producto"
+                          unit_measure:
+                            type: "string"
+                            example: "kg"
+                          quantity_xunit:
+                            type: "integer"
+                            example: 1
+                          weight:
+                            type: "number"
+                            format: "decimal"
+                            example: 1.5
+                          location:
+                            type: "string"
+                            example: "almacén principal"
+                          status:
+                            type: "string"
+                            enum: ["active", "inactive"]
+                            example: "active"
+                          cod_type:
+                            type: "integer"
+                            example: 1
+                          cod_class:
+                            type: "integer"
+                            example: 1
+                          cod_pres:
+                            type: "integer"
+                            example: 1
+                      example:
+                        - id: 1
+                          name: "producto ejemplo 1"
+                          description: "descripción del producto 1"
+                          unit_measure: "kg"
+                          quantity_xunit: 1
+                          weight: 1.5
+                          location: "almacén principal"
+                          status: "active"
+                          cod_type: 1
+                          cod_class: 1
+                          cod_pres: 1
+                        - id: 2
+                          name: "producto ejemplo 2"
+                          description: "descripción del producto 2"
+                          unit_measure: "l"
+                          quantity_xunit: 2
+                          weight: 2.5
+                          location: "almacén secundario"
+                          status: "active"
+                          cod_type: 2
+                          cod_class: 2
+                          cod_pres: 2
+      "404":
+        description: "Registros no encontrados"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros no encontrados"
+                data:
+                  type: "object"
+                  properties:
+                    products:
+                      type: "array"
+                      items: {}
+                      example: []
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+
+  post:
+    summary: "Crear un nuevo Producto"
+    tags:
+      - "Productos"
+    description: "Endpoint para crear un nuevo producto"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "Producto nuevo"
+              description:
+                type: "string"
+                example: "Descripción del producto"
+              unit_measure:
+                type: "string"
+                example: "kg"
+              quantity_xunit:
+                type: "integer"
+                example: 1
+              weight:
+                type: "number"
+                format: "decimal"
+                example: 1.5
+              location:
+                type: "string"
+                example: "Almacén principal"
+              cod_type:
+                type: "integer"
+                example: 1
+              cod_class:
+                type: "integer"
+                example: 1
+              cod_pres:
+                type: "integer"
+                example: 1
+    responses:
+      "201":
+        description: "Creación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Creacion exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    product:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "producto nuevo"
+                        description:
+                          type: "string"
+                          example: "descripción del producto"
+                        unit_measure:
+                          type: "string"
+                          example: "kg"
+                        quantity_xunit:
+                          type: "integer"
+                          example: 1
+                        weight:
+                          type: "number"
+                          format: "decimal"
+                          example: 1.5
+                        location:
+                          type: "string"
+                          example: "almacén principal"
+                        status:
+                          type: "string"
+                          example: "active"
+                        cod_type:
+                          type: "integer"
+                          example: 1
+                        cod_class:
+                          type: "integer"
+                          example: 1
+                        cod_pres:
+                          type: "integer"
+                          example: 1
+      "400":
+        description: "Error de validación"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "El nombre del producto es requerido"
+                      path:
+                        type: "string"
+                        example: "name"
+                      location:
+                        type: "string"
+                        example: "body"
+      "500":
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+
+/product/{id}:
+  get:
+    summary: "Obtener un Producto"
+    tags:
+      - "Productos"
+    description: "Endpoint para obtener un producto por su id"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del producto"
+        schema:
+          type: "integer"
+    responses:
+      "200":
+        description: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro encontrado"
+                data:
+                  type: "object"
+                  properties:
+                    product:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "producto ejemplo"
+                        description:
+                          type: "string"
+                          example: "descripción del producto"
+                        unit_measure:
+                          type: "string"
+                          example: "kg"
+                        quantity_xunit:
+                          type: "integer"
+                          example: 1
+                        weight:
+                          type: "number"
+                          format: "decimal"
+                          example: 1.5
+                        location:
+                          type: "string"
+                          example: "almacén principal"
+                        status:
+                          type: "string"
+                          example: "active"
+                        cod_type:
+                          type: "integer"
+                          example: 1
+                        cod_class:
+                          type: "integer"
+                          example: 1
+                        cod_pres:
+                          type: "integer"
+                          example: 1
+      "404":
+        description: "Registro no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro no encontrado"
+                data:
+                  type: "object"
+                  example: {}
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+
+  put:
+    summary: "Actualizar un Producto"
+    tags:
+      - "Productos"
+    description: "Endpoint para actualizar un producto existente"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del producto"
+        schema:
+          type: "integer"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "Producto actualizado"
+              description:
+                type: "string"
+                example: "Nueva descripción"
+              unit_measure:
+                type: "string"
+                example: "kg"
+              quantity_xunit:
+                type: "integer"
+                example: 2
+              weight:
+                type: "number"
+                format: "decimal"
+                example: 2.5
+              location:
+                type: "string"
+                example: "Nueva ubicación"
+              cod_type:
+                type: "integer"
+                example: 1
+              cod_class:
+                type: "integer"
+                example: 1
+              cod_pres:
+                type: "integer"
+                example: 1
+    responses:
+      "201":
+        description: "Actualización exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Actualización exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    product:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "producto actualizado"
+                        description:
+                          type: "string"
+                          example: "nueva descripción"
+                        unit_measure:
+                          type: "string"
+                          example: "kg"
+                        quantity_xunit:
+                          type: "integer"
+                          example: 2
+                        weight:
+                          type: "number"
+                          format: "decimal"
+                          example: 2.5
+                        location:
+                          type: "string"
+                          example: "nueva ubicación"
+                        status:
+                          type: "string"
+                          example: "active"
+                        cod_type:
+                          type: "integer"
+                          example: 1
+                        cod_class:
+                          type: "integer"
+                          example: 1
+                        cod_pres:
+                          type: "integer"
+                          example: 1
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+
+  delete:
+    summary: "Eliminar un Producto"
+    tags:
+      - "Productos"
+    description: "Endpoint para eliminar (desactivar) un producto"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del producto a eliminar"
+        schema:
+          type: "integer"
+    responses:
+      "200":
+        description: "Eliminación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Eliminación exitosa"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador" 

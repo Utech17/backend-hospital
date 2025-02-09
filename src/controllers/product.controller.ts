@@ -38,10 +38,9 @@ export class ProductController {
 
   delete = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await ProductServices.delete(parseInt(id) as number);
+    const { status, message } = await ProductServices.delete(parseInt(id) as number);
     return res.status(status).json({
       message,
-      data,
     });
   };
   
