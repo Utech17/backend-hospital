@@ -95,18 +95,18 @@ const typeServices = {
   },
   delete: async (id: number) => {
     try {
-      await TypeDB.destroy({ where: { cod_type: id } });
+      const deletedAt = new Date();
+      const status = false; // O el valor que corresponda para indicar que está eliminado
+      await TypeDB.update({ deletedAt, status }, { where: { cod_type: id } });
       return {
         message: `Eliminado exitosamente`,
-        status: 204,
-        data: null, // Incluye la propiedad data
+        status: 200,
       };
     } catch (error) {
       console.error(error);
       return {
         message: `Por favor contacte al administrador`,
         status: 500,
-        data: null, // Consistencia en caso de error
       };
     }
   },
