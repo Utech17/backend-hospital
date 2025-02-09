@@ -29,13 +29,19 @@ const PresentationModel = {
   },
   createdAt: {
     type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
   },
   updatedAt: {
     type: DataTypes.DATE,
+    allowNull:  true,
+    defaultValue: null,
   },
   deletedAt: {
     type: DataTypes.DATE,
-  },
+    allowNull: true,
+    defaultValue: null,
+   },
 };
 
 export { PresentationModel };

@@ -24,14 +24,14 @@ const ChargeModel = {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull:  true,
       defaultValue: null,
     },
     deletedAt: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: true,
       defaultValue: null,
-    },
+     },
   };
   
   export { ChargeModel };

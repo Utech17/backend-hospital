@@ -15,6 +15,7 @@ const SaleModel = {
     date: {
         type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: DataTypes.NOW,
     },
     // Monto de la venta
     amount: {
@@ -34,9 +35,13 @@ const SaleModel = {
     },
     updatedAt: {
         type: DataTypes.DATE,
-      },
+        allowNull:  true,
+        defaultValue: null,
+    },
     deletedAt: {
         type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null,
     },
 };
 
