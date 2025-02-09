@@ -7,15 +7,15 @@ const router = Router();
 const storeValidator = new StoreValidator();
 const storeController = new StoreController();
 
-router.get("/", storeController.all);
-router.get("/:id", storeController.one);
+router.get("/", storeController.all); // GET: http://localhost:3900/api/store
+router.get("/:id", storeController.one); // GET: http://localhost:3900/api/store/:id
 router.post(
   "/",
   storeValidator.validateStore,
   storeValidator.validateIfNameIsUse,
   validateFields,
   storeController.create
-);
+);// POST: http://localhost:3900/api/store
 router.put(
   "/:id",
   storeValidator.validateStore,
@@ -23,7 +23,7 @@ router.put(
   storeValidator.validateIfNameIsUse,
   validateFields,
   storeController.update
-);
-router.delete("/:id", storeController.delete); 
+); // PUT: http://localhost:3900/api/store/:id
+router.delete("/:id", storeController.delete); // DELETE: http://localhost:3900/api/store/:id
 
 export default router;
