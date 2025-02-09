@@ -16,7 +16,7 @@ const PayrollModel = {
   startDate: {
     type: DataTypes.DATE,
     allowNull: false,
-    unique: true,
+    
   },
   //fecha_fin 
   endDate: {

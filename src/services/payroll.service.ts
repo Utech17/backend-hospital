@@ -5,23 +5,23 @@ import { PayrollInterface, PayrollDetailInterface } from "../interfaces";
 const PayrollServices = {
   getAll: async () => {
     try {
-      const payrolls = await PayrollDB.findAll({ where: { status: true } });
+      const payrolls = await PayrollDB.findAll();
       if (payrolls.length === 0) {
         return {
-          message: `No records found`,
+          message: `Registros no encontrados`,
           status: 404,
           data: { payrolls },
         };
       }
       return {
-        message: `Records found`,
+        message: `Registros encontrados`,
         status: 200,
         data: { payrolls },
       };
     } catch (error) {
       console.error(error);
       return {
-        message: `Please contact the administrator`,
+        message: `contacte con el administrador`,
         status: 500,
       };
     }
@@ -30,7 +30,7 @@ const PayrollServices = {
   getOne: async (id: number | string) => {
     try {
       const payroll = await PayrollDB.findOne({
-        where: { id, status: true },
+        where: { id },
       });
       if (!payroll) {
         return {
@@ -56,6 +56,7 @@ const PayrollServices = {
   create: async (data: PayrollInterface & { details: PayrollDetailInterface[] }) => {
     const transaction = await db.transaction();
     try {
+      
       const payroll = await PayrollDB.create(
         {
           employee_id: data.employee_id,
@@ -195,7 +196,7 @@ const PayrollServices = {
         { where: { id }, transaction }
       );
 
-      await PayrollDetailDB.destroy({ where: { id_payroll: id }, transaction });
+      await PayrollDetailDB.destroy({ where: { payroll_id: id }, transaction });
 
       await transaction.commit();
       return {
@@ -213,57 +214,6 @@ const PayrollServices = {
     }
   },
 
-  findByName: async (name: string) => {
-    try {
-      const payroll = await PayrollDB.findOne({ where: { name } });
-      if (!payroll) {
-        console.log("Record not found");
-        return {
-          message: `Record not found`,
-          status: 404,
-          data: {},
-        };
-      }
-      return {
-        message: `Record found`,
-        status: 200,
-        data: { payroll },
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        message: `Please contact the administrator`,
-        status: 500,
-      };
-    }
-  },
-
-  reportToExcel: async () => {
-    try {
-      const payrolls = await PayrollDB.findAll();
-      const report = payrolls.map((payroll: any) => payroll.dataValues);
-      const mappedReport = report.map((record: any) => [
-        record.id,
-        record.name,
-      ]);
-      const { status, message, data } = await exportExcelAtoA(
-        ["ID", "Name"],
-        mappedReport,
-        "PayrollReport"
-      );
-      return {
-        message,
-        status,
-        data,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        message: `Please contact the administrator`,
-        status: 500,
-      };
-    }
-  },
-};
+}
 
 export { PayrollServices };

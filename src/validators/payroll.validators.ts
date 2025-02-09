@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { body } from "express-validator";
 import { PayrollServices } from "../services";
+import path from "path";
+import { EmployeeDB, PayrollDB } from "../config";
 
 class PayrollValidator {
   public validatePayroll = [
@@ -9,30 +11,30 @@ class PayrollValidator {
       .withMessage("Employee ID is required")
       .isNumeric()
       .withMessage("Employee ID must be a number"),
-    body("start_date")
+    body("startDate")
       .notEmpty()
       .withMessage("Start date is required")
       .isISO8601()
       .withMessage("Start date must be a valid date"),
-    body("end_date")
+    body("endDate")
       .notEmpty()
       .withMessage("End date is required")
       .isISO8601()
       .withMessage("End date must be a valid date"),
-    body("gross_salary")
+    body("grossSalary")
       .notEmpty()
       .withMessage("Gross salary is required")
-      .isFloat({ min: 0 })
+      .isDecimal()
       .withMessage("Gross salary must be a positive number"),
     body("deductions")
       .notEmpty()
       .withMessage("Deductions are required")
-      .isFloat({ min: 0 })
+      .isDecimal()
       .withMessage("Deductions must be a positive number"),
-    body("net_salary")
+    body("netSalary")
       .notEmpty()
       .withMessage("Net salary is required")
-      .isFloat({ min: 0 })
+      .isDecimal()
       .withMessage("Net salary must be a positive number"),
     
 ];
@@ -60,30 +62,7 @@ class PayrollValidator {
       });
     }
     next();
-  };
-  
-  public validateIfNameIsUsed = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    const { name } = req.body;
-    const payrollExists = await PayrollServices.findByName(name); 
-    if (payrollExists) {
-      return res.status(400).json({
-        errors: [
-          {
-            type: "field",
-            msg: `The payroll with name ${name} already exists`,
-            path: "name",
-            location: "body",
-          },
-        ],
-      });
-    }
-    next();
-  };
-
+  };  
   public validateIfIdExists = async (
     req: Request,
     res: Response,
@@ -103,6 +82,210 @@ class PayrollValidator {
         ],
       });
     }
+    next();
+  };
+  public validateCreate = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { employee_id, startDate, endDate, grossSalary, deductions, netSalary } = req.body;
+  
+    // Verificar que todos los campos estén presentes
+    if (!employee_id || !startDate || !endDate || !grossSalary || !deductions || !netSalary) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "All fields are required",
+            path: "fields",
+            location: "body",
+          },
+        ],
+      });
+    }
+  
+    // Verificar si el employee_id existe en la tabla employees
+    const employee = await EmployeeDB.findByPk(employee_id);
+    if (!employee) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: `Employee with id ${employee_id} does not exist. Please create the employee first.`,
+            path: "employee_id",
+            location: "body",
+          },
+        ],
+      });
+    }
+  
+    // Verificar que las fechas sean válidas
+    if (isNaN(Date.parse(startDate)) || isNaN(Date.parse(endDate))) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "startDate and endDate must be valid dates",
+            path: "dates",
+            location: "body",
+          },
+        ],
+      });
+    }
+  
+    // Verificar que los salarios sean números decimales
+    if (isNaN(parseFloat(grossSalary)) || isNaN(parseFloat(deductions)) || isNaN(parseFloat(netSalary))) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "grossSalary, deductions, and netSalary must be decimal numbers",
+            path: "salary_fields",
+            location: "body",
+          },
+        ],
+      });
+    }
+  
+    // Validar que las fechas tengan sentido lógico
+    if (new Date(startDate) >= new Date(endDate)) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "startDate must be earlier than endDate",
+            path: "startDate",
+            location: "body",
+          },
+        ],
+      });
+    }
+  
+    // Validar que netSalary sea consistente con grossSalary y deductions
+    if (parseFloat(grossSalary) - parseFloat(deductions) !== parseFloat(netSalary)) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "netSalary must be equal to grossSalary minus deductions",
+            path: "netSalary",
+            location: "body",
+          },
+        ],
+      });
+    }
+  
+    next();
+  };
+  public validateUpdate = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { id } = req.params;
+    const { employee_id, startDate, endDate, grossSalary, deductions, netSalary } = req.body;
+
+    // Verificar que el registro de nómina exista
+    const payroll = await PayrollDB.findByPk(id);
+    if (!payroll) {
+      return res.status(404).json({
+        errors: [
+          {
+            type: "field",
+            msg: `Payroll record with id ${id} does not exist`,
+            path: "id",
+            location: "params",
+          },
+        ],
+      });
+    }
+
+    // Verificar que todos los campos estén presentes
+    if (!employee_id || !startDate || !endDate || !grossSalary || !deductions || !netSalary) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "All fields are required",
+            path: "fields",
+            location: "body",
+          },
+        ],
+      });
+    }
+
+    // Verificar si el employee_id existe en la tabla employees
+    const employee = await EmployeeDB.findByPk(employee_id);
+    if (!employee) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: `Employee with id ${employee_id} does not exist. Please create the employee first.`,
+            path: "employee_id",
+            location: "body",
+          },
+        ],
+      });
+    }
+
+    // Verificar que las fechas sean válidas
+    if (isNaN(Date.parse(startDate)) || isNaN(Date.parse(endDate))) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "startDate and endDate must be valid dates",
+            path: "dates",
+            location: "body",
+          },
+        ],
+      });
+    }
+
+    // Verificar que los salarios sean números decimales
+    if (isNaN(parseFloat(grossSalary)) || isNaN(parseFloat(deductions)) || isNaN(parseFloat(netSalary))) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "grossSalary, deductions, and netSalary must be decimal numbers",
+            path: "salary_fields",
+            location: "body",
+          },
+        ],
+      });
+    }
+
+    // Validar que las fechas tengan sentido lógico
+    if (new Date(startDate) >= new Date(endDate)) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "startDate must be earlier than endDate",
+            path: "startDate",
+            location: "body",
+          },
+        ],
+      });
+    }
+
+    // Validar que netSalary sea consistente con grossSalary y deductions
+    if (parseFloat(grossSalary) - parseFloat(deductions) !== parseFloat(netSalary)) {
+      return res.status(400).json({
+        errors: [
+          {
+            type: "field",
+            msg: "netSalary must be equal to grossSalary minus deductions",
+            path: "netSalary",
+            location: "body",
+          },
+        ],
+      });
+    }
+
     next();
   };
 }
