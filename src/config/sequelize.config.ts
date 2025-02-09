@@ -57,7 +57,7 @@ const dbPort: number = Number(process.env.DATABASE_PORT);
 const sequelizeOptions: any = {
   dialect: dbDialect,
   host: dbHost,
-  logging: console.log, // Habilita el registro de consultas SQL y mensajes de depuración
+  logging: false, // Habilita el registro de consultas SQL y mensajes de depuración
   dialectOptions: {
     connectTimeout: 60000, // Aumenta el tiempo de espera de la conexión a 60 segundos
   },

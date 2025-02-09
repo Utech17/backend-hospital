@@ -19,12 +19,14 @@ const TypeModel = {
   },
   createdAt: {
     type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
   },
   updatedAt: {
     type: DataTypes.DATE,
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true,
   },
 };
 
