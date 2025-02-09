@@ -57,9 +57,9 @@ const dbPort: number = Number(process.env.DATABASE_PORT);
 const sequelizeOptions: any = {
   dialect: dbDialect,
   host: dbHost,
-  logging: false, // Habilita el registro de consultas SQL y mensajes de depuración
+  logging: false,
   dialectOptions: {
-    connectTimeout: 60000, // Aumenta el tiempo de espera de la conexión a 60 segundos
+    connectTimeout: 60000,
   },
   pool: {
     max: 5,
@@ -76,10 +76,6 @@ if (dbHost !== 'localhost') {
 
 // Instanciamos el objeto Sequelize
 const db = new Sequelize(dbName, dbUser, dbPassword, sequelizeOptions);
-
-const Options = {
-  timestamps: false, // Deshabilitar createdAt y updatedAt
-};
 
 const Options = {
   timestamps: false, // Deshabilitar createdAt y updatedAt

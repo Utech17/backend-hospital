@@ -23,22 +23,22 @@ export class BuyController {
 
     create = async (req: Request, res: Response) => {
         const { purchaseDetails, ...buyData } = req.body;
-        const { status, message, data } = await BuyServices.create(buyData, purchaseDetails);
-        return res.status(status).json({
-            message,
-            data,
-        });
-    };
-
-    update = async (req: Request, res: Response) => {
-        const { id } = req.params;
-        const { purchaseDetails, ...buyData } = req.body;
-        const { status, message, data } = await BuyServices.update(buyData, Number(id), purchaseDetails);
+        const { status, message, data } = await BuyServices.create(buyData);
         return res.status(status).json({
           message,
           data,
         });
-      };
+    };
+    
+    update = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const { purchaseDetails, ...buyData } = req.body;
+        const { status, message, data } = await BuyServices.update(buyData, Number(id));
+        return res.status(status).json({
+          message,
+          data,
+        });
+    };
 
     delete = async (req: Request, res: Response) => {
         const { id } = req.params;

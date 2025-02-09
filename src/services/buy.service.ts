@@ -111,13 +111,7 @@ const BuyServices = {
 
     delete: async (id: number | string) => {
         try {
-            await BuyDB.update(
-                {
-                    status: false,
-                },
-                { where: { id } }
-            );
-
+            await BuyDB.update({status: false,},{ where: { id } });
             return {
                 message: `Successful removal`,
                 status: 204,
