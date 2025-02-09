@@ -1,0 +1,319 @@
+paths:
+  /Action:
+    get:
+      summary: "Obtener Acciones"
+      tags:
+        - "Actions"
+      description: "Endpoint para obtener la lista de acciones disponibles."
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Registros encontrados"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Records found"
+                  data:
+                    type: "object"
+                    properties:
+                      actions:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              example: 1
+                            name_actions:
+                              type: "string"
+                              example: "Consulta médica"
+                            description:
+                              type: "string"
+                              example: "Evaluación general del estado de salud del paciente."
+                            createdAt:
+                              type: "string"
+                              format: "date-time"
+                              example: "2025-02-08T03:15:25.000Z"
+                            updatedAt:
+                              type: "string"
+                              format: "date-time"
+                              example: "2025-02-08T03:15:25.000Z"
+        "404":
+          description: "Registros no encontrados"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Records not found"
+                  status:
+                    type: "integer"
+                    example: 404
+                  data:
+                    type: "object"
+                    properties:
+                      actions:
+                        type: "array"
+                        items:
+                          type: "object"
+        "500":
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Contact the administrator: error"
+    post:
+      summary: "Crear Acción"
+      tags:
+        - "Actions"
+      description: "Endpoint para crear una nueva acción."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                name_actions:
+                  type: "string"
+                  example: "Consulta médica"
+                description:
+                  type: "string"
+                  example: "Evaluación general del estado de salud del paciente."
+      responses:
+        "201":
+          description: "Creación exitosa"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Successful creation"
+                  status:
+                    type: "integer"
+                    example: 201
+                  data:
+                    type: "object"
+                    properties:
+                      action:
+                        type: "object"
+        "500":
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Contact the administrator: error"
+                  status:
+                    type: "integer"
+                    example: 500
+        "400":
+          description: "Error de validación"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  errors:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        type:
+                          type: "string"
+                          example: "field"
+                        msg:
+                          type: "string"
+                          example: "Name in use : Consulta médica, for the new action"
+                        path:
+                          type: "string"
+                          example: "name"
+                        location:
+                          type: "string"
+                          example: "body"
+  /Action/{id}:
+    get:
+      summary: "Obtener Acción por ID"
+      tags:
+        - "Actions"
+      description: "Endpoint para obtener una acción específica por su ID."
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "ID de la acción a obtener"
+          schema:
+            type: "integer"
+      responses:
+        "200":
+          description: "Registro encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Record found"
+                  status:
+                    type: "integer"
+                    example: 200
+                  data:
+                    type: "object"
+                    properties:
+                      action:
+                        type: "object"
+        "404":
+          description: "Registro no encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Record not found"
+                  status:
+                    type: "integer"
+                    example: 404
+                  data:
+                    type: "object"
+                    properties: {}
+        "500":
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Contact the administrator: error"
+                  status:
+                    type: "integer"
+                    example: 500
+    put:
+      summary: "Actualizar Acción"
+      tags:
+        - "Actions"
+      description: "Endpoint para actualizar una acción existente."
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "ID de la acción a actualizar"
+          schema:
+            type: "integer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                name_actions:
+                  type: "string"
+                  example: "Consulta médica actualizada"
+                description:
+                  type: "string"
+                  example: "Nueva descripción de la acción."
+      responses:
+        "200":
+          description: "Actualización exitosa"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Successful upgrade"
+                  status:
+                    type: "integer"
+                    example: 200
+                  data:
+                    type: "object"
+                    properties:
+                      action:
+                        type: "object"
+        "500":
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Contact the administrator: error"
+                  status:
+                    type: "integer"
+                    example: 500
+        "400":
+          description: "Error de validación"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  errors:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        type:
+                          type: "string"
+                          example: "field"
+                        msg:
+                          type: "string"
+                          example: "Name in use : Consulta médica, for the new action"
+                        path:
+                          type: "string"
+                          example: "name"
+                        location:
+                          type: "string"
+                          example: "body"
+    delete:
+      summary: "Eliminar Acción"
+      tags:
+        - "Actions"
+      description: "Endpoint para eliminar una acción estableciendo su estado en inactivo."
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "ID de la acción a eliminar"
+          schema:
+            type: "integer"
+      responses:
+        "204":
+          description: "Eliminación exitosa"
+        "500":
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Contact the administrator: error"
+                  status:
+                    type: "integer"
+                    example: 500
