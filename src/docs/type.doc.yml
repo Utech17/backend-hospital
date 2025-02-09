@@ -1,0 +1,413 @@
+/type:
+  get:
+    summary: Obtener todos los tipos
+    tags:
+      - type
+    description: Endpoint para obtener la lista de tipos
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registros encontrados exitosamente
+                data:
+                  type: object
+                  properties:
+                    types:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          cod_type:
+                            type: integer
+                            example: 1
+                          description_type:
+                            type: string
+                            example: "Medicamentos"
+                          status:
+                            type: boolean
+                            example: true
+                          createdAt:
+                            type: string
+                            format: date-time
+                            example: "2024-01-01T00:00:00Z"
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            example: "2024-01-01T00:00:00Z"
+                          deletedAt:
+                            type: string
+                            format: date-time
+                            example: null
+      '404':
+        description: Registros no encontrados
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: No se encontraron registros
+                data:
+                  type: array
+                  items: {}
+                  example: []
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor contacte al administrador
+  post:
+    summary: Crear un nuevo tipo
+    tags:
+      - type
+    description: Endpoint para crear un nuevo tipo
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description_type:
+                type: string
+                example: "Medicamentos"
+              status:
+                type: boolean
+                example: true
+    responses:
+      '201':
+        description: Creación exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Creado exitosamente
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: object
+                      properties:
+                        cod_type:
+                          type: integer
+                          example: 1
+                        description_type:
+                          type: string
+                          example: "Medicamentos"
+                        status:
+                          type: boolean
+                          example: true
+                        createdAt:
+                          type: string
+                          format: date-time
+                          example: "2024-01-01T00:00:00Z"
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          example: "2024-01-01T00:00:00Z"
+                        deletedAt:
+                          type: string
+                          format: date-time
+                          example: null
+      '400':
+        description: Error en la solicitud
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "Description is required"
+                      path:
+                        type: string
+                        example: "description_type"
+                      location:
+                        type: string
+                        example: "body"
+      '500':
+        description: Error del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor contacte al administrador
+
+/type/{id}:
+  get:
+    summary: Obtener un tipo
+    tags:
+      - type
+    description: Endpoint para obtener un tipo por su id
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Id del tipo
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registro encontrado
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: object
+                      properties:
+                        cod_type:
+                          type: integer
+                          example: 1
+                        description_type:
+                          type: string
+                          example: "Medicamentos"
+                        status:
+                          type: boolean
+                          example: true
+                        createdAt:
+                          type: string
+                          format: date-time
+                          example: "2024-01-01T00:00:00Z"
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          example: "2024-01-01T00:00:00Z"
+                        deletedAt:
+                          type: string
+                          format: date-time
+                          example: null
+      '404':
+        description: Registro no encontrado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registro no encontrado
+                data:
+                  type: object
+                  properties: {}
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor contacte al administrador
+  put:
+    summary: Actualizar un tipo
+    tags:
+      - type
+    description: Endpoint para actualizar un tipo por su id
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Id del tipo
+        schema:
+          type: integer
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description_type:
+                type: string
+                example: "Medicamentos"
+              status:
+                type: boolean
+                example: true
+    responses:
+      '200':
+        description: Actualización exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Actualización exitosa
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: object
+                      properties:
+                        cod_type:
+                          type: integer
+                          example: 1
+                        description_type:
+                          type: string
+                          example: "Medicamentos"
+                        status:
+                          type: boolean
+                          example: true
+                        createdAt:
+                          type: string
+                          format: date-time
+                          example: "2024-01-01T00:00:00Z"
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          example: "2024-01-01T00:00:00Z"
+                        deletedAt:
+                          type: string
+                          format: date-time
+                          example: null
+      '400':
+        description: Error en la solicitud
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "Description is required"
+                      path:
+                        type: string
+                        example: "description_type"
+                      location:
+                        type: string
+                        example: "body"
+      '404':
+        description: Registro no encontrado para actualizar
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: string
+                        example: "id"
+                      location:
+                        type: string
+                        example: "param"
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor contacte al administrador
+  delete:
+    summary: Eliminar un tipo
+    tags:
+      - type
+    description: Endpoint para eliminar un tipo
+    parameters:
+      - name: id
+        in: path
+        description: ID del tipo a eliminar
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Tipo eliminado exitosamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Eliminado exitosamente
+      '404':
+        description: Registro no encontrado para eliminar
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: string
+                        example: "id"
+                      location:
+                        type: string
+                        example: "param"
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor contacte al administrador

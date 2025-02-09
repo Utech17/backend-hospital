@@ -96,11 +96,11 @@ const typeServices = {
   delete: async (id: number) => {
     try {
       const deletedAt = new Date();
-      await TypeDB.update({ deletedAt }, { where: { cod_type: id } });
+      const status = false; // O el valor que corresponda para indicar que está eliminado
+      await TypeDB.update({ deletedAt, status }, { where: { cod_type: id } });
       return {
         message: `Eliminado exitosamente`,
         status: 200,
-        data: null,
       };
     } catch (error) {
       console.error(error);
