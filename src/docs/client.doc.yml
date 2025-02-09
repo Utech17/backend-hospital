@@ -1,0 +1,415 @@
+/client:
+  get:
+    summary: "Obtener Clientes"
+    tags:
+      - "Clientes"
+    description: "Endpoint para obtener la lista de clientes"
+    produces:
+      - "application/json"
+    responses:
+      "200":
+        description: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros encontrados exitosamente"
+                data:
+                  type: "object"
+                  properties:
+                    clients:
+                      type: "array"
+                      items:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          name:
+                            type: "string"
+                            example: "Juan"
+                          last_name:
+                            type: "string"
+                            example: "Pérez"
+                          email:
+                            type: "string"
+                            example: "juan.perez@example.com"
+                          phone_number:
+                            type: "string"
+                            example: "1234567890"
+                          createdAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T04:06:15.000Z"
+                          updatedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2025-02-04T04:06:15.000Z"
+                          deletedAt:
+                            type: "string"
+                            format: "null"
+                            example: null
+      "404":
+        description: "Registros no encontrados"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros no encontrados"
+                data:
+                  type: "object"
+                  properties:
+                    clients:
+                      type: "array"
+                      items: {}
+                      example: []
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  post:
+    summary: "Crear un nuevo Cliente"
+    tags:
+      - "Clientes"
+    description: "Endpoint para crear un nuevo cliente"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "Juan"
+              last_name:
+                type: "string"
+                example: "Pérez"
+              email:
+                type: "string"
+                example: "juan.perez@example.com"
+              phone_number:
+                type: "string"
+                example: "1234567890"
+    responses:
+      201:
+        description: "Creación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Creacion exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    client:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "Juan"
+                        last_name:
+                          type: "string"
+                          example: "Pérez"
+                        email:
+                          type: "string"
+                          example: "juan.perez@example.com"
+                        phone_number:
+                          type: "string"
+                          example: "1234567890"
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-04T04:06:15.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-04T04:06:15.000Z"
+      400:
+        description: "Error en la solicitud"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "Name is required"
+                      path:
+                        type: "string"
+                        example: "name"
+                      location:
+                        type: "string"
+                        example: "body"
+      500:
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+/client/{id}:
+  get:
+    summary: "Obtener un Cliente por ID"
+    tags:
+      - "Clientes"
+    description: "Endpoint para obtener un cliente por ID"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: "integer"
+          example: 1
+    responses:
+      200:
+        description: "Cliente encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Cliente encontrado"
+                data:
+                  type: "object"
+                  properties:
+                    client:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "Juan"
+                        last_name:
+                          type: "string"
+                          example: "Pérez"
+                        email:
+                          type: "string"
+                          example: "juan.perez@example.com"
+                        phone_number:
+                          type: "string"
+                          example: "1234567890"
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-04T04:06:15.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-04T04:06:15.000Z"
+      404:
+        description: "Cliente no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Cliente no encontrado"
+      500:
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  put:
+    summary: "Actualizar un Cliente"
+    tags:
+      - "Clientes"
+    description: "Endpoint para actualizar un cliente"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: "integer"
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "Juan"
+              last_name:
+                type: "string"
+                example: "Pérez"
+              email:
+                type: "string"
+                example: "juan.perez@example.com"
+              phone_number:
+                type: "string"
+                example: "1234567890"
+    responses:
+      201:
+        description: "Cliente actualizado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Cliente actualizado"
+                data:
+                  type: "object"
+                  properties:
+                    client:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "Juan"
+                        last_name:
+                          type: "string"
+                          example: "Pérez"
+                        email:
+                          type: "string"
+                          example: "juan.perez@example.com"
+                        phone_number:
+                          type: "string"
+                          example: "1234567890"
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-04T04:06:15.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-04T04:06:15.000Z"
+      404:
+        description: "Cliente no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Cliente no encontrado"
+      500:
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  delete:
+    summary: "Eliminar un Cliente"
+    tags:
+      - "Clientes"
+    description: "Endpoint para eliminar un cliente"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: "integer"
+          example: 1
+    responses:
+      204:
+        description: "Eliminación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Eliminación exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    client:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "Juan"
+                        last_name:
+                          type: "string"
+                          example: "Pérez"
+                        email:
+                          type: "string"
+                          example: "juan.perez@example.com"
+                        phone_number:
+                          type: "string"
+                          example: "1234567890"
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-04T04:06:15.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-04T04:06:15.000Z"
+      404:
+        description: "Registro no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro no encontrado"
+      500:
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
