@@ -40,10 +40,9 @@ export class TypeController {
 
   delete = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await typeServices.delete(parseInt(id) as number);
+    const { status, message} = await typeServices.delete(parseInt(id) as number);
     return res.status(status).json({
       message,
-      data,
     });
   };
 }

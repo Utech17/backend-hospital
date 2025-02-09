@@ -14,8 +14,8 @@ const TypeModel = {
   },
   // estado
   status: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -27,6 +27,7 @@ const TypeModel = {
   deletedAt: {
     type: DataTypes.DATE,
     allowNull: true,
+    defaultValue: null,
   },
 };
 
