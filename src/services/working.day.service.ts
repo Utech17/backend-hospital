@@ -109,7 +109,7 @@ const WorkingDayServices = {
       }
       return {
         message: `Eliminado exitosamente`,
-        status: 204,
+        status: 200,
         data: null,
       };
     } catch (error) {
