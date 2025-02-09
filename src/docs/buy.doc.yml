@@ -1,0 +1,470 @@
+/buys:
+  get:
+    summary: "Obtener Compras"
+    tags:
+      - "Buys"
+    description: "Endpoint para obtener la lista de compras"
+    produces:
+      - "application/json"
+    responses:
+      "200":
+        description: "Registros encontrados"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros encontrados"
+                data:
+                  type: "object"
+                  properties:
+                    buys:
+                      type: "array"
+                      items:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          invoice_number:
+                            type: "integer"
+                            example: 1001
+                          date:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-12-13T00:00:00Z"
+                          amount:
+                            type: "number"
+                            format: "float"
+                            example: 100.00
+                          supplier_id:
+                            type: "integer"
+                            example: 1
+                          status:
+                            type: "boolean"
+                            example: true
+                          updatedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-12-13T00:00:00Z"
+                          deletedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: null
+      "400":
+        description: "Solicitud incorrecta"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Solicitud incorrecta"
+      "404":
+        description: "Registros no encontrados"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "No se encontraron registros"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"
+  post:
+    summary: "Crear Compra"
+    tags:
+      - "Buys"
+    description: "Endpoint para crear una nueva compra"
+    produces:
+      - "application/json"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              invoice_number:
+                type: "integer"
+                example: 1001
+              date:
+                type: "string"
+                format: "date-time"
+                example: "2024-12-13T00:00:00Z"
+              amount:
+                type: "number"
+                format: "float"
+                example: 100.00
+              supplier_id:
+                type: "integer"
+                example: 1
+              status:
+                type: "boolean"
+                example: true
+              products:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    product_id:
+                      type: "integer"
+                      example: 1
+                    quantity:
+                      type: "integer"
+                      example: 2
+                    buy_price:
+                      type: "number"
+                      format: "float"
+                      example: 250.38
+    responses:
+      "201":
+        description: "Creación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Creación exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    buy:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        invoice_number:
+                          type: "integer"
+                          example: 1001
+                        date:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T00:00:00Z"
+                        amount:
+                          type: "number"
+                          format: "float"
+                          example: 100.00
+                        supplier_id:
+                          type: "integer"
+                          example: 1
+                        status:
+                          type: "boolean"
+                          example: true
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T00:00:00Z"
+                        deletedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: null
+      "400":
+        description: "Solicitud incorrecta"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Solicitud incorrecta"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"
+
+/buys/{id}:
+  get:
+    summary: "Obtener Compra por ID"
+    tags:
+      - "Buys"
+    description: "Endpoint para obtener una compra por ID"
+    produces:
+      - "application/json"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: "integer"
+    responses:
+      "200":
+        description: "Registro encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro encontrado"
+                data:
+                  type: "object"
+                  properties:
+                    buy:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        invoice_number:
+                          type: "integer"
+                          example: 1001
+                        date:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T00:00:00Z"
+                        amount:
+                          type: "number"
+                          format: "float"
+                          example: 100.00
+                        supplier_id:
+                          type: "integer"
+                          example: 1
+                        status:
+                          type: "boolean"
+                          example: true
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T00:00:00Z"
+                        deletedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: null
+      "400":
+        description: "Solicitud incorrecta"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Solicitud incorrecta"
+      "404":
+        description: "Registro no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro no encontrado"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"
+  put:
+    summary: "Actualizar Compra por ID"
+    tags:
+      - "Buys"
+    description: "Endpoint para actualizar una compra por ID"
+    produces:
+      - "application/json"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: "integer"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              invoice_number:
+                type: "integer"
+                example: 1001
+              date:
+                type: "string"
+                format: "date-time"
+                example: "2024-12-13T00:00:00Z"
+              amount:
+                type: "number"
+                format: "float"
+                example: 100.00
+              supplier_id:
+                type: "integer"
+                example: 1
+              status:
+                type: "boolean"
+                example: true
+              products:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    product_id:
+                      type: "integer"
+                      example: 1
+                    quantity:
+                      type: "integer"
+                      example: 2
+                    buy_price:
+                      type: "number"
+                      format: "float"
+                      example: 250.38
+    responses:
+      "200":
+        description: "Actualización exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Actualización exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    buy:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        invoice_number:
+                          type: "integer"
+                          example: 1001
+                        date:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T00:00:00Z"
+                        amount:
+                          type: "number"
+                          format: "float"
+                          example: 100.00
+                        supplier_id:
+                          type: "integer"
+                          example: 1
+                        status:
+                          type: "boolean"
+                          example: true
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T00:00:00Z"
+                        deletedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: null
+      "400":
+        description: "Solicitud incorrecta"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Solicitud incorrecta"
+      "404":
+        description: "Registro no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro no encontrado"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"
+  delete:
+    summary: "Eliminar Compra por ID"
+    tags:
+      - "Buys"
+    description: "Endpoint para eliminar una compra por ID"
+    produces:
+      - "application/json"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: "integer"
+    responses:
+      "204":
+        description: "Eliminación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Eliminación exitosa"
+                data:
+                  type: "object"
+                  properties: {}
+      "400":
+        description: "Solicitud incorrecta"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Solicitud incorrecta"
+      "404":
+        description: "Registro no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro no encontrado"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"
