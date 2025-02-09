@@ -97,11 +97,16 @@ const EmployeeServices = {
 
   delete: async (id: number) => {
     try {
-      await EmployeeDB.destroy({ where: { id } });
+      await EmployeeDB.update(
+        {
+          status: "inactive",
+        },
+        { where: { id } }
+      );
       return {
-        message: `Employee deleted successfully`,
-        status: 204,
-        data: {},
+        message: `Eliminación exitosa`,
+        status: 200,
+        data: {}
       };
     } catch (error) {
       console.error(error);
