@@ -36,7 +36,6 @@ class PayrollValidator {
       .withMessage("Net salary is required")
       .isDecimal()
       .withMessage("Net salary must be a positive number"),
-    
 ];
 
   // Middleware para validar la existencia de un registro de nómina por ID

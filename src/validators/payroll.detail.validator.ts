@@ -5,18 +5,16 @@ import { payrollDetailServices, EmployeeServices } from "../services";
 class PayrollDetailValidator {
   // Validador para la creación de un detalle de nómina
   public validatePayrollDetail = [
-    body("employee_id").notEmpty().withMessage("Employee ID is required"),
-    body("employee_id").isNumeric().withMessage("Employee ID must be numeric"),
-    body("payroll_date")
-      .notEmpty()
-      .withMessage("Payroll date is required"),
-    body("payroll_date")
-      .isISO8601()
-      .withMessage("Payroll date must be a valid date"),
-    body("amount")
-      .notEmpty()
-      .withMessage("Amount is required")
-      .withMessage("Amount must be a positive number"),
+    body("details.*.concept_id")
+    .notEmpty()
+    .withMessage("Concept ID is required")
+    .isNumeric()
+    .withMessage("Concept ID must be a number"),
+    body("details.*.amount")
+    .notEmpty()
+    .withMessage("Amount is required")
+    .isDecimal()
+    .withMessage("Amount must be a positive number"),
   ];
 
   // Validador para la actualización de la cantidad

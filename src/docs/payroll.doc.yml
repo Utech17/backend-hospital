@@ -48,139 +48,53 @@
                           netSalary:
                             type: string
                             example: "1200.00"
-                          createdAt:
-                            type: string
-                            format: date-time
-                            example: 2025-02-03T17:41:27.000Z
-                          updatedAt:
-                            type: string
-                            format: date-time
-                            example: 2025-02-03T17:41:27.000Z
-      '400':
-        description: Error en la solicitud
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Error en la solicitud
-                errors:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      field:
-                        type: string
-                        example: "employee_id"
-                      message:
-                        type: string
-                        example: "El campo employee_id es requerido"
-      '500':
-        description: Error interno del servidor
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Por favor contacte al administrador
-
-/payroll/{id}:
-  get:
-    summary: Obtener una nómina
+                          status:
+                            type: boolean
+                            example: true
+                          payroll_details:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 1
+                                concept_id:
+                                  type: integer
+                                  example: 1
+                                payroll_id:
+                                  type: integer
+                                  example: 1
+                                amount:
+                                  type: string
+                                  example: "100.00"
+                                concept:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                      example: 1
+                                    name:
+                                      type: string
+                                      example: "Sueldo Base"
+                                    concept_type:
+                                      type: string
+                                      example: "type1"
+                                    formula:
+                                      type: string
+                                      example: "1.00"
+                                    description:
+                                      type: string
+                                      example: "Compensación fija mensual o quincenal por el trabajo realizado."
+  post:
+    summary: Crear una nueva nómina
     tags:
       - payroll
-    description: Endpoint para obtener una nómina por su id
-    parameters:
-      - in: path
-        name: id
-        required: true
-        description: Id de la nómina
-        schema:
-          type: integer
-    responses:
-      '200':
-        description: Respuesta exitosa
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Registro encontrado
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 1
-                    employee_id:
-                      type: integer
-                      example: 1
-                    startDate:
-                      type: string
-                      format: date-time
-                      example: 2024-01-01T00:00:00.000Z
-                    endDate:
-                      type: string
-                      format: date-time
-                      example: 2024-01-15T00:00:00.000Z
-                    grossSalary:
-                      type: string
-                      example: "1500.00"
-                    deductions:
-                      type: string
-                      example: "300.00"
-                    netSalary:
-                      type: string
-                      example: "1200.00"
-                    createdAt:
-                      type: string
-                      format: date-time
-                      example: 2025-02-03T17:41:27.000Z
-                    updatedAt:
-                      type: string
-                      format: date-time
-                      example: 2025-02-03T17:41:27.000Z
-      '404':
-        description: Registro no encontrado
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Registro no encontrado
-                data:
-                  type: object
-                  properties: {}
-      '500':
-        description: Error interno del servidor
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Por favor contacte al administrador
-  put:
-    summary: Actualizar una nómina
-    tags:
-      - payroll
-    description: Endpoint para actualizar una nómina por su id
-    parameters:
-      - in: path
-        name: id
-        required: true
-        description: Id de la nómina
-        schema:
-          type: integer
+    description: Endpoint para crear una nueva nómina
+    consumes:
+      - application/json
+    produces:
+      - application/json
     requestBody:
       required: true
       content:
@@ -208,9 +122,20 @@
               netSalary:
                 type: string
                 example: "1200.00"
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    concept_id:
+                      type: integer
+                      example: 1
+                    amount:
+                      type: string
+                      example: "100.00"
     responses:
-      '200':
-        description: Actualización exitosa
+      '201':
+        description: Nómina creada exitosamente
         content:
           application/json:
             schema:
@@ -218,7 +143,7 @@
               properties:
                 message:
                   type: string
-                  example: Actualización exitosa
+                  example: Nómina creada exitosamente con detalles y conceptos
                 data:
                   type: object
                   properties:
@@ -245,73 +170,101 @@
                     netSalary:
                       type: string
                       example: "1200.00"
-                    createdAt:
-                      type: string
-                      format: date-time
-                      example: 2025-02-03T17:41:27.000Z
-                    updatedAt:
-                      type: string
-                      format: date-time
-                      example: 2025-02-03T17:41:27.000Z
-      '400':
-        description: Error en la solicitud
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Error en la solicitud
-                errors:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      field:
-                        type: string
-                        example: "employee_id"
-                      message:
-                        type: string
-                        example: "El campo employee_id es requerido"
-      '404':
-        description: Registro no encontrado para actualizar
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Registro no encontrado
-                data:
-                  type: object
-                  properties: {}
-      '500':
-        description: Error interno del servidor
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Por favor contacte al administrador
-  delete:
-    summary: Eliminar una nómina
+                    status:
+                      type: boolean
+                      example: true
+                    payroll_details:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          concept_id:
+                            type: integer
+                            example: 1
+                          payroll_id:
+                            type: integer
+                            example: 1
+                          amount:
+                            type: string
+                            example: "100.00"
+                          concept:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              name:
+                                type: string
+                                example: "Sueldo Base"
+                              concept_type:
+                                type: string
+                                example: "type1"
+                              formula:
+                                type: string
+                                example: "1.00"
+                              description:
+                                type: string
+                                example: "Compensación fija mensual o quincenal por el trabajo realizado."
+  put:
+    summary: Actualizar una nómina existente
     tags:
       - payroll
-    description: Endpoint para eliminar una nómina por su id
+    description: Endpoint para actualizar una nómina existente
+    consumes:
+      - application/json
+    produces:
+      - application/json
     parameters:
       - in: path
         name: id
         required: true
-        description: Id de la nómina
         schema:
           type: integer
+        description: ID de la nómina a actualizar
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              employee_id:
+                type: integer
+                example: 1
+              startDate:
+                type: string
+                format: date-time
+                example: 2024-01-01T00:00:00.000Z
+              endDate:
+                type: string
+                format: date-time
+                example: 2024-01-15T00:00:00.000Z
+              grossSalary:
+                type: string
+                example: "1500.00"
+              deductions:
+                type: string
+                example: "300.00"
+              netSalary:
+                type: string
+                example: "1200.00"
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    concept_id:
+                      type: integer
+                      example: 1
+                    amount:
+                      type: string
+                      example: "100.00"
     responses:
       '200':
-        description: Nómina eliminada exitosamente
+        description: Registro actualizado exitosamente
         content:
           application/json:
             schema:
@@ -319,22 +272,96 @@
               properties:
                 message:
                   type: string
-                  example: Eliminado exitosamente
-      '404':
-        description: Registro no encontrado para eliminar
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Registro no encontrado
+                  example: Registro actualizado exitosamente
                 data:
                   type: object
-                  properties: {}
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    employee_id:
+                      type: integer
+                      example: 1
+                    startDate:
+                      type: string
+                      format: date-time
+                      example: 2024-01-01T00:00:00.000Z
+                    endDate:
+                      type: string
+                      format: date-time
+                      example: 2024-01-15T00:00:00.000Z
+                    grossSalary:
+                      type: string
+                      example: "1500.00"
+                    deductions:
+                      type: string
+                      example: "300.00"
+                    netSalary:
+                      type: string
+                      example: "1200.00"
+                    status:
+                      type: boolean
+                      example: true
+                    payroll_details:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          concept_id:
+                            type: integer
+                            example: 1
+                          payroll_id:
+                            type: integer
+                            example: 1
+                          amount:
+                            type: string
+                            example: "100.00"
+                          concept:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              name:
+                                type: string
+                                example: "Sueldo Base"
+                              concept_type:
+                                type: string
+                                example: "type1"
+                              formula:
+                                type: string
+                                example: "1.00"
+                              description:
+                                type: string
+                                example: "Compensación fija mensual o quincenal por el trabajo realizado."
+  delete:
+    summary: Eliminar una nómina existente
+    tags:
+      - payroll
+    description: Endpoint para eliminar una nómina existente
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        description: ID de la nómina a eliminar
+    responses:
+      '200':
+        description: Registro eliminado exitosamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registro eliminado exitosamente
       '500':
-        description: Error interno del servidor
+        description: Error del servidor
         content:
           application/json:
             schema:
