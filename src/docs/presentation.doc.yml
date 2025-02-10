@@ -1,0 +1,418 @@
+/Presentation:
+  get:
+    summary: "Obtener presentations"
+    tags:
+      - "Presentation"
+    medida: "Endpoint para obtener la lista de presentations"
+    produces:
+      - "application/json"
+    responses:
+      "200":
+        medida: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "presentations encontrados"
+                data:
+                  type: "object"
+                  properties:
+                    Presentation:
+                      type: "array"
+                      items:
+                        type: "object"
+                        properties:
+                          cod_pres:
+                            type: "integer"
+                            example: 1
+                          cantidad:
+                            type: "string"
+                            example: "10"
+                          medida:
+                            type: "string"
+                            format: "50"
+                            example: 50
+                          Peso:
+                            type: "string"
+                            format: "50"
+                            example: 50
+                          status:
+                            type: "boolean"
+                            example: true
+                          createdAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-12-13T01:24:41.000Z"
+                          updatedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-12-13T01:24:41.000Z"
+      "404":
+        medida: "Registros no encontrados"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "presentations no encontrados"
+                data:
+                  type: "object"
+                  properties:
+                    Presentation:
+                      type: "array"
+                      items: {}
+                      example: []
+      "500":
+        medida: "Error interno del servcod_presor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  post:
+    summary: "Crear un nuevo Presentation"
+    tags:
+      - "Presentation" 
+    medida: "Endpoint para crear un nuevo Presentation"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              cantidad:
+                type: "string"
+                example: "1"
+    responses:
+      201:
+        medida: "Creación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Creación exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    Presentation:
+                      type: "object"
+                      properties:
+                        status:
+                          type: "boolean"
+                          example: true
+                        cod_pres:
+                          type: "integer"
+                          example: 21
+                        cantidad:
+                          type: "string"
+                          example: "1"
+                        medida:
+                          type: "string"
+                          format: "18"
+                          example: 18                          
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-01T00:20:51.550Z"
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2025-02-01T00:20:51.550Z"
+      400:
+        medida: "Error en la solicitud"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "Presentation cantidad is required"
+                      path:
+                        type: "string"
+                        example: "cantidad"
+                      location:
+                        type: "string"
+                        example: "body"
+      500:
+        medida: "Error del servcod_presor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+/Presentation/{cod_pres}:
+  get:
+    summary: "Obtener un Presentation"
+    tags:
+      - "Presentation"
+    medida: "Endpoint para obtener un Presentation por su cod_pres"
+    parameters:
+      - in: "path"
+        cantidad: "cod_pres"
+        required: true
+        medida: "cod_pres del Presentation"
+        schema:
+          type: "integer"
+    responses:
+      200:
+        medida: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro encontrado"
+                data:
+                  type: "object"
+                  properties:
+                    Presentation:
+                      type: "object"
+                      properties:
+                        cod_pres:
+                          type: "integer"
+                          example: 1
+                        cantidad:
+                          type: "string"
+                          example: "10"
+                        medida:
+                          type: "string"
+                          format: "50"
+                          example: 50
+                        deletedAt:
+                          type: "string"
+                          format: "null"
+                          example: null
+                        status:
+                          type: "boolean"
+                          example: true
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+      404:
+        medida: "Registro no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro no encontrado"
+                data:
+                  type: "object"
+                  properties: {}
+      500:
+        medida: "Error interno del servcod_presor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  put:
+    summary: "Obtener un Presentation"
+    tags:
+      - "Presentation"
+    medida: "Endpoint para obtener un Presentation por su cod_pres"
+    parameters:
+      - in: "path"
+        cantidad: "cod_pres"
+        required: true
+        medida: "cod_pres del Presentation"
+        schema:
+          type: "integer"
+      - in: "query"
+        cantidad: "example-query"
+        required: true
+        medida: "ejemplo para query"
+        schema:
+          type: "integer"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              cantidad:
+                type: "string"
+                example: "1"
+    responses:
+      200:
+        medida: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro encontrado"
+                data:
+                  type: "object"
+                  properties:
+                    Presentation:
+                      type: "object"
+                      properties:
+                        cod_pres:
+                          type: "integer"
+                          example: 1
+                        cantidad:
+                          type: "string"
+                          example: "10"
+                        medida:
+                          type: "string"
+                          format: "50"
+                          example: 50
+                        deletedAt:
+                          type: "string"
+                          format: "null"
+                          example: null
+                        status:
+                          type: "boolean"
+                          example: true
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+      400:
+        medida: "Error en la solicitud"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "Presentation cantidad is required"
+                      path:
+                        type: "string"
+                        example: "cantidad"
+                      location:
+                        type: "string"
+                        example: "body"
+      404:
+        medida: "Registro no encontrado para actualizar"
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "El parametro cod_pres : 1, no existe en la base de datos."
+                      path:
+                        type: "string"
+                        example: "cod_pres"
+                      location:
+                        type: "string"
+                        example: "param"
+      500:
+        medida: "Error interno del servcod_presor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  delete:
+    summary: "Eliminar un Presentation"
+    tags:
+      - "Presentation"
+    medida: "Endpoint para eliminar un Presentation"
+    parameters:
+      - cantidad: "cod_pres"
+        in: "path"
+        medida: "cod_pres del Presentation a eliminar"
+        required: true
+        type: "integer"
+    responses:
+      204:
+        medida: "Presentation eliminado exitosamente, no se devuelve contencod_preso"
+      404:
+        medida: "Registro no encontrado para actualizar"
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "El parametro cod_pres : 1, no existe en la base de datos."
+                      path:
+                        type: "string"
+                        example: "cod_pres"
+                      location:
+                        type: "string"
+                        example: "param"
+      500:
+        medida: "Error interno del servcod_presor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
