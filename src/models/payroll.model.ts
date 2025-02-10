@@ -10,13 +10,11 @@ const PayrollModel = {
   employee_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    unique: true,
   },
   //fecha_inicio 
   startDate: {
     type: DataTypes.DATE,
     allowNull: false,
-    
   },
   //fecha_fin 
   endDate: {
@@ -38,6 +36,11 @@ const PayrollModel = {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
   },
+  status: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
+},
 };
 
 export { PayrollModel };
