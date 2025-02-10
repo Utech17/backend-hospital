@@ -30,7 +30,7 @@
                             example: 1
                           name:
                             type: string
-                            example: "Buy Request"
+                            example: "Solicitud de Compra"
                           bot:
                             type: boolean
                             example: true
@@ -75,7 +75,7 @@
             properties:
               name:
                 type: string
-                example: "Buy Request"
+                example: "Solicitud de Compra"
               bot:
                 type: boolean
                 example: true
@@ -104,7 +104,7 @@
                           example: 1
                         name:
                           type: string
-                          example: "Buy Request"
+                          example: "Solicitud de Compra"
                         bot:
                           type: boolean
                           example: true
@@ -181,7 +181,7 @@
                           example: 1
                         name:
                           type: string
-                          example: "Buy Request"
+                          example: "Solicitud de Compra"
                         bot:
                           type: boolean
                           example: true
@@ -232,7 +232,7 @@
             properties:
               name:
                 type: string
-                example: "Buy Request"
+                example: "Solicitud de Compra"
               bot:
                 type: boolean
                 example: true
@@ -261,7 +261,7 @@
                           example: 1
                         name:
                           type: string
-                          example: "Buy Request"
+                          example: "Solicitud de Compra"
                         bot:
                           type: boolean
                           example: true
@@ -292,31 +292,8 @@
                       location:
                         type: string
                         example: "body"
-      '404':
-        description: Registro no encontrado para actualizar
-        content:
-          application/json:
-            schema:
-              properties:
-                errors:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                        example: "field"
-                      msg:
-                        type: string
-                        example: "El parametro id : 1, no existe en la base de datos."
-                      path:
-                        type: string
-                        example: "id"
-                      location:
-                        type: string
-                        example: "param"
       '500':
-        description: Error interno del servidor
+        description: Error del servidor
         content:
           application/json:
             schema:
@@ -329,17 +306,17 @@
     summary: Eliminar un tipo de solicitud
     tags:
       - Request Type
-    description: Endpoint para eliminar un tipo de solicitud
+    description: Endpoint para eliminar un tipo de solicitud por su id
     parameters:
-      - name: id
-        in: path
-        description: ID del tipo de solicitud a eliminar
+      - in: path
+        name: id
         required: true
+        description: Id del tipo de solicitud
         schema:
           type: integer
     responses:
       '200':
-        description: Tipo de solicitud eliminado exitosamente
+        description: Eliminación exitosa
         content:
           application/json:
             schema:
@@ -349,28 +326,18 @@
                   type: string
                   example: Eliminación exitosa
       '404':
-        description: Registro no encontrado para eliminar
+        description: Registro no encontrado
         content:
           application/json:
             schema:
+              type: object
               properties:
-                errors:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                        example: "field"
-                      msg:
-                        type: string
-                        example: "El parametro id : 1, no existe en la base de datos."
-                      path:
-                        type: string
-                        example: "id"
-                      location:
-                        type: string
-                        example: "param"
+                message:
+                  type: string
+                  example: Registro no encontrado
+                data:
+                  type: object
+                  properties: {}
       '500':
         description: Error interno del servidor
         content:

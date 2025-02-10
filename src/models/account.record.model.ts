@@ -7,7 +7,7 @@ const AccountRecordModel = {
         primaryKey: true,
     },
     type: {
-        type: DataTypes.ENUM('income', 'expense'),
+        type: DataTypes.ENUM('D', 'H'),// Debe, Haber
         allowNull: false,
     },
     description: {

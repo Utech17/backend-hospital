@@ -86,6 +86,30 @@
                                     description:
                                       type: string
                                       example: "Compensación fija mensual o quincenal por el trabajo realizado."
+      '404':
+        description: Registros no encontrados
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registros no encontrados
+                data:
+                  type: array
+                  items: {}
+                  example: []
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Contacte con el administrador
   post:
     summary: Crear una nueva nómina
     tags:
@@ -208,6 +232,155 @@
                               description:
                                 type: string
                                 example: "Compensación fija mensual o quincenal por el trabajo realizado."
+      '400':
+        description: Error en la solicitud
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "Employee ID is required"
+                      path:
+                        type: string
+                        example: "employee_id"
+                      location:
+                        type: string
+                        example: "body"
+      '500':
+        description: Error del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Contacte con el administrador
+
+/payroll/{id}:
+  get:
+    summary: Obtener una nómina
+    tags:
+      - payroll
+    description: Endpoint para obtener una nómina por su id
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Id de la nómina
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registro encontrado
+                data:
+                  type: object
+                  properties:
+                    payroll:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        employee_id:
+                          type: integer
+                          example: 1
+                        startDate:
+                          type: string
+                          format: date-time
+                          example: 2024-01-01T00:00:00.000Z
+                        endDate:
+                          type: string
+                          format: date-time
+                          example: 2024-01-15T00:00:00.000Z
+                        grossSalary:
+                          type: string
+                          example: "1500.00"
+                        deductions:
+                          type: string
+                          example: "300.00"
+                        netSalary:
+                          type: string
+                          example: "1200.00"
+                        status:
+                          type: boolean
+                          example: true
+                        payroll_details:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              concept_id:
+                                type: integer
+                                example: 1
+                              payroll_id:
+                                type: integer
+                                example: 1
+                              amount:
+                                type: string
+                                example: "100.00"
+                              concept:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 1
+                                  name:
+                                    type: string
+                                    example: "Sueldo Base"
+                                  concept_type:
+                                    type: string
+                                    example: "type1"
+                                  formula:
+                                    type: string
+                                    example: "1.00"
+                                  description:
+                                    type: string
+                                    example: "Compensación fija mensual o quincenal por el trabajo realizado."
+      '404':
+        description: Registro no encontrado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registro no encontrado
+                data:
+                  type: object
+                  properties: {}
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Contacte con el administrador
   put:
     summary: Actualizar una nómina existente
     tags:
@@ -337,6 +510,63 @@
                               description:
                                 type: string
                                 example: "Compensación fija mensual o quincenal por el trabajo realizado."
+      '400':
+        description: Error en la solicitud
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "Employee ID is required"
+                      path:
+                        type: string
+                        example: "employee_id"
+                      location:
+                        type: string
+                        example: "body"
+      '404':
+        description: Registro no encontrado para actualizar
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: string
+                        example: "id"
+                      location:
+                        type: string
+                        example: "param"
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Contacte con el administrador
   delete:
     summary: Eliminar una nómina existente
     tags:
@@ -360,8 +590,31 @@
                 message:
                   type: string
                   example: Registro eliminado exitosamente
+      '404':
+        description: Registro no encontrado para eliminar
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: "field"
+                      msg:
+                        type: string
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: string
+                        example: "id"
+                      location:
+                        type: string
+                        example: "param"
       '500':
-        description: Error del servidor
+        description: Error interno del servidor
         content:
           application/json:
             schema:
@@ -369,4 +622,4 @@
               properties:
                 message:
                   type: string
-                  example: Por favor contacte al administrador
+                  example: Contacte con el administrador
