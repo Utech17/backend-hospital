@@ -1,4 +1,5 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, Dialect } from "sequelize";
+import dotenv from 'dotenv';
 
 import {
   MedicalHistoryModel,
@@ -44,28 +45,45 @@ import {
 } 
 from "../models";
 
-const dbName: string | undefined = process.env.DATABASE_NAME
-  ? process.env.DATABASE_NAME
-  : "hospital";
+dotenv.config();
 
-const dbUser: string | undefined = process.env.DATABASE_USER
-  ? process.env.DATABASE_USER
-  : "root";
+const dbName: string = process.env.DATABASE_NAME!;
+const dbUser: string = process.env.DATABASE_USER!;
+const dbPassword: string = process.env.DATABASE_PASSWORD!;
+const dbDialect: Dialect = process.env.DATABASE_DIALECT! as Dialect;
+const dbHost: string = process.env.DATABASE_HOST!;
+const dbPort: number = Number(process.env.DATABASE_PORT);
 
-const dbPassword: string | undefined = process.env.DATABASE_PASSWORD
-  ? process.env.DATABASE_PASSWORD
-  : "";
+const sequelizeOptions: any = {
+  dialect: dbDialect,
+  host: dbHost,
+  logging: false,
+  dialectOptions: {
+    connectTimeout: 60000,
+  },
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
+};
+
+// Si el host no es localhost, agrega el puerto a las opciones
+if (dbHost !== 'localhost') {
+  sequelizeOptions.port = dbPort;
+}
 
 // Instanciamos el objeto Sequelize
-const db = new Sequelize(dbName, dbUser, dbPassword, {
-  dialect: "mysql",
-  host: "localhost",
-  logging: false,
-});
+const db = new Sequelize(dbName, dbUser, dbPassword, sequelizeOptions);
+
+const Options = {
+  timestamps: false, // Deshabilitar createdAt y updatedAt
+};
 
 // CREAMOS LAS TABLAS EN ORDEN ALFABETICO
-const AccountDB = db.define("account", AccountModel);
-const AccountRecordDB = db.define("account_record", AccountRecordModel);
+const AccountDB = db.define("account", AccountModel, Options);
+const AccountRecordDB = db.define("account_record", AccountRecordModel, Options);
 const ActionDB = db.define("action", ActionModel);
 const AppointmentDB = db.define("appointment", AppointmentModel);
 const AttendanceDB = db.define("attendance", AttendanceEmployeeModel);
@@ -76,28 +94,28 @@ const BuyDetailsDB = db.define("buy_detail", buyDetailsModel);
 const ChargeDB = db.define("charge", ChargeModel);
 const ClassDB = db.define("class", ClassModel);
 const ClientDB = db.define("client", ClientModel);
-const ConceptDB = db.define("concept", ConceptModel);
+const ConceptDB = db.define("concept", ConceptModel, Options);
 const ContactDB = db.define("contact", ContactModel);
 const ContractDB = db.define("contract", ContractModel);
 const DepartmentDB = db.define("departament", DepartmentModel);
 const EmployeeDB = db.define("employee", EmployeeModel);
-const EventDB = db.define("event", EventModel);
+const EventDB = db.define("event", EventModel, Options);
 const EventDetailsDB = db.define("event_detail", EventDetailsModel);
 const EventTypeDB = db.define("event_type", EventTypeModel);
 const InventoryDB = db.define("inventory", InventoryModel);
 const InventoryMovementDB = db.define("inventory_movement", InventoryMovementModel);
 const JournalDB = db.define("journal", JournalModel);
-const MedicalHistoryDB = db.define("medical_history", MedicalHistoryModel);
+const MedicalHistoryDB = db.define("medical_history", MedicalHistoryModel, Options);
 const OrganizationalUnitsDB = db.define("organizational_unit", OrganizationalUnitsModel);
 const PatientDB = db.define("Patient", PatientModel);
 const PaymentTypeDB = db.define("payment_type", PaymentTypeModel);
-const PayrollDB = db.define("payroll", PayrollModel);
-const PayrollDetailDB = db.define("payroll_detail", PayrollDetailModel);
+const PayrollDB = db.define("payroll", PayrollModel, Options);
+const PayrollDetailDB = db.define("payroll_detail", PayrollDetailModel, Options);
 const PresentationDB = db.define("presentation", PresentationModel);
-const ProductDB = db.define("product", ProductModel);
+const ProductDB = db.define("product", ProductModel, Options);
 const RequestDB = db.define("request", RequestModel);
-const RequestTypeDB = db.define("request_type", RequestTypeModel);
-const RoleDB = db.define("role", RoleModel);
+const RequestTypeDB = db.define("request_type", RequestTypeModel, Options);
+const RoleDB = db.define("role", RoleModel, Options);
 const SaleDB = db.define("sale", SaleModel);
 const StoreDB = db.define("store", StoreModel);
 const SupplierDB = db.define("supplier", SupplierModel);

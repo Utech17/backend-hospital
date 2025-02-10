@@ -1,5 +1,5 @@
 import { BuyDetailsDB } from "../config";
-import { BuyDetailsInterface, BuyDetailsCreationInterface} from "../interfaces";
+import { BuyDetailsInterface, BuyDetailsCreationInterface } from "../interfaces";
 
 const BuyDetailsServices = {
   getAll: async () => {
@@ -8,25 +8,21 @@ const BuyDetailsServices = {
 
       if (detalleCompras.length === 0) {
         return {
-          message: "Records not found",
+          message: "No se encontraron registros",
           status: 404,
-          data: {
-            detalleCompras,
-          },
+          data: { detalleCompras },
         };
       }
 
       return {
-        message: "Records found",
+        message: "Registros encontrados",
         status: 200,
-        data: {
-          detalleCompras,
-        },
+        data: { detalleCompras },
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: "Contact the administrator: error",
+        message: "Por favor, contacte al administrador: error",
         status: 500,
       };
     }
@@ -35,31 +31,26 @@ const BuyDetailsServices = {
   getByCompositeKey: async (id_compra: number, id_producto: number) => {
     try {
       const detalleCompra = await BuyDetailsDB.findOne({
-        where: {
-          id_compra,
-          id_producto,
-        },
+        where: { id_compra, id_producto },
       });
 
       if (!detalleCompra) {
         return {
-          message: "Record not found",
+          message: "Registro no encontrado",
           status: 404,
           data: {},
         };
       }
 
       return {
-        message: "Record found",
+        message: "Registro encontrado",
         status: 200,
-        data: {
-          detalleCompra,
-        },
+        data: { detalleCompra },
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: "Contact the administrator: error",
+        message: "Por favor, contacte al administrador: error",
         status: 500,
       };
     }
@@ -69,16 +60,14 @@ const BuyDetailsServices = {
     try {
       const detalleCompra = await BuyDetailsDB.create(data);
       return {
-        message: "Successful creation",
+        message: "Creación exitosa",
         status: 201,
-        data: {
-          detalleCompra,
-        },
+        data: { detalleCompra },
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: "Contact the administrator: error",
+        message: "Contacte con el administrador: error",
         status: 500,
       };
     }
@@ -86,16 +75,13 @@ const BuyDetailsServices = {
 
   update: async (id_compra: number, id_producto: number, data: Partial<BuyDetailsInterface>) => {
     try {
-      const detalleCompra = await BuyDetailsDB.update(data, {
-        where: {
-          id_compra,
-          id_producto,
-        },
+      const [rowsUpdated] = await BuyDetailsDB.update(data, {
+        where: { id_compra, id_producto },
       });
 
-      if (detalleCompra[0] === 0) {
+      if (rowsUpdated === 0) {
         return {
-          message: "Record not found or no changes made",
+          message: "Registro no encontrado o sin cambios",
           status: 404,
           data: {},
         };
@@ -106,16 +92,14 @@ const BuyDetailsServices = {
       });
 
       return {
-        message: "Successful update",
+        message: "Actualización exitosa",
         status: 200,
-        data: {
-          detalleCompra: updatedDetalleCompra,
-        },
+        data: { detalleCompra: updatedDetalleCompra },
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: "Contact the administrator: error",
+        message: "Contacte con el administrador: error",
         status: 500,
       };
     }
@@ -124,29 +108,54 @@ const BuyDetailsServices = {
   delete: async (id_compra: number, id_producto: number) => {
     try {
       const result = await BuyDetailsDB.destroy({
-        where: {
-          id_compra,
-          id_producto,
-        },
+        where: { id_compra, id_producto },
       });
 
       if (result === 0) {
         return {
-          message: "Record not found",
+          message: "Registro no encontrado",
           status: 404,
           data: {},
         };
       }
 
       return {
-        message: "Successful deletion",
-        status: 204,
-        data: {},
+        message: "Eliminación exitosa",
+        status: 200,
+        data: { detalleCompra: null },
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: "Contact the administrator: error",
+        message: "Contacte con el administrador: error",
+        status: 500,
+      };
+    }
+  },
+
+  findByPurchaseId: async (id_compra: number) => {
+    try {
+      const detallesCompra = await BuyDetailsDB.findAll({
+        where: { id_compra },
+      });
+
+      if (detallesCompra.length === 0) {
+        return {
+          message: "No se encontraron registros",
+          status: 404,
+          data: {},
+        };
+      }
+
+      return {
+        message: "Registros encontrados",
+        status: 200,
+        data: { detallesCompra },
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        message: "Contacte con el administrador: error",
         status: 500,
       };
     }

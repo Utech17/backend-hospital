@@ -1,0 +1,423 @@
+/users:
+  get:
+    summary: "Obtener Usuarios"
+    tags:
+      - "Usuarios"
+    description: "Endpoint para obtener la lista de usuarios"
+    produces:
+      - "application/json"
+    responses:
+      "200":
+        description: "Usuarios obtenidos correctamente"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Usuarios obtenidos correctamente"
+                data:
+                  type: "object"
+                  properties:
+                    users:
+                      type: "array"
+                      items:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          name:
+                            type: "string"
+                            example: "John Doe"
+                          email:
+                            type: "string"
+                            example: "john.doe@example.com"
+                          status:
+                            type: "boolean"
+                            example: true
+                          createdAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-12-13T01:24:41.000Z"
+                          updatedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-12-13T01:24:41.000Z"
+      "404":
+        description: "No se encontraron usuarios"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "No se encontraron usuarios"
+                data:
+                  type: "object"
+                  properties:
+                    users:
+                      type: "array"
+                      items: {}
+                      example: []
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"
+
+  post:
+    summary: "Crear un nuevo Usuario"
+    tags:
+      - "Usuarios"
+    description: "Endpoint para crear un nuevo usuario"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "John Doe"
+              email:
+                type: "string"
+                example: "john.doe@example.com"
+              password:
+                type: "string"
+                example: "password123"
+    responses:
+      "200":
+        description: "Usuario creado exitosamente"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Usuario creado exitosamente"
+                data:
+                  type: "object"
+                  properties:
+                    user:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "John Doe"
+                        email:
+                          type: "string"
+                          example: "john.doe@example.com"
+                        status:
+                          type: "boolean"
+                          example: true
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+      "400":
+        description: "Error en la solicitud"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "Email is required"
+                      path:
+                        type: "string"
+                        example: "email"
+                      location:
+                        type: "string"
+                        example: "body"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"
+
+/users/{id}:
+  get:
+    summary: "Obtener un Usuario"
+    tags:
+      - "Usuarios"
+    description: "Endpoint para obtener un usuario por su id"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del usuario"
+        schema:
+          type: "integer"
+    responses:
+      "200":
+        description: "Usuario obtenido correctamente"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Usuario obtenido correctamente"
+                data:
+                  type: "object"
+                  properties:
+                    user:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "John Doe"
+                        email:
+                          type: "string"
+                          example: "john.doe@example.com"
+                        status:
+                          type: "boolean"
+                          example: true
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+      "404":
+        description: "Usuario no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Usuario no encontrado"
+                data:
+                  type: "object"
+                  properties: {}
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"
+
+  put:
+    summary: "Actualizar un Usuario"
+    tags:
+      - "Usuarios"
+    description: "Endpoint para actualizar un usuario por su id"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del usuario"
+        schema:
+          type: "integer"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "John Doe"
+              email:
+                type: "string"
+                example: "john.doe@example.com"
+    responses:
+      "200":
+        description: "Usuario actualizado exitosamente"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Usuario actualizado exitosamente"
+                data:
+                  type: "object"
+                  properties:
+                    user:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "John Doe"
+                        email:
+                          type: "string"
+                          example: "john.doe@example.com"
+                        status:
+                          type: "boolean"
+                          example: true
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-12-13T01:24:41.000Z"
+      "400":
+        description: "Error en la solicitud"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "Email is required"
+                      path:
+                        type: "string"
+                        example: "email"
+                      location:
+                        type: "string"
+                        example: "body"
+      "404":
+        description: "Usuario no encontrado para actualizar"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: "string"
+                        example: "id"
+                      location:
+                        type: "string"
+                        example: "param"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"
+
+  delete:
+    summary: "Eliminar un Usuario"
+    tags:
+      - "Usuarios"
+    description: "Endpoint para eliminar un usuario"
+    parameters:
+      - name: "id"
+        in: "path"
+        description: "ID del usuario a eliminar"
+        required: true
+        schema:
+          type: "integer"
+    responses:
+      "200":
+        description: "Usuario eliminado exitosamente"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Usuario eliminado exitosamente"
+                data:
+                  type: "object"
+                  properties: {}
+      "404":
+        description: "Usuario no encontrado para eliminar"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "El parametro id : 1, no existe en la base de datos."
+                      path:
+                        type: "string"
+                        example: "id"
+                      location:
+                        type: "string"
+                        example: "param"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Por favor, contacte al administrador"

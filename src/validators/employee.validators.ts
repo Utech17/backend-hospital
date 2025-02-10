@@ -9,24 +9,29 @@ class EmployeeValidator {
       .withMessage("Phone number is required")
       .isString()
       .withMessage("Phone number must be a string"),
-    body("address")
+    body("home_address")
       .notEmpty()
-      .withMessage("Address is required")
+      .withMessage("Home address is required")
       .isString()
-      .withMessage("Address must be a string"),
+      .withMessage("Home address must be a string"),
     body("postal_code")
       .notEmpty()
       .withMessage("Postal code is required")
       .isString()
       .withMessage("Postal code must be a string"),
-    body("unit_id")
+    body("organizational_unit_id")
       .notEmpty()
-      .withMessage("Unit ID is required")
+      .withMessage("Organizational unit ID is required")
       .isNumeric()
-      .withMessage("Unit ID must be numeric"),
+      .withMessage("Organizational unit ID must be numeric"),
     body("status")
       .isBoolean()
       .withMessage("Status must be a boolean"),
+    body("user_id")
+      .notEmpty()
+      .withMessage("User ID is required")
+      .isNumeric()
+      .withMessage("User ID must be numeric")
   ];
 
   // Middleware to validate employee existence

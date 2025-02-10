@@ -96,12 +96,12 @@ const medicalHistoryServices = {
   delete: async (id: number) => {
     try {
       const history = await MedicalHistoryDB.update(
-        { discharge_date: new Date() },
+        { discharge_date: new Date()},
         { where: { id } }
       );
       return {
         message: `Eliminación exitosa`,
-        status: 204,
+        status: 200,
         data: {
           history,
         },

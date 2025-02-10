@@ -27,12 +27,6 @@ const UserModel = {
     type: DataTypes.STRING(400),
     allowNull: false,
   },
-  // Fecha de creación
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
   // Estado del usuario (activo/inactivo)
   status: {
     type: DataTypes.BOOLEAN,
@@ -44,6 +38,21 @@ const UserModel = {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull:  true,
+    defaultValue: null,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    defaultValue: null,
+   },
 };
 
 export { UserModel };

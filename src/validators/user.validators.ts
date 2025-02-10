@@ -5,16 +5,16 @@ import { RoleService, UserServices } from "../services";
 class UserValidator {
   // Validaciones para crear y actualizar un usuario
   public validateUser = [
-    body("nombre").notEmpty().withMessage("El nombre es requerido"),
-    body("nombre").isString().withMessage("El nombre debe ser una cadena de texto"),
-    body("apellido").notEmpty().withMessage("El apellido es requerido"),
-    body("apellido").isString().withMessage("El apellido debe ser una cadena de texto"),
+    body("firstName").notEmpty().withMessage("El nombre es requerido"),
+    body("firstName").isString().withMessage("El nombre debe ser una cadena de texto"),
+    body("lastName").notEmpty().withMessage("El apellido es requerido"),
+    body("lastName").isString().withMessage("El apellido debe ser una cadena de texto"),
     body("email").notEmpty().withMessage("El correo electrónico es requerido"),
     body("email").isEmail().withMessage("El correo electrónico debe ser válido"),
-    body("contraseña").notEmpty().withMessage("La contraseña es requerida"),
-    body("contraseña").isLength({ min: 8 }).withMessage("La contraseña debe tener al menos 8 caracteres"),
-    body("id_rol").notEmpty().withMessage("El ID de rol es requerido"),
-    body("id_rol").isNumeric().withMessage("El ID de rol debe ser numérico"),
+    body("password").notEmpty().withMessage("La contraseña es requerida"),
+    body("password").isLength({ min: 8 }).withMessage("La contraseña debe tener al menos 8 caracteres"),
+    body("role_id").notEmpty().withMessage("El ID de rol es requerido"),
+    body("role_id").isNumeric().withMessage("El ID de rol debe ser numérico"),
   ];
 
   public validateLogin = [

@@ -68,7 +68,7 @@ const UserServices = {
       const user = await UserDB.create({ ...data });
       return {
         message: `Usuario creado exitosamente`,
-        status: 201,
+        status: 200,
         data: {
           user,
         },
@@ -107,7 +107,7 @@ const UserServices = {
       await UserDB.destroy({ where: { id } });
       return {
         message: `Usuario eliminado exitosamente`,
-        status: 204,
+        status: 200,
         data: {},
       };
     } catch (error) {

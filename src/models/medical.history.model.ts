@@ -15,6 +15,7 @@ const MedicalHistoryModel = {
   admission_date: {
     type: DataTypes.DATE,
     allowNull: false,
+    defaultValue: DataTypes.NOW,
   },
   //fecha_salida 
   discharge_date: {
@@ -31,15 +32,7 @@ const MedicalHistoryModel = {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  createdAt: {
-    type: DataTypes.DATE,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
-  deletedAt: {
-    type: DataTypes.DATE,
-  },
 };
 
-export { MedicalHistoryModel };
+
+export { MedicalHistoryModel};

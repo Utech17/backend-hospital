@@ -95,13 +95,19 @@ const JournalServices = {
   },
   delete: async (id: number) => {
     try {
-      const journal = await JournalDB.destroy({ where: { id } });
+      const journal = await JournalDB.update(
+        { deletedAt: new Date() },
+        { where: { id } }
+      );
+      if (journal[0] === 0) {
+        return {
+          message: `Registro no encontrado`,
+          status: 404,
+        };
+      }
       return {
         message: `Eliminación exitosa`,
-        status: 204,
-        data: {
-          journal,
-        },
+        status: 200,
       };
     } catch (error) {
       console.log(error);

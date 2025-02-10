@@ -1,27 +1,35 @@
-import { exportExcelAtoA } from "../helpers";
 import { db, PayrollDB, PayrollDetailDB, ConceptDB } from "../config";
+import { Model } from "sequelize";
 import { PayrollInterface, PayrollDetailInterface } from "../interfaces";
 
 const PayrollServices = {
   getAll: async () => {
     try {
-      const payrolls = await PayrollDB.findAll({ where: { status: true } });
+      const payrolls = await PayrollDB.findAll({
+        where: { status: true },
+        include: [
+          {
+            model: PayrollDetailDB,
+            include: [ConceptDB],
+          },
+        ],
+      });
       if (payrolls.length === 0) {
         return {
-          message: `No records found`,
+          message: `Registros no encontrados`,
           status: 404,
           data: { payrolls },
         };
       }
       return {
-        message: `Records found`,
+        message: `Registros encontrados`,
         status: 200,
         data: { payrolls },
       };
     } catch (error) {
       console.error(error);
       return {
-        message: `Please contact the administrator`,
+        message: `Por favor contacte al administrador`,
         status: 500,
       };
     }
@@ -31,23 +39,29 @@ const PayrollServices = {
     try {
       const payroll = await PayrollDB.findOne({
         where: { id, status: true },
+        include: [
+          {
+            model: PayrollDetailDB,
+            include: [ConceptDB],
+          },
+        ],
       });
       if (!payroll) {
         return {
-          message: `Record not found`,
+          message: `Registro no encontrado`,
           status: 404,
           data: {},
         };
       }
       return {
-        message: `Record found`,
+        message: `Registro encontrado`,
         status: 200,
         data: { payroll },
       };
     } catch (error) {
       console.error(error);
       return {
-        message: `Please contact the administrator`,
+        message: `Por favor contacte al administrador`,
         status: 500,
       };
     }
@@ -56,6 +70,24 @@ const PayrollServices = {
   create: async (data: PayrollInterface & { details: PayrollDetailInterface[] }) => {
     const transaction = await db.transaction();
     try {
+      // Verificar si ya existe una nómina para el employee_id en el mismo período
+      const existingPayroll = await PayrollDB.findOne({
+        where: {
+          employee_id: data.employee_id,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          status: true,
+        },
+        transaction,
+      });
+
+      if (existingPayroll) {
+        return {
+          message: `Ya existe una nómina para el empleado con ID ${data.employee_id} en el período especificado`,
+          status: 400,
+        };
+      }
+
       const payroll = await PayrollDB.create(
         {
           employee_id: data.employee_id,
@@ -64,6 +96,7 @@ const PayrollServices = {
           grossSalary: data.grossSalary,
           deductions: data.deductions,
           netSalary: data.netSalary,
+          status: true,
         },
         { transaction }
       );
@@ -73,26 +106,28 @@ const PayrollServices = {
           data.details.map(async (detail) => {
             const concept = await ConceptDB.findByPk(detail.concept_id, {
               transaction,
-            });
+            }) as Model<any, any> & { id: number };
 
             if (!concept) {
-              throw new Error(`Concept with ID ${detail.concept_id} not found`);
+              throw new Error(`Concepto con ID ${detail.concept_id} no encontrado`);
             }
 
             return {
-              id_payroll: payroll.dataValues.id,
-              concept_id: detail.concept_id,
+              payroll_id: payroll.dataValues.id,
+              concept_id: concept.id,
               amount: detail.amount,
               Concept: concept,
+              status: true,
             };
           })
         );
 
         await PayrollDetailDB.bulkCreate(
           payrollDetails.map((detail) => ({
-            id_payroll: detail.id_payroll,
+            payroll_id: detail.payroll_id,
             concept_id: detail.concept_id,
             amount: detail.amount,
+            status: true,
           })),
           { transaction }
         );
@@ -111,12 +146,12 @@ const PayrollServices = {
       });
 
       return {
-        message: "Payroll created successfully with details and concepts",
+        message: "Nómina creada exitosamente con detalles y conceptos",
         status: 201,
         data: createdPayroll,
       };
     } catch (error) {
-      let errorMessage = "An unexpected error occurred";
+      let errorMessage = "Ocurrió un error inesperado";
 
       if (error instanceof Error) {
         errorMessage = error.message;
@@ -126,7 +161,7 @@ const PayrollServices = {
       console.error(error);
 
       return {
-        message: "An error occurred. Please contact the administrator",
+        message: "Ocurrió un error. Por favor contacte al administrador",
         status: 500,
         error: errorMessage,
       };
@@ -136,130 +171,95 @@ const PayrollServices = {
   update: async (id: number | string, data: Partial<PayrollInterface> & { details?: PayrollDetailInterface[] }) => {
     const transaction = await db.transaction();
     try {
-      await PayrollDB.update(data, { where: { id }, transaction });
-  
+      await PayrollDB.update(data, { where: { id, status: true }, transaction });
+
       if (data.details && Array.isArray(data.details)) {
-        await PayrollDetailDB.destroy({ where: { id_payroll: id }, transaction });
-  
+        await PayrollDetailDB.destroy({ where: { payroll_id: id }, transaction });
+
         const payrollDetails = await Promise.all(
-          data.details.map(async (detail: PayrollDetailInterface) => { 
+          data.details.map(async (detail: PayrollDetailInterface) => {
             const concept = await ConceptDB.findByPk(detail.concept_id, { transaction });
-  
+
             if (!concept) {
-              throw new Error(`Concept with ID ${detail.concept_id} not found`);
+              throw new Error(`Concepto con ID ${detail.concept_id} no encontrado`);
             }
-  
+
             return {
-              id_payroll: id,
+              payroll_id: id,
               concept_id: detail.concept_id,
               amount: detail.amount,
               Concept: concept,
+              status: true,
             };
           })
         );
-  
+
         await PayrollDetailDB.bulkCreate(
           payrollDetails.map((detail) => ({
-            id_payroll: detail.id_payroll,
+            payroll_id: detail.payroll_id,
             concept_id: detail.concept_id,
             amount: detail.amount,
+            status: true,
           })),
           { transaction }
         );
       }
-  
+
       await transaction.commit();
-  
-      const { data: updatedPayroll } = await PayrollServices.getOne(id);
-  
+
+      const updatedPayroll = await PayrollDB.findOne({
+        where: { id, status: true },
+        include: [
+          {
+            model: PayrollDetailDB,
+            include: [ConceptDB],
+          },
+        ],
+      });
+
       return {
-        message: `Record updated successfully`,
+        message: `Registro actualizado exitosamente`,
         status: 200,
-        data: { payroll: updatedPayroll?.payroll },
+        data: updatedPayroll,
       };
     } catch (error) {
+      let errorMessage = "Ocurrió un error inesperado";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       await transaction.rollback();
       console.error(error);
+
       return {
-        message: `Please contact the administrator`,
+        message: "Ocurrió un error. Por favor contacte al administrador",
         status: 500,
+        error: errorMessage,
       };
     }
-  },  
+  },
 
   delete: async (id: number) => {
     const transaction = await db.transaction();
     try {
       await PayrollDB.update(
-        { status: false, deletedAt: new Date() },
+        { status: false },
         { where: { id }, transaction }
       );
 
-      await PayrollDetailDB.destroy({ where: { id_payroll: id }, transaction });
+      await PayrollDetailDB.update({ status: false }, { where: { payroll_id: id }, transaction });
 
       await transaction.commit();
       return {
-        message: `Record deleted successfully`,
-        status: 204,
-        data: { payroll: null },
+        message: `Registro eliminado exitosamente`,
+        status: 200,
       };
     } catch (error) {
       await transaction.rollback();
       console.error(error);
       return {
-        message: `Please contact the administrator`,
-        status: 500,
-      };
-    }
-  },
-
-  findByName: async (name: string) => {
-    try {
-      const payroll = await PayrollDB.findOne({ where: { name } });
-      if (!payroll) {
-        console.log("Record not found");
-        return {
-          message: `Record not found`,
-          status: 404,
-          data: {},
-        };
-      }
-      return {
-        message: `Record found`,
-        status: 200,
-        data: { payroll },
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        message: `Please contact the administrator`,
-        status: 500,
-      };
-    }
-  },
-
-  reportToExcel: async () => {
-    try {
-      const payrolls = await PayrollDB.findAll();
-      const report = payrolls.map((payroll: any) => payroll.dataValues);
-      const mappedReport = report.map((record: any) => [
-        record.id,
-        record.name,
-      ]);
-      const { status, message, data } = await exportExcelAtoA(
-        ["ID", "Name"],
-        mappedReport,
-        "PayrollReport"
-      );
-      return {
-        message,
-        status,
-        data,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        message: `Please contact the administrator`,
+        message: `Por favor contacte al administrador`,
         status: 500,
       };
     }

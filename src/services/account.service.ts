@@ -95,13 +95,18 @@ const AccountServices = {
   },
   delete: async (id: number) => {
     try {
-      const account = await AccountDB.destroy({ where: { id } });
+      const account = await AccountDB.findOne({ where: { id } });
+      if (!account) {
+        return {
+          message: `Registro no encontrado`,
+          status: 404,
+        };
+      }
+  
+      await AccountDB.destroy({ where: { id } });
       return {
         message: `Eliminación exitosa`,
-        status: 204,
-        data: {
-          account,
-        },
+        status: 200,
       };
     } catch (error) {
       console.log(error);

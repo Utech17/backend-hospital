@@ -1,0 +1,432 @@
+/employee:
+  get:
+    summary: "Obtener Empleados"
+    tags:
+      - "Empleados"
+    description: "Endpoint para obtener la lista de empleados"
+    produces:
+      - "application/json"
+    responses:
+      "200":
+        description: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Employees found successfully"
+                data:
+                  type: "object"
+                  properties:
+                    employees:
+                      type: "array"
+                      items:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          phone_number:
+                            type: "string"
+                            example: "04141234567"
+                          home_address:
+                            type: "string"
+                            example: "Av. Los Próceres, Caracas, Venezuela"
+                          postal_code:
+                            type: "string"
+                            example: "1010"
+                          organizational_unit_id:
+                            type: "integer"
+                            example: 1
+                          status:
+                            type: "string"
+                            enum: ["active", "inactive"]
+                            example: "active"
+                          user_id:
+                            type: "integer"
+                            example: 1
+                          createdAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-01-01T08:00:00.000Z"
+                          updatedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: "2024-01-15T10:00:00.000Z"
+                          deletedAt:
+                            type: "string"
+                            format: "date-time"
+                            example: null
+                      example:
+                        - id: 1
+                          phone_number: "04141234567"
+                          home_address: "Av. Los Próceres, Caracas, Venezuela"
+                          postal_code: "1010"
+                          organizational_unit_id: 1
+                          status: "active"
+                          user_id: 1
+                          createdAt: "2024-01-01T08:00:00.000Z"
+                          updatedAt: "2024-01-15T10:00:00.000Z"
+                          deletedAt: null
+                        - id: 2
+                          phone_number: "04161112233"
+                          home_address: "Calle El Sol, Valencia, Venezuela"
+                          postal_code: "2001"
+                          organizational_unit_id: 2
+                          status: "active"
+                          user_id: 2
+                          createdAt: "2024-01-10T09:00:00.000Z"
+                          updatedAt: "2024-01-20T14:30:00.000Z"
+                          deletedAt: null
+      "404":
+        description: "Empleados no encontrados"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "No employees found"
+                data:
+                  type: "object"
+                  properties:
+                    employees:
+                      type: "array"
+                      items: {}
+                      example: []
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Please contact the administrator"
+
+  post:
+    summary: "Crear un nuevo Empleado"
+    tags:
+      - "Empleados"
+    description: "Endpoint para crear un nuevo empleado"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              phone_number:
+                type: "string"
+                example: "04141234567"
+              home_address:
+                type: "string"
+                example: "Av. Los Próceres, Caracas, Venezuela"
+              postal_code:
+                type: "string"
+                example: "1010"
+              organizational_unit_id:
+                type: "integer"
+                example: 1
+              user_id:
+                type: "integer"
+                example: 1
+    responses:
+      "201":
+        description: "Creación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Employee created successfully"
+                data:
+                  type: "object"
+                  properties:
+                    employee:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        phone_number:
+                          type: "string"
+                          example: "04141234567"
+                        home_address:
+                          type: "string"
+                          example: "Av. Los Próceres, Caracas, Venezuela"
+                        postal_code:
+                          type: "string"
+                          example: "1010"
+                        organizational_unit_id:
+                          type: "integer"
+                          example: 1
+                        status:
+                          type: "string"
+                          example: "active"
+                        user_id:
+                          type: "integer"
+                          example: 1
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-01-01T08:00:00.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-01-01T08:00:00.000Z"
+      "400":
+        description: "Error de validación"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                errors:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type:
+                        type: "string"
+                        example: "field"
+                      msg:
+                        type: "string"
+                        example: "Phone number is required"
+                      path:
+                        type: "string"
+                        example: "phone_number"
+                      location:
+                        type: "string"
+                        example: "body"
+      "500":
+        description: "Error del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Please contact the administrator"
+
+/employee/{id}:
+  get:
+    summary: "Obtener un Empleado"
+    tags:
+      - "Empleados"
+    description: "Endpoint para obtener un empleado por su id"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del empleado"
+        schema:
+          type: "integer"
+    responses:
+      "200":
+        description: "Respuesta exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Employee found"
+                data:
+                  type: "object"
+                  properties:
+                    employee:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        phone_number:
+                          type: "string"
+                          example: "04141234567"
+                        home_address:
+                          type: "string"
+                          example: "Av. Los Próceres, Caracas, Venezuela"
+                        postal_code:
+                          type: "string"
+                          example: "1010"
+                        organizational_unit_id:
+                          type: "integer"
+                          example: 1
+                        status:
+                          type: "string"
+                          example: "active"
+                        user_id:
+                          type: "integer"
+                          example: 1
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-01-01T08:00:00.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-01-15T10:00:00.000Z"
+                        deletedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: null
+      "404":
+        description: "Empleado no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Employee not found"
+                data:
+                  type: "object"
+                  example: {}
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Please contact the administrator"
+
+  put:
+    summary: "Actualizar un Empleado"
+    tags:
+      - "Empleados"
+    description: "Endpoint para actualizar un empleado existente"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del empleado"
+        schema:
+          type: "integer"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              phone_number:
+                type: "string"
+                example: "04141234567"
+              home_address:
+                type: "string"
+                example: "Nueva dirección"
+              postal_code:
+                type: "string"
+                example: "1010"
+              organizational_unit_id:
+                type: "integer"
+                example: 1
+              user_id:
+                type: "integer"
+                example: 1
+    responses:
+      "200":
+        description: "Actualización exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Employee updated successfully"
+                data:
+                  type: "object"
+                  properties:
+                    employee:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        phone_number:
+                          type: "string"
+                          example: "04141234567"
+                        home_address:
+                          type: "string"
+                          example: "Nueva dirección"
+                        postal_code:
+                          type: "string"
+                          example: "1010"
+                        organizational_unit_id:
+                          type: "integer"
+                          example: 1
+                        status:
+                          type: "string"
+                          example: "active"
+                        user_id:
+                          type: "integer"
+                          example: 1
+                        createdAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-01-01T08:00:00.000Z"
+                        updatedAt:
+                          type: "string"
+                          format: "date-time"
+                          example: "2024-01-15T10:00:00.000Z"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Please contact the administrator"
+
+  delete:
+    summary: "Eliminar un Empleado"
+    tags:
+      - "Empleados"
+    description: "Endpoint para eliminar (desactivar) un empleado"
+    parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "Id del empleado a eliminar"
+        schema:
+          type: "integer"
+    responses:
+      "200":
+        description: "Eliminación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Eliminación exitosa"
+                data:
+                  type: "object"
+                  example: {}
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Please contact the administrator" 

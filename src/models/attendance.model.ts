@@ -15,6 +15,7 @@ const AttendanceEmployeeModel = {
   date: {
     type: DataTypes.DATE,
     allowNull: false,
+    defaultValue: DataTypes.NOW,
   },
   // hora_entrada
   entry_time: {
@@ -33,10 +34,14 @@ const AttendanceEmployeeModel = {
   },
   updatedAt: {
     type: DataTypes.DATE,
+    allowNull: true,
+    defaultValue: null,
   },
   deletedAt: {
     type: DataTypes.DATE,
-  },
+    allowNull: true,
+    defaultValue: null,
+   },
 };
 
 export { AttendanceEmployeeModel };
