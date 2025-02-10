@@ -30,11 +30,11 @@
                             example: 1
                           type:
                             type: string
-                            enum: ['income', 'expense']
-                            example: "income"
+                            enum: ['D', 'H']
+                            example: "D"
                           description:
                             type: string
-                            example: "Venta de productos"
+                            example: "Registro de Banco"
                           amount:
                             type: number
                             format: double
@@ -83,11 +83,11 @@
             properties:
               type:
                 type: string
-                enum: ['income', 'expense']
-                example: "income"
+                enum: ['D', 'H']
+                example: "D"
               description:
                 type: string
-                example: "Venta de productos"
+                example: "Registro de Banco"
               amount:
                 type: number
                 format: double
@@ -120,11 +120,11 @@
                           example: 1
                         type:
                           type: string
-                          enum: ['income', 'expense']
-                          example: "income"
+                          enum: ['D', 'H']
+                          example: "D"
                         description:
                           type: string
-                          example: "Venta de productos"
+                          example: "Registro de Banco"
                         amount:
                           type: number
                           format: double
@@ -205,11 +205,11 @@
                           example: 1
                         type:
                           type: string
-                          enum: ['income', 'expense']
-                          example: "income"
+                          enum: ['D', 'H']
+                          example: "D"
                         description:
                           type: string
-                          example: "Venta de productos"
+                          example: "Registro de Banco"
                         amount:
                           type: number
                           format: double
@@ -264,11 +264,11 @@
             properties:
               type:
                 type: string
-                enum: ['income', 'expense']
-                example: "income"
+                enum: ['D', 'H']
+                example: "D"
               description:
                 type: string
-                example: "Venta de productos"
+                example: "Registro de Banco"
               amount:
                 type: number
                 format: double
@@ -301,11 +301,11 @@
                           example: 1
                         type:
                           type: string
-                          enum: ['income', 'expense']
-                          example: "income"
+                          enum: ['D', 'H']
+                          example: "D"
                         description:
                           type: string
-                          example: "Venta de productos"
+                          example: "Registro de Banco"
                         amount:
                           type: number
                           format: double

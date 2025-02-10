@@ -11,7 +11,7 @@ const AccountModel = {
         allowNull: false,
     },
     type_account: {
-        type: DataTypes.ENUM('current', 'savings'),
+        type: DataTypes.ENUM('A', 'P', 'C', 'I', 'G'), // Activo, Pasivo, Capital, Ingresos, Gastos
         allowNull: false,
     },
     status: {

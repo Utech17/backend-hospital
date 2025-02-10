@@ -6,6 +6,7 @@ const PayrollServices = {
   getAll: async () => {
     try {
       const payrolls = await PayrollDB.findAll({
+        where: { status: true },
         include: [
           {
             model: PayrollDetailDB,
@@ -37,7 +38,7 @@ const PayrollServices = {
   getOne: async (id: number | string) => {
     try {
       const payroll = await PayrollDB.findOne({
-        where: { id },
+        where: { id, status: true },
         include: [
           {
             model: PayrollDetailDB,
@@ -75,6 +76,7 @@ const PayrollServices = {
           employee_id: data.employee_id,
           startDate: data.startDate,
           endDate: data.endDate,
+          status: true,
         },
         transaction,
       });
@@ -94,6 +96,7 @@ const PayrollServices = {
           grossSalary: data.grossSalary,
           deductions: data.deductions,
           netSalary: data.netSalary,
+          status: true,
         },
         { transaction }
       );
@@ -114,6 +117,7 @@ const PayrollServices = {
               concept_id: concept.id,
               amount: detail.amount,
               Concept: concept,
+              status: true,
             };
           })
         );
@@ -123,6 +127,7 @@ const PayrollServices = {
             payroll_id: detail.payroll_id,
             concept_id: detail.concept_id,
             amount: detail.amount,
+            status: true,
           })),
           { transaction }
         );
@@ -166,7 +171,7 @@ const PayrollServices = {
   update: async (id: number | string, data: Partial<PayrollInterface> & { details?: PayrollDetailInterface[] }) => {
     const transaction = await db.transaction();
     try {
-      await PayrollDB.update(data, { where: { id }, transaction });
+      await PayrollDB.update(data, { where: { id, status: true }, transaction });
 
       if (data.details && Array.isArray(data.details)) {
         await PayrollDetailDB.destroy({ where: { payroll_id: id }, transaction });
@@ -184,6 +189,7 @@ const PayrollServices = {
               concept_id: detail.concept_id,
               amount: detail.amount,
               Concept: concept,
+              status: true,
             };
           })
         );
@@ -193,6 +199,7 @@ const PayrollServices = {
             payroll_id: detail.payroll_id,
             concept_id: detail.concept_id,
             amount: detail.amount,
+            status: true,
           })),
           { transaction }
         );
@@ -201,7 +208,7 @@ const PayrollServices = {
       await transaction.commit();
 
       const updatedPayroll = await PayrollDB.findOne({
-        where: { id },
+        where: { id, status: true },
         include: [
           {
             model: PayrollDetailDB,
