@@ -142,30 +142,41 @@ update: async (id: number|string, data: Partial<DepartmentInterface>) => {
     }
   },
   findBydepartment_name: async (department_name: string) => {
+    if (!department_name) {
+        return {
+            message: `El nombre del departamento es requerido`,
+            status: 400,
+            data: {},
+        };
+    }
+
     try {
-      const departament = await DepartmentDB.findAll({ where: { department_name } });
-      if (departament.length === 0) {
-        console.log("Registro no encontrado");
-        return {
-          message: `Registro no encontrado`,
-          status: 404,
-          data: {},
-        };
-      } else {
-        return {
-          message: `departament encontrado`,
-          status: 200,
-          data: {
-            departament: departament[0],
-          },
-        };
-      }
+        const departament = await DepartmentDB.findAll({ where: { department_name } });
+        if (departament.length === 0) {
+            console.log("Registro no encontrado");
+            return {
+                message: `Registro no encontrado`,
+                status: 404,
+                data: {},
+            };
+        } else {
+            return {
+                message: `departament encontrado`,
+                status: 200,
+                data: {
+                    departament: departament[0],
+                },
+            };
+        }
     } catch (error) {
-      console.error(error);
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
-      return {
-        message: `Contacte con el administrador: ${errorMessage}`,
-        status: 500,
+        console.error(error);
+        let errorMessage = 'Error desconocido';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        return {
+            message: `Contacte con el administrador: ${errorMessage}`,
+            status: 500,
       };
     }
   },
