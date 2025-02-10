@@ -17,6 +17,21 @@ const ChargeModel = {
       type: DataTypes.STRING(50),
       allowNull: false
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull:  true,
+      defaultValue: null,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: null,
+     },
   };
   
   export { ChargeModel };

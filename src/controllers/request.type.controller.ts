@@ -43,12 +43,11 @@ export class RequestTypeController {
 
   delete = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, message, data } = await RequestTypeServices.delete(
+    const { status, message } = await RequestTypeServices.delete(
       Number(id)
     );
     return res.status(status).json({
       message,
-      data,
     });
   };
 }

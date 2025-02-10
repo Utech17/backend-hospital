@@ -4,7 +4,7 @@ import { DepartmentInterface } from "../interfaces";
 const DepartmentServices = {
   getAll: async () => {
     try {
-      const departaments = await DepartmentDB.findAll({ where: { status: true } });
+      const departaments = await DepartmentDB.findAll();
       if (departaments.length === 0) {
         return {
           message: `Registros no encontrados`,
@@ -22,9 +22,10 @@ const DepartmentServices = {
         },
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
       return {
-        message: `Contacte con el administrador`,
+        message: `Contacte con el administrador: ${errorMessage}`,
         status: 500,
       };
     }
@@ -33,8 +34,7 @@ const DepartmentServices = {
     try {
       const departament = await DepartmentDB.findOne({
         where: {
-          id: id,
-          status: true
+          id: id
         }
       });
       if (!departament) {
@@ -53,52 +53,69 @@ const DepartmentServices = {
         };
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
       return {
-        message: `Contacte con el administrador`,
+        message: `Contacte con el administrador: ${errorMessage}`,
         status: 500,
       };
     }
   },
   create: async (data: Partial<DepartmentInterface>) => {
-    data.department_name=data.department_name?.toLowerCase();
+    data.department_name = data.department_name?.toLowerCase();
     try {
-      const departament = await DepartmentDB.create({ ...data });
-      return {
-        message: `Creación exitosa`,
-        status: 201,
-        data: {
-          departament,
-        },
-      };
+        const departament = await DepartmentDB.create({ ...data });
+        return {
+            message: `Creación exitosa`,
+            status: 201,
+            data: {
+                departament,
+            },
+        };
     } catch (error) {
-      console.log(error);
-      return {
-        message: `Contacte con el administrador`,
-        status: 500,
-      };
+        console.error(error);
+        let errorMessage = 'Error desconocido';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+            if (error.name === 'SequelizeUniqueConstraintError') {
+                errorMessage = 'El nombre del departamento ya existe';
+            }
+        }
+        return {
+            message: `Contacte con el administrador: ${errorMessage}`,
+            status: 500,
+        };
     }
-  },
-  update: async (id: number|string, dat: Partial<DepartmentInterface>) => {
-    dat.department_name=dat.department_name?.toLowerCase();
-    try {
-      let departament: DepartmentInterface | any = await DepartmentDB.update(dat, { where: { id } });
-      const { data } = await DepartmentServices.getOne(id);
+},
+update: async (id: number|string, data: Partial<DepartmentInterface>) => {
+  if (data.department_name) {
+      data.department_name = data.department_name.toLowerCase();
+  }
+  try {
+      await DepartmentDB.update(data, { where: { id } });
+      const { data: updatedData } = await DepartmentServices.getOne(id);
       return {
-        message: `Actualización exitosa`,
-        status: 200,
-        data: {
-          departament: data?.departament,
-        },
+          message: `Actualización exitosa`,
+          status: 200,
+          data: {
+              departament: updatedData?.departament,
+          },
       };
-    } catch (error) {
-      console.log(error);
+  } catch (error) {
+      console.error(error);
+      let errorMessage = 'Error desconocido';
+      if (error instanceof Error) {
+          errorMessage = error.message;
+          if (error.name === 'SequelizeUniqueConstraintError') {
+              errorMessage = 'El nombre del departamento ya existe';
+          }
+      }
       return {
-        message: `Contacte con el administrador`,
-        status: 500,
+          message: `Contacte con el administrador: ${errorMessage}`,
+          status: 500,
       };
-    }
-  },
+  }
+},
   delete: async (id: number) => {
     try {
       const departament = await DepartmentDB.update(
@@ -112,40 +129,54 @@ const DepartmentServices = {
         message: `Eliminación exitosa`,
         status: 204,
         data: {
-          departament:null,
+          departament: null,
         },
       };
     } catch (error) {
+      console.error(error);
+      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
       return {
-        message: `Contacte con el administrador`,
+        message: `Contacte con el administrador: ${errorMessage}`,
         status: 500,
       };
     }
   },
   findBydepartment_name: async (department_name: string) => {
+    if (!department_name) {
+        return {
+            message: `El nombre del departamento es requerido`,
+            status: 400,
+            data: {},
+        };
+    }
+
     try {
-      const departament = await DepartmentDB.findAll({ where: { department_name } });
-      if (departament.length===0) {
-        console.log("Registro no encontrado")
-        return {
-          message: `Registro no encontrado`,
-          status: 404,
-          data: {},
-        };
-      } else {
-        return {
-          message: `departament encontrado`,
-          status: 200,
-          data: {
-            departament:departament[0],
-          },
-        };
-      }
+        const departament = await DepartmentDB.findAll({ where: { department_name } });
+        if (departament.length === 0) {
+            console.log("Registro no encontrado");
+            return {
+                message: `Registro no encontrado`,
+                status: 404,
+                data: {},
+            };
+        } else {
+            return {
+                message: `departament encontrado`,
+                status: 200,
+                data: {
+                    departament: departament[0],
+                },
+            };
+        }
     } catch (error) {
-      console.log(error);
-      return {
-        message: `Contact the administrator: error`,
-        status: 500,
+        console.error(error);
+        let errorMessage = 'Error desconocido';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        return {
+            message: `Contacte con el administrador: ${errorMessage}`,
+            status: 500,
       };
     }
   },
@@ -153,6 +184,4 @@ const DepartmentServices = {
 
 export {
   DepartmentServices
-}
-
-
+};

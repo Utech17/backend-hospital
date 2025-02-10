@@ -90,7 +90,7 @@ const supplierServices = {
       await SupplierDB.destroy({ where: { id } });
       return {
         message: `Proveedor eliminado exitosamente`,
-        status: 204,
+        status: 200,
         data: {},
       };
     } catch (error) {

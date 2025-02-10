@@ -32,10 +32,16 @@ Ejecuta los seeders para poblar la base de datos con datos iniciales usando el c
 
 /src
   ├── /config       
-  ├── /controllers  
+  ├── /controllers 
+  ├── /data 
+  ├     ├─ /seeders
+  ├── /docs
+  ├── /files
+  ├── /helpers
   ├── /interfaces   
   ├── /middlewares  
-  ├── /models       
+  ├── /models  
+  ├── /public     
   ├── /routes       
   ├── /services     
   ├── /validators 

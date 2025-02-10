@@ -14,18 +14,24 @@ const TypeModel = {
   },
   // estado
   status: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
   },
   createdAt: {
     type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
   },
   updatedAt: {
     type: DataTypes.DATE,
+    allowNull:  true,
+    defaultValue: null,
   },
   deletedAt: {
     type: DataTypes.DATE,
-  },
+    allowNull: true,
+    defaultValue: null,
+   },
 };
 
 export { TypeModel };

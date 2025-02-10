@@ -5,7 +5,7 @@ import { StoreInterface } from "../interfaces";
 const StoreServices = {
   getAll: async () => {
     try {
-      const stores = await StoreDB.findAll({ where: { status: true } });
+      const stores = await StoreDB.findAll();
       if (stores.length === 0) {
         return {
           message: `Registros no encontrados`,
@@ -34,8 +34,7 @@ const StoreServices = {
     try {
       const store = await StoreDB.findOne({
         where: {
-          id: id,
-          status: true
+          id: id
         }
       });
       if (!store) {
@@ -111,7 +110,7 @@ const StoreServices = {
       );
       return {
         message: `Eliminación exitosa`,
-        status: 204,
+        status: 200,
         data: {
           store:null,
         },

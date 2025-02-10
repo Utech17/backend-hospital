@@ -4,11 +4,7 @@ import { ActionInterface } from "../interfaces";
 const actionServices = {
     getAll: async () => {
         try {
-            const actions = await ActionDB.findAll({
-                where: {
-                    status: true
-                }
-            })
+            const actions = await ActionDB.findAll()
 
             if (actions.length == 0) {
                 return {
@@ -40,7 +36,6 @@ const actionServices = {
             const action = await ActionDB.findOne({
                 where: {
                     id: id,
-                    status: true
                 }
             })
 
@@ -111,7 +106,6 @@ const actionServices = {
         try {
             await ActionDB.update(
                 {
-                    status: false,
                     deletedAt: new Date(),
                 },
                 { where: { id } }

@@ -6,8 +6,8 @@ export interface JournalInterface {
     request_id?: number | string;
     account_record_id?: number | string;
     createdAt: Date;
-    updatedAt: Date;
-    deletedAt?: Date;
+    updatedAt: string | Date | null;
+    deletedAt?: string | Date | null;
     request?: RequestInterface;
     account_record?: AccountRecordInterface;
 }

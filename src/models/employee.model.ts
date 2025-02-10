@@ -34,7 +34,8 @@ const EmployeeModel = {
   },
   // status
   status: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.ENUM("active", "inactive"),
+    defaultValue: "active",
     allowNull: false,
   },
   // id_usuario
@@ -44,12 +45,18 @@ const EmployeeModel = {
   },
   createdAt: {
     type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
   },
   updatedAt: {
     type: DataTypes.DATE,
+    allowNull:  true,
+    defaultValue: null,
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true,
+    defaultValue: null,
   },
 };
 

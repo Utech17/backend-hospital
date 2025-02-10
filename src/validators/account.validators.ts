@@ -6,8 +6,6 @@ class AccountValidator {
   public validateAccount = [
     body("name").notEmpty().withMessage("Account Name is required"),
     body("name").isString().withMessage("Account Name must be string"),
-    body("balance").notEmpty().withMessage("Account Balance is required"),
-    body("balance").isNumeric().withMessage("Account Balance must be numeric"),
   ];
 
   public validateIfIdExist = async (

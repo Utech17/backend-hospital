@@ -15,6 +15,7 @@ const BillingModel = {
   billing_date: { 
     type: DataTypes.DATE,
     allowNull: false,
+    defaultValue: DataTypes.NOW,
   }, 
   // estado_factura
   billing_status: {
@@ -28,10 +29,14 @@ const BillingModel = {
   },
   updatedAt: {
     type: DataTypes.DATE,
+    allowNull: true,
+    defaultValue: null,
   },
   deletedAt: {
     type: DataTypes.DATE,
-  },
+    allowNull: true,
+    defaultValue: null,
+   },
 };
 
 export { BillingModel };

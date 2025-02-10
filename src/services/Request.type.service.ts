@@ -32,7 +32,7 @@ const RequestTypeServices = {
   getOne: async (id: number) => {
     try {
       const requestType = await RequestTypeDB.findOne({
-        where: { id },
+        where: { request_type_id: id },
       });
       if (!requestType) {
         return {
@@ -76,13 +76,13 @@ const RequestTypeServices = {
   },
   update: async (id: number, data: Partial<RequestTypeInterface>) => {
     try {
-      const requestType = await RequestTypeDB.update(data, { where: { id } });
-      const { data: updatedData } = await RequestTypeServices.getOne(id);
+      await RequestTypeDB.update(data, { where: { request_type_id: id } });
+      const updatedRequestType = await RequestTypeDB.findOne({ where: { request_type_id: id } });
       return {
         message: `Actualización exitosa`,
         status: 200,
         data: {
-          requestType: updatedData?.requestType,
+          requestType: updatedRequestType,
         },
       };
     } catch (error) {
@@ -95,13 +95,16 @@ const RequestTypeServices = {
   },
   delete: async (id: number) => {
     try {
-      const requestType = await RequestTypeDB.destroy({ where: { id } });
+      const result = await RequestTypeDB.destroy({ where: { request_type_id: id } });
+      if (result === 0) {
+        return {
+          message: `Registro no encontrado`,
+          status: 404,
+        };
+      }
       return {
         message: `Eliminación exitosa`,
-        status: 204,
-        data: {
-          requestType,
-        },
+        status: 200,
       };
     } catch (error) {
       console.log(error);

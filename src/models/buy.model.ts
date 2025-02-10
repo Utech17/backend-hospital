@@ -15,6 +15,7 @@ const BuyModel = {
     date: {
         type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: DataTypes.NOW,
     },
     // Monto total
     amount: {
@@ -34,9 +35,13 @@ const BuyModel = {
     },
     updatedAt: {
         type: DataTypes.DATE,
-      },
+        allowNull: true,
+        defaultValue: null,
+    },
     deletedAt: {
         type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null,
     },
 };
 

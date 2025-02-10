@@ -3,7 +3,7 @@ import { ProductInterface } from "../interfaces";
 const ProductServices = {
   getAll: async () => {
     try {
-      const products = await ProductDB.findAll({ where: { status: true } });
+      const products = await ProductDB.findAll();
       if (products.length === 0) {
         return {
           message: `Registros no encontrados`,
@@ -33,7 +33,6 @@ const ProductServices = {
       const product = await ProductDB.findOne({
         where: {
           id: id,
-          status: true,
         },
       });
       if (!product) {
@@ -102,17 +101,15 @@ const ProductServices = {
     try {
       const product = await ProductDB.update(
         {
-          status: false,
-          deletedAt: new Date(),
+          status: "inactive",
+
         },
         { where: { id } }
+
       );
       return {
         message: `Eliminación exitosa`,
-        status: 204,
-        data: {
-          product,
-        },
+        status: 200,
       };
     } catch (error) {
       console.log(error);

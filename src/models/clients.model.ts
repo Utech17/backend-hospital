@@ -20,7 +20,6 @@ const ClientModel = {
   email: {
     type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true,
     validate: {
       isEmail: true,
       notEmpty: true,
@@ -30,8 +29,22 @@ const ClientModel = {
   phone_number: {
     type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true,
   },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull:  true,
+    defaultValue: null,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    defaultValue: null,
+   },
 };
 
 export { ClientModel };

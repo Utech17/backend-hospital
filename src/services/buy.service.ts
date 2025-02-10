@@ -1,5 +1,5 @@
-import { BuyDB, BuyDetailsDB, SupplierDB } from "../config";
-import { BuyInterface, BuyDetailsInterface } from "../interfaces";
+import { BuyDB } from "../config";
+import { BuyInterface } from "../interfaces";
 
 const BuyServices = {
     getAll: async () => {
@@ -8,21 +8,11 @@ const BuyServices = {
                 where: {
                     status: true,
                 },
-                include: [
-                    {
-                        model: BuyDetailsDB,
-                        as: "purchaseDetails",
-                    },
-                    {
-                        model: SupplierDB,
-                        as: "supplier",
-                    },
-                ],
             });
 
             if (buys.length === 0) {
                 return {
-                    message: `No se encontraron registros`,
+                    message: `Records not found`,
                     status: 404,
                     data: {
                         buys,
@@ -31,7 +21,7 @@ const BuyServices = {
             }
 
             return {
-                message: `Registros encontrados`,
+                message: `Records found`,
                 status: 200,
                 data: {
                     buys,
@@ -40,7 +30,7 @@ const BuyServices = {
         } catch (error) {
             console.error(error);
             return {
-                message: `Por favor, contacte al administrador: error`,
+                message: `Contact the administrator: error`,
                 status: 500,
             };
         }
@@ -53,57 +43,21 @@ const BuyServices = {
                     id,
                     status: true,
                 },
-                include: [
-                    {
-                        model: BuyDetailsDB,
-                        as: "purchaseDetails",
-                    },
-                    {
-                        model: SupplierDB,
-                        as: "supplier",
-                    },
-                ],
             });
 
             if (!buys) {
                 return {
-                    message: `Registro no encontrado`,
+                    message: `Record not found`,
                     status: 404,
                     data: {},
                 };
             }
 
             return {
-                message: `Registro encontrado`,
+                message: `Record found`,
                 status: 200,
                 data: {
                     buys,
-                },
-            };
-        } catch (error) {
-            console.error(error);
-            return {
-                message: `Por favor, contacte al administrador: error`,
-                status: 500,
-            };
-        }
-    },
-
-    create: async (data: Partial<BuyInterface>, purchaseDetails: BuyDetailsInterface[]) => {
-        try {
-            const buy = await BuyDB.create({ ...data });
-            for (const detail of purchaseDetails) {
-                await BuyDetailsDB.create({
-                    ...detail,
-                    purchaseId: buy.dataValues.id,
-                });
-            }
-
-            return {
-                message: `Successful creation`,
-                status: 201,
-                data: {
-                    buy,
                 },
             };
         } catch (error) {
@@ -115,16 +69,28 @@ const BuyServices = {
         }
     },
 
-    update: async (data: Partial<BuyInterface>, id: number | string, purchaseDetails: BuyDetailsInterface[]) => {
+    create: async (data: Partial<BuyInterface>) => {
+        try {
+            const buys = await BuyDB.create({ ...data });
+            return {
+                message: `Successful creation`,
+                status: 201,
+                data: {
+                    buys,
+                },
+            };
+        } catch (error) {
+            console.error(error);
+            return {
+                message: `Contact the administrator: error`,
+                status: 500,
+            };
+        }
+    },
+
+    update: async (data: Partial<BuyInterface>, id: number | string) => {
         try {
             await BuyDB.update(data, { where: { id } });
-            for (const detail of purchaseDetails) {
-                await BuyDetailsDB.upsert({
-                    ...detail,
-                    purchaseId: id,
-                });
-            }
-
             const { data: buysData } = await BuyServices.getOne(id);
 
             return {
@@ -145,17 +111,7 @@ const BuyServices = {
 
     delete: async (id: number | string) => {
         try {
-            await BuyDB.update(
-                {
-                    status: false,
-                },
-                { where: { id } }
-            );
-            await BuyDetailsDB.update(
-                { status: false },
-                { where: { purchaseId: id } }
-            );
-
+            await BuyDB.update({status: false,},{ where: { id } });
             return {
                 message: `Successful removal`,
                 status: 204,
@@ -171,4 +127,4 @@ const BuyServices = {
     },
 };
 
-export { BuyServices };
+export {BuyServices,};

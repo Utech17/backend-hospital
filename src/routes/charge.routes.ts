@@ -7,15 +7,15 @@ const chargeValidator = new ChargeValidator();
 const router = Router();
 const chargeController = new ChargeController();
 
-router.get("/", chargeController.all);
-router.get("/:id", chargeController.one);
+router.get("/", chargeController.all); // http://localhost:3900/api/charge
+router.get("/:id", chargeController.one); // http://localhost:3900/api/charge/1
 router.post(
   "/",
   chargeValidator.validatecharge,
   chargeValidator.validateIfchargeNameIsUse,
   validateFields,
   chargeController.create
-);
+); // http://localhost:3900/api/charge
 router.put(
   "/:id",
   chargeValidator.validatecharge,
@@ -24,7 +24,7 @@ router.put(
 
   validateFields,
   chargeController.update
-);
-router.delete("/:id", chargeController.delete); 
+); // http://localhost:3900/api/charge/1
+router.delete("/:id", chargeController.delete); // http://localhost:3900/api/charge/1
 
 export default router;

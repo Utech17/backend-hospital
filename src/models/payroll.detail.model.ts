@@ -21,6 +21,11 @@ const PayrollDetailModel = {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
   },
+  status: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
+},
 };
 
 export { PayrollDetailModel };

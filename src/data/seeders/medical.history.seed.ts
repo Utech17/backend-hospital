@@ -8,9 +8,6 @@ const medicalHistoriesSeeds: Partial<MedicalHistoryInterface>[] = [
     discharge_date: new Date("2024-01-05"),
     diagnosis: "Neumonía leve",
     treatment: "Antibióticos y reposo en casa",
-    createdAt: new Date("2024-01-01T08:00:00Z"),
-    updatedAt: new Date("2024-01-05T16:00:00Z"),
-    deletedAt: null,
   },
   {
     id: 2,
@@ -19,9 +16,6 @@ const medicalHistoriesSeeds: Partial<MedicalHistoryInterface>[] = [
     discharge_date: new Date("2024-02-15"),
     diagnosis: "Fractura de pierna",
     treatment: "Inmovilización, yeso y analgésicos",
-    createdAt: new Date("2024-02-10T09:30:00Z"),
-    updatedAt: new Date("2024-02-15T18:00:00Z"),
-    deletedAt: null,
   },
   {
     id: 3,
@@ -30,9 +24,6 @@ const medicalHistoriesSeeds: Partial<MedicalHistoryInterface>[] = [
     discharge_date: new Date("2024-03-07"),
     diagnosis: "Migraña crónica",
     treatment: "Terapia de relajación y medicación específica",
-    createdAt: new Date("2024-03-05T10:00:00Z"),
-    updatedAt: new Date("2024-03-07T15:30:00Z"),
-    deletedAt: null,
   },
   {
     id: 4,
@@ -41,9 +32,6 @@ const medicalHistoriesSeeds: Partial<MedicalHistoryInterface>[] = [
     discharge_date: null,
     diagnosis: "COVID-19 severo",
     treatment: "Oxígeno suplementario y monitoreo constante",
-    createdAt: new Date("2024-04-01T11:00:00Z"),
-    updatedAt: new Date("2024-04-12T14:00:00Z"),
-    deletedAt: null,
   },
   {
     id: 5,
@@ -52,9 +40,6 @@ const medicalHistoriesSeeds: Partial<MedicalHistoryInterface>[] = [
     discharge_date: new Date("2024-05-25"),
     diagnosis: "Hipertensión arterial",
     treatment: "Control de dieta, medicación antihipertensiva",
-    createdAt: new Date("2024-05-20T09:00:00Z"),
-    updatedAt: new Date("2024-05-25T17:00:00Z"),
-    deletedAt: null,
   },
   {
     id: 6,
@@ -63,9 +48,6 @@ const medicalHistoriesSeeds: Partial<MedicalHistoryInterface>[] = [
     discharge_date: new Date("2024-06-20"),
     diagnosis: "Ansiedad generalizada",
     treatment: "Terapia cognitivo-conductual y medicación temporal",
-    createdAt: new Date("2024-06-15T08:30:00Z"),
-    updatedAt: new Date("2024-06-20T16:00:00Z"),
-    deletedAt: null,
   },
 ];
 
