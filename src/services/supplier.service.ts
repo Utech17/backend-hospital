@@ -89,7 +89,7 @@ const supplierServices = {
     try {
       const deletedAt = new Date();
       await SupplierDB.update(
-        { status: false, deletedAt },
+        { status: 0, deletedAt },
         { where: { id } }
       );
       return {
