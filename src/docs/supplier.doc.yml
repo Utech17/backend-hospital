@@ -315,6 +315,7 @@
         content:
           application/json:
             schema:
+              type: object
               properties:
                 errors:
                   type: array
@@ -326,7 +327,7 @@
                         example: field
                       msg:
                         type: string
-                        example: El parametro id : 1, no existe en la base de datos.
+                        example: "El parámetro id : 1, no existe en la base de datos."
                       path:
                         type: string
                         example: id
@@ -371,6 +372,7 @@
         content:
           application/json:
             schema:
+              type: object
               properties:
                 errors:
                   type: array
@@ -382,7 +384,7 @@
                         example: field
                       msg:
                         type: string
-                        example: El parametro id : 1, no existe en la base de datos.
+                        example: "El parámetro id : 1, no existe en la base de datos."
                       path:
                         type: string
                         example: id
