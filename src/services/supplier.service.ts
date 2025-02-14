@@ -87,7 +87,11 @@ const supplierServices = {
 
   delete: async (id: number) => {
     try {
-      await SupplierDB.destroy({ where: { id } });
+      const deletedAt = new Date();
+      await SupplierDB.update(
+        { status: false, deletedAt },
+        { where: { id } }
+      );
       return {
         message: `Proveedor eliminado exitosamente`,
         status: 200,

@@ -4,17 +4,16 @@ import { supplierServices } from "../services";
 
 class SupplierValidator {
   public validateSupplier = [
-    body("name").notEmpty().withMessage("Supplier name is required"),
-    body("name").isLength({ max: 255 }).withMessage("Supplier name cannot exceed 255 characters"),
-    body("email").optional().isEmail().withMessage("Email must be a valid email address"),
-    body("phone")
-      .optional()
-      .matches(/^[0-9]+$/)
-      .withMessage("Phone number must contain only digits"),
-    body("address").optional().isLength({ max: 255 }).withMessage("Address cannot exceed 255 characters"),
+    body("rif").notEmpty().withMessage("El RIF es obligatorio"),
+    body("rif").isLength({ max: 15 }).withMessage("El RIF no puede exceder los 15 caracteres"),
+    body("address").notEmpty().withMessage("La dirección es obligatoria"),
+    body("address").isLength({ max: 255 }).withMessage("La dirección no puede exceder los 255 caracteres"),
+    body("business_name").notEmpty().withMessage("El nombre comercial es obligatorio"),
+    body("business_name").isLength({ max: 100 }).withMessage("El nombre comercial no puede exceder los 100 caracteres"),
+    body("status").optional().isBoolean().withMessage("El estado debe ser un valor booleano"),
   ];
 
-  // Middleware to validate supplier existence by ID
+  // Middleware para validar la existencia del proveedor por ID
   public validateSupplierId = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const { status, message, data } = await supplierServices.getOne(parseInt(id));
@@ -27,7 +26,7 @@ class SupplierValidator {
         errors: [
           {
             type: "field",
-            msg: `The supplier with ID: ${id} does not exist`,
+            msg: `El proveedor con ID: ${id} no existe`,
             path: "id",
             location: "params",
           },
