@@ -28,6 +28,17 @@ class PatientValidator {
       .withMessage("Registration date must be a valid datetime"),
   ];
 
+  public validatePatientCreate = [
+    ...this.validatePatient,
+    body("identifier")
+      .custom(async (value) => {
+        const exists = await PatientServices.existsWithIdentifier(value);
+        if (exists) {
+          throw new Error("Identifier already exists");
+        }
+      }),
+  ];
+
   // Middleware para validar la existencia de un paciente
   public validatePatientId = async (
     req: Request,

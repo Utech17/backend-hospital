@@ -97,18 +97,38 @@ const PatientServices = {
 
   delete: async (id: number) => {
     try {
-      await PatientDB.destroy({ where: { id } });
+      const patient = await PatientDB.update(
+        {
+          deletedAt: new Date(),
+        },
+        { where: { id } }
+      );
       return {
-        message: `Paciente eliminado exitosamente`,
+        message: `Eliminación exitosa`,
         status: 204,
-        data: {},
+        data: {
+          patient,
+        },
       };
     } catch (error) {
-      console.error(error);
+      console.log(error);
       return {
-        message: `Por favor, contacte al administrador`,
+        message: `Contacte con el administrador`,
         status: 500,
       };
+    }
+  },
+
+existsWithIdentifier: async (identifier: string) => {
+    try {
+      const patient = await PatientDB.findOne({ where: { identifier } });
+      if (patient) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   },
 };

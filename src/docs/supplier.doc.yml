@@ -1,0 +1,401 @@
+/supplier:
+  get:
+    summary: Obtener todos los proveedores
+    tags:
+      - Proveedor
+    description: Endpoint para obtener la lista de todos los proveedores
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Proveedores encontrados correctamente
+                data:
+                  type: object
+                  properties:
+                    suppliers:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          rif:
+                            type: string
+                            example: "J-12345678-9"
+                          address:
+                            type: string
+                            example: "Calle Falsa 123"
+                          business_name:
+                            type: string
+                            example: "Proveedor S.A."
+                          status:
+                            type: boolean
+                            example: true
+      '404':
+        description: No se encontraron proveedores
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: No se encontraron proveedores
+                data:
+                  type: array
+                  items: {}
+                  example: []
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor, contacte al administrador
+  post:
+    summary: Crear un nuevo proveedor
+    tags:
+      - Proveedor
+    description: Endpoint para crear un nuevo proveedor
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              rif:
+                type: string
+                example: "J-12345678-9"
+              address:
+                type: string
+                example: "Calle Falsa 123"
+              business_name:
+                type: string
+                example: "Proveedor S.A."
+              status:
+                type: boolean
+                example: true
+    responses:
+      '201':
+        description: Proveedor creado exitosamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Proveedor creado exitosamente
+                data:
+                  type: object
+                  properties:
+                    supplier:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        rif:
+                          type: string
+                          example: "J-12345678-9"
+                        address:
+                          type: string
+                          example: "Calle Falsa 123"
+                        business_name:
+                          type: string
+                          example: "Proveedor S.A."
+                        status:
+                          type: boolean
+                          example: true
+      '400':
+        description: Error en la solicitud
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: field
+                      msg:
+                        type: string
+                        example: El RIF es obligatorio
+                      path:
+                        type: string
+                        example: rif
+                      location:
+                        type: string
+                        example: body
+      '500':
+        description: Error del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor, contacte al administrador
+
+/supplier/{id}:
+  get:
+    summary: Obtener un proveedor
+    tags:
+      - Proveedor
+    description: Endpoint para obtener un proveedor por su id
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Id del proveedor
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Proveedor encontrado
+                data:
+                  type: object
+                  properties:
+                    supplier:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        rif:
+                          type: string
+                          example: "J-12345678-9"
+                        address:
+                          type: string
+                          example: "Calle Falsa 123"
+                        business_name:
+                          type: string
+                          example: "Proveedor S.A."
+                        status:
+                          type: boolean
+                          example: true
+      '404':
+        description: Proveedor no encontrado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Proveedor no encontrado
+                data:
+                  type: object
+                  properties: {}
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor, contacte al administrador
+  put:
+    summary: Actualizar un proveedor
+    tags:
+      - Proveedor
+    description: Endpoint para actualizar un proveedor por su id
+    parameters:
+      - in: path
+        name: id
+        required: true
+        description: Id del proveedor
+        schema:
+          type: integer
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              rif:
+                type: string
+                example: "J-12345678-9"
+              address:
+                type: string
+                example: "Calle Falsa 123"
+              business_name:
+                type: string
+                example: "Proveedor S.A."
+              status:
+                type: boolean
+                example: true
+    responses:
+      '200':
+        description: Proveedor actualizado exitosamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Proveedor actualizado exitosamente
+                data:
+                  type: object
+                  properties:
+                    supplier:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        rif:
+                          type: string
+                          example: "J-12345678-9"
+                        address:
+                          type: string
+                          example: "Calle Falsa 123"
+                        business_name:
+                          type: string
+                          example: "Proveedor S.A."
+                        status:
+                          type: boolean
+                          example: true
+      '400':
+        description: Error en la solicitud
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: field
+                      msg:
+                        type: string
+                        example: El RIF es obligatorio
+                      path:
+                        type: string
+                        example: rif
+                      location:
+                        type: string
+                        example: body
+      '404':
+        description: Proveedor no encontrado para actualizar
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: field
+                      msg:
+                        type: string
+                        example: El parametro id : 1, no existe en la base de datos.
+                      path:
+                        type: string
+                        example: id
+                      location:
+                        type: string
+                        example: param
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor, contacte al administrador
+  delete:
+    summary: Eliminar un proveedor
+    tags:
+      - Proveedor
+    description: Endpoint para eliminar un proveedor
+    parameters:
+      - name: id
+        in: path
+        description: ID del proveedor a eliminar
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Proveedor eliminado exitosamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Proveedor eliminado exitosamente
+      '404':
+        description: Proveedor no encontrado para eliminar
+        content:
+          application/json:
+            schema:
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: field
+                      msg:
+                        type: string
+                        example: El parametro id : 1, no existe en la base de datos.
+                      path:
+                        type: string
+                        example: id
+                      location:
+                        type: string
+                        example: param
+      '500':
+        description: Error interno del servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Por favor, contacte al administrador
