@@ -157,8 +157,8 @@ PatientDB.hasMany(ContactDB, { foreignKey: "patient_id" });
 ContactDB.belongsTo(PatientDB, { foreignKey: "patient_id" });
 
 //EventDetailsDB
-EventDB.hasMany(EventDetailsDB, { foreignKey: "events" })
-EventDetailsDB.belongsTo(EventDB, { foreignKey: "events" })
+EventDB.hasMany(EventDetailsDB, { foreignKey: "events_id" })
+EventDetailsDB.belongsTo(EventDB, { foreignKey: "events_id" })
 
 ActionDB.hasMany(EventDetailsDB, { foreignKey: "actions_id" })
 EventDetailsDB.belongsTo(ActionDB, { foreignKey: "actions_id" })
