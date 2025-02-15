@@ -8,7 +8,7 @@ const ActionModel = {
     },
     //Nombre de la acción
     name_actions: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(100),
         allowNull: false,
     },
     // Descripción
