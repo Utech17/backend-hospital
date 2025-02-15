@@ -8,13 +8,13 @@ const ChargeModel = {
     },
     // Nombre del cargo
     charge_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(100),
       allowNull: false,
       unique: true
     },
     // Descripción
     description: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
       allowNull: false
     },
     createdAt: {
