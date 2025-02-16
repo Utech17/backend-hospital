@@ -1,0 +1,7 @@
+{
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.fontSize": 14,
+  "editor.minimap.sectionHeaderFontSize": 9,
+  "editor.indentSize": "tabSize"
+}
