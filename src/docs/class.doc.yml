@@ -322,3 +322,51 @@ paths:
                   message:
                     type: "string"
                     example: "Por favor, contacte con el administrador"
+    delete:
+      summary: "Eliminar una clase"
+      tags:
+        - "Clases"
+      description: "Elimina una clase existente."
+      parameters:
+        - name: "cod_class"
+          in: "path"
+          description: "ID de la clase a eliminar"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "Clase eliminada exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Clase eliminada exitosamente"
+                  data:
+                    type: "object"
+                    properties: {}
+        "404":
+          description: "Registro no encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registro no encontrado"
+                  data:
+                    type: "object"
+                    properties: {}
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
