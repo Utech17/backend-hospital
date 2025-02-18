@@ -1,10 +1,14 @@
 import { DataTypes } from "sequelize";
 
 const buyDetailsModel = {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   buy_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true,
   },
   // ID del producto
   product_id: {

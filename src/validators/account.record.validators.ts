@@ -4,12 +4,19 @@ import { AccountRecordServices } from "../services";
 
 class AccountRecordValidator {
   public validateAccountRecord = [
-    body("account_id").notEmpty().withMessage("Account ID is required"),
-    body("account_id").isNumeric().withMessage("Account ID must be numeric"),
-    body("amount").notEmpty().withMessage("Amount is required"),
-    body("amount").isNumeric().withMessage("Amount must be numeric"),
-    body("description").notEmpty().withMessage("Description is required"),
-    body("description").isString().withMessage("Description must be string"),
+    body("type")
+        .notEmpty().withMessage("El tipo es requerido")
+        .isIn(['debe', 'haber']).withMessage("El tipo debe ser 'debe' o 'haber'"),
+    body("name")
+        .notEmpty().withMessage("El nombre es requerido")
+        .isString().withMessage("El nombre debe ser texto")
+        .isLength({ max: 100 }).withMessage("El nombre debe tener menos de 100 caracteres"),
+    body("amount")
+        .notEmpty().withMessage("El monto es requerido")
+        .isDecimal().withMessage("El monto debe ser decimal"),
+    body("account_id")
+        .notEmpty().withMessage("El ID de la cuenta es requerido")
+        .isInt().withMessage("El ID de la cuenta debe ser un número entero"),
   ];
 
   public validateIfIdExist = async (

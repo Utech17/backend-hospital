@@ -4,12 +4,13 @@ import { RequestTypeServices } from "../services";
 
 class RequestTypeValidator {
   public validateRequestType = [
-    body("name").notEmpty().withMessage("Request Type Name is required"),
-    body("name").isString().withMessage("Request Type Name must be string"),
-    body("bot").notEmpty().withMessage("Request Type bot is required"),
-    body("bot").isBoolean().withMessage("Bot must be a boolean value"),
-    body("department_id").notEmpty().withMessage("Request Type department_id is required"),
-    body("department_id").isInt().withMessage("Department ID must be an integer"),
+    body("name")
+        .notEmpty().withMessage("El nombre es requerido")
+        .isString().withMessage("El nombre debe ser texto")
+        .isLength({ max: 50 }).withMessage("El nombre debe tener menos de 50 caracteres"),
+    body("bot")
+        .notEmpty().withMessage("El campo bot es requerido")
+        .isBoolean().withMessage("El campo bot debe ser verdadero o falso"),
   ];
 
   public validateIfIdExist = async (
