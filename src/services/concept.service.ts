@@ -33,7 +33,7 @@ const conceptServices = {
       const concept = await ConceptDB.findOne({
         where: {
           id: id,
-          status: true,
+          
         },
       });
       if (!concept) {

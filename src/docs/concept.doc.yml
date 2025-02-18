@@ -1,0 +1,216 @@
+/concepts:
+  get:
+    summary: "Obtener Conceptos"
+    tags:
+      - "Concepts"
+    description: "Endpoint para obtener la lista de conceptos"
+    produces:
+      - "application/json"
+    responses:
+      "200":
+        description: "Registros encontrados exitosamente"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros encontrados exitosamente"
+                data:
+                  type: "object"
+                  properties:
+                    concepts:
+                      type: "array"
+                      items:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          name:
+                            type: "string"
+                            example: "Concepto A"
+      "404":
+        description: "Registros no encontrados"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registros no encontrados"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  post:
+    summary: "Crear Concepto"
+    tags:
+      - "Concepts"
+    description: "Endpoint para crear un nuevo concepto"
+    produces:
+      - "application/json"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "Concepto A"
+    responses:
+      "201":
+        description: "Creación exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Creación exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    concept:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "Concepto A"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+/concepts/{id}:
+  get:
+    summary: "Obtener Concepto por ID"
+    tags:
+      - "Concepts"
+    description: "Endpoint para obtener un concepto por ID"
+    produces:
+      - "application/json"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: "integer"
+    responses:
+      "200":
+        description: "Registro encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro encontrado"
+                data:
+                  type: "object"
+                  properties:
+                    concept:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "Concepto A"
+      "404":
+        description: "Registro no encontrado"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Registro no encontrado"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
+  put:
+    summary: "Actualizar Concepto por ID"
+    tags:
+      - "Concepts"
+    description: "Endpoint para actualizar un concepto por ID"
+    produces:
+      - "application/json"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: "integer"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "Concepto A"
+    responses:
+      "201":
+        description: "Actualización exitosa"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Actualización exitosa"
+                data:
+                  type: "object"
+                  properties:
+                    concept:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          example: 1
+                        name:
+                          type: "string"
+                          example: "Concepto A"
+      "500":
+        description: "Error interno del servidor"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                message:
+                  type: "string"
+                  example: "Contacte con el administrador"
