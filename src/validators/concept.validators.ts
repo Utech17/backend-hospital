@@ -7,7 +7,7 @@ class ConceptValidator {
     body("name").notEmpty().withMessage("Name is required"),
     body("name").isString().withMessage("Name must be string"),
     body("concept_type").notEmpty().withMessage("Concept type is required"),
-    body("concept_type").isNumeric().withMessage("Concept Type must be numeric"),
+    body("concept_type").isIn(["type1", "type2", "type3"]).withMessage("Status must be one of: type1, type2, type3"),
     body("formula").notEmpty().withMessage("formula is required"),
     body("formula").isNumeric().withMessage("formula must be numeric"),
     body("description").notEmpty().withMessage("description is required"),
