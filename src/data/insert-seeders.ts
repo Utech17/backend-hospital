@@ -118,14 +118,14 @@ async function insertSeeders() {
       "charges",
       "paymentTypes",
       "attendance",
+      "patients",
     ],
     level4: [
-      "patients",
       "products",
       "concepts",
       "inventory",
       "eventTypes",
-      "sales",
+      "billings",
     ],
     level5: [
       "contracts",
@@ -138,6 +138,7 @@ async function insertSeeders() {
       "buy",
       "events",
       "actions",
+      "sales",
     ],
     level6: [
       "eventDetails",
@@ -146,7 +147,6 @@ async function insertSeeders() {
       "requests",
       "accountRecords",
       "journals",
-      "billings",
       "buyDetails",
       "billingDetail",
     ],
@@ -173,14 +173,14 @@ async function insertSeeders() {
     await ChargeDB.bulkCreate(chargesSeeds, { ignoreDuplicates: true, validate: true });
     await PaymentTypeDB.bulkCreate(paymentTypeSeeds, { ignoreDuplicates: true, validate: true });
     await AttendanceDB.bulkCreate(attendanceSeeds, { ignoreDuplicates: true, validate: true });
+    await PatientDB.bulkCreate(patientsSeeds, { ignoreDuplicates: true, validate: true });
 
     console.log("Insertando seeds de nivel 4...");
-    await PatientDB.bulkCreate(patientsSeeds, { ignoreDuplicates: true, validate: true });
     await ProductDB.bulkCreate(productSeeds, { ignoreDuplicates: true, validate: true });
     await ConceptDB.bulkCreate(conceptSeeds, { ignoreDuplicates: true, validate: true });
     await InventoryDB.bulkCreate(InventorysSeeds, { ignoreDuplicates: true, validate: true });
     await EventTypeDB.bulkCreate(eventTypesSeeds, { ignoreDuplicates: true, validate: true });
-    await SaleDB.bulkCreate(saleSeeds, { ignoreDuplicates: true, validate: true });
+    await BillingDB.bulkCreate(billingSeeds, { ignoreDuplicates: true, validate: true });
 
     console.log("Insertando seeds de nivel 5...");
     await ContractDB.bulkCreate(contractSeeds, { ignoreDuplicates: true, validate: true });
@@ -193,6 +193,7 @@ async function insertSeeders() {
     await BuyDB.bulkCreate(buySeeds, { ignoreDuplicates: true, validate: true });
     await EventDB.bulkCreate(eventsSeeds, { ignoreDuplicates: true, validate: true });
     await ActionDB.bulkCreate(actionsSeeds, { ignoreDuplicates: true, validate: true });
+    await SaleDB.bulkCreate(saleSeeds, { ignoreDuplicates: true, validate: true });
     
     console.log("Insertando seeds de nivel 6...");
     await EventDetailsDB.bulkCreate(eventDetailsSeeds, { ignoreDuplicates: true, validate: true });
@@ -201,7 +202,6 @@ async function insertSeeders() {
     await RequestDB.bulkCreate(requestsSeeds, { ignoreDuplicates: true, validate: true });
     await AccountRecordDB.bulkCreate(accountRecordsSeeds, { ignoreDuplicates: true, validate: true });
     await JournalDB.bulkCreate(journalsSeeds, { ignoreDuplicates: true, validate: true });
-    await BillingDB.bulkCreate(billingSeeds, { ignoreDuplicates: true, validate: true });
     await BuyDetailsDB.bulkCreate(BuyDetailSeeds, { ignoreDuplicates: true, validate: true });
     await BillingDetailDB.bulkCreate(BillingDetailsSeeds, { ignoreDuplicates: true, validate: true });
 
