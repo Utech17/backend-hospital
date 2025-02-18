@@ -19,4 +19,7 @@ export interface ProductInterface{
     cod_type:number;
     cod_class:number;
     cod_pres:number;
+    type?:TypeInterface;
+    class?:ClassInterface;
+    presentation?:PresentationInterface;
 }
