@@ -7,12 +7,26 @@ const router = Router();
 const billingController = new BillingController();
 const billingValidator = new BillingValidator();
 
-router.get("/", billingController.all); // GET: http://localhost:3900/api/billing
-router.get("/:id", billingController.one); // GET: http://localhost:3900/api/billing/1
-router.post("/",billingValidator.validateBilling,validateFields,
-  billingController.create); // POST: http://localhost:3900/api/billing
-router.put("/:id",billingValidator.validateBilling,
-  validateFields,billingController.update); // PUT: http://localhost:3900/api/billing/2
-router.delete("/:id", billingController.delete); // DELETE: http://localhost:3900/api/billing/3
+router.get("/", billingController.all);
+router.get("/:id", billingValidator.validateBillingId, billingController.one);
+router.post("/",
+  billingValidator.validateBilling,
+  billingValidator.validatePatientId,
+  billingValidator.validateClientId,
+  validateFields,
+  billingController.create
+);
+router.put("/:id",
+  billingValidator.validateBillingId,
+  billingValidator.validateBilling,
+  billingValidator.validatePatientId,
+  billingValidator.validateClientId,
+  validateFields,
+  billingController.update
+);
+router.delete("/:id", 
+  billingValidator.validateBillingId,
+  billingController.delete
+);
 
 export default router;

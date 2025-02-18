@@ -4,29 +4,15 @@ import { BuyServices, ProductServices } from "../services";
 
 class BuyValidator {
   public validateBuy = [
-    body("buys_date")
-      .notEmpty()
-      .withMessage("Buys date is required")
-      .isISO8601()
-      .withMessage("Buys date must be a valid date"),
-    body("total_amount")
-      .notEmpty()
-      .withMessage("Total amount is required")
-      .isFloat({ gt: 0 })
-      .withMessage("Total amount must be greater than 0"),
-    body("products")
-      .isArray({ min: 1 })
-      .withMessage("At least one product must be provided"),
-    body("products.*.product_id")
-      .notEmpty()
-      .withMessage("Product ID is required")
-      .isInt()
-      .withMessage("Product ID must be an integer"),
-    body("products.*.quantity")
-      .notEmpty()
-      .withMessage("Quantity is required")
-      .isInt({ min: 1 })
-      .withMessage("Quantity must be at least 1"),
+    body("invoice_number")
+        .notEmpty().withMessage("El número de factura es requerido")
+        .isInt().withMessage("El número de factura debe ser un número entero"),
+    body("date")
+        .notEmpty().withMessage("La fecha es requerida")
+        .isISO8601().withMessage("Formato de fecha inválido"),
+    body("supplier_id")
+        .notEmpty().withMessage("El ID del proveedor es requerido")
+        .isInt().withMessage("El ID del proveedor debe ser un número entero"),
   ];
 
   // Valida la existencia de los productos y su stock

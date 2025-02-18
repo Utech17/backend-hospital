@@ -5,7 +5,7 @@ const BuyDetailSeeds: Partial<BuyDetailsInterface>[] = [
     buy_id: 1,
     product_id: 1,
     quantity: 2,
-    buy_price: 250.38, // Example: 2 * 125.19 (assuming price per unit)
+    buy_price: 250.38, 
   },
   {
     buy_id: 1,
@@ -17,7 +17,7 @@ const BuyDetailSeeds: Partial<BuyDetailsInterface>[] = [
     buy_id: 2,
     product_id: 3,
     quantity: 3,
-    buy_price: 1500.00, // Example: 3 * 500.00
+    buy_price: 1500.00,
   },
   {
     buy_id: 3,

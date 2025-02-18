@@ -88,16 +88,22 @@ import {
 } from "../data/seeders";
 
 const eject = async () => {
-  await db
-    .authenticate()
-    .then(() => {
-      console.log("Conexión exitosa a la base de datos");
-    })
-    .catch((error: any) => {
-      console.log("No se pudo conectar a la base de datos");
-    });
+  try {
+    await db
+      .authenticate()
+      .then(() => {
+        console.log("Conexión exitosa a la base de datos");
+      })
+      .catch((error: any) => {
+        console.log("No se pudo conectar a la base de datos");
+        process.exit(1); // Salir si no hay conexión
+      });
 
-  await insertSeeders();
+    await insertSeeders();
+  } catch (error) {
+    console.error("Error durante la ejecución:", error);
+    process.exit(1);
+  }
 };
 
 async function insertSeeders() {
@@ -119,11 +125,11 @@ async function insertSeeders() {
       "concepts",
       "inventory",
       "eventTypes",
+      "sales",
     ],
     level5: [
       "contracts",
       "appointments",
-      "sales",
       "contacts",
       "inventoryMovements",
       "medicalHistories",
@@ -174,11 +180,11 @@ async function insertSeeders() {
     await ConceptDB.bulkCreate(conceptSeeds, { ignoreDuplicates: true, validate: true });
     await InventoryDB.bulkCreate(InventorysSeeds, { ignoreDuplicates: true, validate: true });
     await EventTypeDB.bulkCreate(eventTypesSeeds, { ignoreDuplicates: true, validate: true });
+    await SaleDB.bulkCreate(saleSeeds, { ignoreDuplicates: true, validate: true });
 
     console.log("Insertando seeds de nivel 5...");
     await ContractDB.bulkCreate(contractSeeds, { ignoreDuplicates: true, validate: true });
     await AppointmentDB.bulkCreate(appointmentsSeeds, { ignoreDuplicates: true, validate: true });
-    await SaleDB.bulkCreate(saleSeeds, { ignoreDuplicates: true, validate: true });
     await ContactDB.bulkCreate(contactsSeeds, { ignoreDuplicates: true, validate: true });
     await InventoryMovementDB.bulkCreate(inventoryMovementsSeeds, { ignoreDuplicates: true, validate: true });
     await MedicalHistoryDB.bulkCreate(medicalHistoriesSeeds, { ignoreDuplicates: true, validate: true });

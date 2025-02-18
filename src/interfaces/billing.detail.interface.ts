@@ -1,14 +1,13 @@
-import { ProductInterface } from ".";
-import { BillingInterface } from ".";
+import { ProductInterface } from "./product.interface";
+import { BillingInterface } from "./billing.interface";
 
 export interface BillingDetailInterface {
-    billing_id?: number | string;
-    quantity: number | string;
-    price: number | string;
-    num_fact: number | string;
-    product_id: number | string;
-    updatedAt: Date;
-    deletedAt?: string | Date | null;
-    Product?: ProductInterface;
-    Billing?: BillingInterface;
-  }  
+  billing_id?: number;
+  num_fact?: number;
+  product_id: number;
+  quantity: number;
+  price: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
+}  

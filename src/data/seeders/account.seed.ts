@@ -3,64 +3,172 @@ import { AccountInterface } from "../../interfaces";
 const accountsSeeds: Partial<AccountInterface>[] = [
   {
     id: 1,
-    name: "Banco",
-    type_account: "A", // Activo
+    name: "Efectivo en Caja",
+    type_account: "activo",
+    balance: 120000.00,
     status: true,
   },
   {
     id: 2,
-    name: "Caja",
-    type_account: "A", // Activo
+    name: "Cuentas por Cobrar Clientes",
+    type_account: "activo",
+    balance: 50000.00,
     status: true,
   },
   {
     id: 3,
-    name: "Clientes",
-    type_account: "A", // Activo
+    name: "Cuentas por Pagar Proveedores",
+    type_account: "pasivo",
+    balance: 130000.00,
     status: true,
   },
   {
     id: 4,
-    name: "Proveedores",
-    type_account: "P", // Pasivo
+    name: "Inventario de mercancías",
+    type_account: "activo",
+    balance: 130000.00,
     status: true,
   },
   {
     id: 5,
-    name: "Capital",
-    type_account: "C", // Capital
+    name: "Ventas",
+    type_account: "ingreso",
+    balance: 400000.00,
     status: true,
   },
   {
     id: 6,
-    name: "Ingresos",
-    type_account: "I", // Ingresos
+    name: "Capital Social",
+    type_account: "capital",
+    balance: 400000.00,
     status: true,
   },
   {
     id: 7,
-    name: "Gastos",
-    type_account: "G", // Gastos
+    name: "Costo de ventas",
+    type_account: "ingreso",
+    balance: 170000.00,
     status: true,
   },
   {
     id: 8,
-    name: "Inversiones",
-    type_account: "A", // Activo
+    name: "Edificio",
+    type_account: "activo",
+    balance: 200000.00,
     status: true,
   },
   {
     id: 9,
-    name: "Deudas a Largo Plazo",
-    type_account: "P", // Pasivo
+    name: "Depreciación acumulada de edificio",
+    type_account: "activo",
+    balance: -70000.00,
     status: true,
   },
   {
     id: 10,
-    name: "Reservas",
-    type_account: "C", // Capital
+    name: "Equipo de cómputo",
+    type_account: "activo",
+    balance: 15000.00,
     status: true,
   },
+  {
+    id: 11,
+    name: "Equipo de transporte",
+    type_account: "activo",
+    balance: 80000.00,
+    status: true,
+  },
+  {
+    id: 12,
+    name: "Documentos por pagar a Largo Plazo",
+    type_account: "pasivo",
+    balance: 411750.00,
+    status: true,
+  },
+  {
+    id: 13,
+    name: "Gastos de Ventas",
+    type_account: "egreso",
+    balance: 9000.00,
+    status: true,
+  },
+  {
+    id: 14,
+    name: "Comisiones vendedores",
+    type_account: "egreso",
+    balance: 21500.00,
+    status: true,
+  },
+  {
+    id: 15,
+    name: "Fletes en Ventas",
+    type_account: "egreso",
+    balance: 11000.00,
+    status: true,
+  },
+  {
+    id: 16,
+    name: "Alquileres",
+    type_account: "egreso",
+    balance: 31250.00,
+    status: true,
+  },
+  {
+    id: 17,
+    name: "Sueldos y Salarios Administracion",
+    type_account: "egreso",
+    balance: 18000.00,
+    status: true,
+  },
+  {
+    id: 18,
+    name: "Articulos de Oficina Administracion",
+    type_account: "egreso",
+    balance: 5000.00,
+    status: true,
+  },
+  {
+    id: 19,
+    name: "Cuentas por pagar varias",
+    type_account: "pasivo",
+    balance: 5000.00,
+    status: true,
+  },
+  {
+    id: 20,
+    name: "Gastos financieros",
+    type_account: "egreso", 
+    balance: 3000.00,
+    status: true,
+  },
+  {
+    id: 21,
+    name: "Otros ingresos",
+    type_account: "ingreso",
+    balance: 500.00,
+    status: true,
+  },
+  {
+    id: 22,
+    name: "Utilidad del Ejercicio",
+    type_account: "capital",
+    balance: 131750.00,
+    status: true,
+  },
+  {
+    id: 23,
+    name: "Terrenos",
+    type_account: "activo",
+    balance: 607000.00,
+    status: true,
+  },
+  {
+    id: 24,
+    name: "Reserva legal",
+    type_account: "capital",
+    balance: 53500.00,
+    status: true,
+  }
 ];
 
 export { accountsSeeds };

@@ -5,9 +5,7 @@ const RoleService = {
   getAll: async () => {
     try {
       const Roles = await RoleDB.findAll({
-        where: {
-
-        },
+        where: {},
       });
 
       if (Roles.length === 0) {
@@ -38,19 +36,26 @@ const RoleService = {
   },
 
   getOne: async (id: number | string) => {
+    if (!id) {
+      return {
+        message: "Invalid ID",
+        status: 400,
+      };
+    }
+
     try {
       const Role = await RoleDB.findOne({
         where: {
           id
         },
-      })
+      });
 
       if (!Role) {
         return {
           message: "Record not found",
           status: 404,
           data: {},
-        }
+        };
       } else {
         return {
           message: "Record found",
@@ -58,14 +63,14 @@ const RoleService = {
           data: {
             Role,
           },
-        }
+        };
       }
     } catch (error) {
-      console.log(error);
+      console.error('Error fetching role:', error);
       return {
         message: "Error fetching roles",
         status: 500,
-      }
+      };
     }
   },
 
@@ -78,17 +83,24 @@ const RoleService = {
         data: {
           Role,
         },
-      }
+      };
     } catch (error) {
-      console.log(error);
+      console.error('Error creating role:', error);
       return {
-        message: "Error fetching role",
+        message: "Error creating role",
         status: 500,
-      }
+      };
     }
   },
 
   update: async (data: Partial<RoleInterface>, id: number | string) => {
+    if (!id) {
+      return {
+        message: "Invalid ID",
+        status: 400,
+      };
+    }
+
     try {
       await RoleDB.update(data, { where: { id } });
       const { data: updatedRole } = await RoleService.getOne(id);
@@ -99,48 +111,31 @@ const RoleService = {
         data: {
           Role: updatedRole,
         },
-      }
+      };
     } catch (error) {
-      console.log(error);
+      console.error('Error updating role:', error);
       return {
-        message: "Error fetching role",
+        message: "Error updating role",
         status: 500,
-      }
+      };
     }
   },
 
-  // Eliminación lógica: Actualiza el campo status a false
-  // delete: async (id: number | string) => {
-  //   try {
-  //     await RoleDB.update(
-  //       {
-  //         status: false,
-  //         deletedAt: new Date(),
-  //       },
-  //       { where: { id } }
-  //     )
-  //     return {
-  //       message: "Successful removal",
-  //       status: 204,
-  //       data: {},
-  //     }
-  //   } catch (error) {
-  //     return {
-  //       message: "Error deleting role",
-  //       status: 500,
-  //     }
-  //   }
-  // },
-
-  // Eliminación física: Elimina el registro de la base de datos
   delete: async (id: number | string) => {
+    if (!id) {
+      return {
+        message: "Invalid ID",
+        status: 400,
+      };
+    }
+
     try {
       const result = await RoleDB.destroy({
         where: {
           id,
         },
       });
-  
+
       if (result === 0) {
         return {
           message: "Record not found",
@@ -155,6 +150,7 @@ const RoleService = {
         };
       }
     } catch (error) {
+      console.error('Error deleting role:', error);
       return {
         message: "Error deleting role",
         status: 500,
@@ -181,13 +177,13 @@ const RoleService = {
         };
       }
     } catch (error) {
-      console.log(error);
+      console.error('Error fetching role:', error);
       return {
         message: "Error fetching role",
         status: 500,
       };
     }
   },
-}
+};
 
-export { RoleService }
+export { RoleService };

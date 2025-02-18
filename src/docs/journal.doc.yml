@@ -161,6 +161,206 @@
                   type: string
                   example: Contacte con el administrador
 
+/journal/diary:
+  get:
+    summary: Obtener libro diario
+    tags:
+      - journal
+    description: Endpoint para obtener todos los asientos del libro diario
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Registros del diario encontrados exitosamente
+                data:
+                  type: object
+                  properties:
+                    entries:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          fecha:
+                            type: string
+                            format: date-time
+                            example: "2024-01-01T00:00:00.000Z"
+                          description:
+                            type: string
+                            example: "Registro de activos iniciales"
+                          ref:
+                            type: integer
+                            example: 1
+                          account:
+                            type: string
+                            example: "Efectivo en Caja"
+                          nickname:
+                            type: string
+                            example: "Efectivo en Caja"
+                          amount:
+                            type: number
+                            example: 120000.00
+                          type:
+                            type: string
+                            enum: [debe, haber]
+                            example: "debe"
+      '404':
+        description: No se encontraron registros
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: No se encontraron registros en el diario
+                data:
+                  type: object
+                  properties:
+                    entries:
+                      type: array
+                      items: {}
+                      example: []
+
+/journal/balance:
+  get:
+    summary: Obtener balance general
+    tags:
+      - journal
+    description: Endpoint para obtener el balance general
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Balance General generado exitosamente
+                data:
+                  type: object
+                  properties:
+                    balanceSheet:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "Efectivo en Caja"
+                          balance:
+                            type: number
+                            example: 120000.00
+                          debit:
+                            type: number
+                            example: 120000.00
+                          credit:
+                            type: number
+                            example: 0.00
+                          type_account:
+                            type: string
+                            enum: [activo, pasivo, capital]
+                            example: "activo"
+                          category:
+                            type: string
+                            enum: [real, nominal]
+                            example: "real"
+      '404':
+        description: No se encontraron datos
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: No se encontraron datos para el Balance General
+                data:
+                  type: object
+                  properties:
+                    balanceSheet:
+                      type: array
+                      items: {}
+                      example: []
+
+/journal/income:
+  get:
+    summary: Obtener estado de resultados
+    tags:
+      - journal
+    description: Endpoint para obtener el estado de resultados
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Estado de Resultados generado exitosamente
+                data:
+                  type: object
+                  properties:
+                    incomeStatement:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type_account:
+                            type: string
+                            enum: [ingreso, egreso]
+                            example: "ingreso"
+                          amount:
+                            type: number
+                            example: 400000.00
+                    resultado:
+                      type: object
+                      properties:
+                        ingresos:
+                          type: number
+                          example: 400000.00
+                        egresos:
+                          type: number
+                          example: 98750.00
+                        utilidad:
+                          type: number
+                          example: 301250.00
+      '404':
+        description: No se encontraron datos
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: No se encontraron datos para el Estado de Resultados
+                data:
+                  type: object
+                  properties:
+                    incomeStatement:
+                      type: array
+                      items: {}
+                      example: []
+
 /journal/{id}:
   get:
     summary: Obtener un registro de diario

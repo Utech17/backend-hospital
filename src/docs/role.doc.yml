@@ -2,7 +2,7 @@
   get:
     summary: Obtener todos los roles
     tags:
-      - role
+      - Roles
     description: Endpoint para obtener la lista de roles
     produces:
       - application/json
@@ -69,7 +69,7 @@
   post:
     summary: Crear un nuevo rol
     tags:
-      - role
+      - Roles
     description: Endpoint para crear un nuevo rol
     requestBody:
       required: true
@@ -77,6 +77,9 @@
         application/json:
           schema:
             type: object
+            required:
+              - name
+              - description
             properties:
               name:
                 type: string
@@ -157,7 +160,7 @@
   get:
     summary: Obtener un rol
     tags:
-      - role
+      - Roles
     description: Endpoint para obtener un rol por su id
     parameters:
       - in: path
@@ -226,7 +229,7 @@
   put:
     summary: Actualizar un rol
     tags:
-      - role
+      - Roles
     description: Endpoint para actualizar un rol por su id
     parameters:
       - in: path
@@ -332,7 +335,7 @@
   delete:
     summary: Eliminar un rol
     tags:
-      - role
+      - Roles
     description: Endpoint para eliminar un rol
     parameters:
       - in: path

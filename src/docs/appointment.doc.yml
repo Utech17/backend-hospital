@@ -1,0 +1,417 @@
+paths:
+  /appointment:
+    get:
+      summary: Obtener todas las citas
+      tags:
+        - Appointments
+      responses:
+        '200':
+          description: Respuesta exitosa 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Citas encontradas exitosamente
+                  data:
+                    type: object
+                    properties:
+                      Appointments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            patient_id:
+                              type: integer
+                            employee_id:
+                              type: integer
+                            appointment_date:
+                              type: string
+                              format: date-time
+                            appointment_status:
+                              type: string
+                              enum: [Scheduled, Completed, Cancelled]
+                            appointment_area:
+                              type: string
+                              enum: [General, Specialty, Emergency]
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                            deletedAt:
+                              type: string
+                              format: date-time
+                              nullable: true
+        '404':
+          description: Consultas no encontradas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Consultas no encontradas
+                  status:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Error interno del servidor
+                  status:
+                    type: integer
+                    example: 500
+
+    post:
+      summary: Crear una nueva cita
+      tags:
+        - Appointments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - patient_id
+                - employee_id
+                - appointment_date
+                - appointment_status
+                - appointment_area
+              properties:
+                patient_id:
+                  type: integer
+                employee_id:
+                  type: integer
+                appointment_date:
+                  type: string
+                  format: date-time
+                appointment_status:
+                  type: string
+                  enum: [Scheduled, Completed, Cancelled]
+                appointment_area:
+                  type: string
+                  enum: [General, Specialty, Emergency]
+      responses:
+        '201':
+          description: Cita creada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Cita creada exitosamente
+                  data:
+                    type: object
+                    properties:
+                      appointment:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          patient_id:
+                            type: integer
+                          employee_id:
+                            type: integer
+                          appointment_date:
+                            type: string
+                            format: date-time
+                          appointment_status:
+                            type: string
+                            enum: [Scheduled, Completed, Cancelled]
+                          appointment_area:
+                            type: string
+                            enum: [General, Specialty, Emergency]
+                          createdAt:
+                            type: string
+                            format: date-time
+                          updatedAt:
+                            type: string
+                            format: date-time
+                          deletedAt:
+                            type: string
+                            format: date-time
+                            nullable: true
+        '400':
+          description: Error en la solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: field
+                        msg:
+                          type: string
+                        path:
+                          type: string
+                        location:
+                          type: string
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Error interno del servidor
+                  status:
+                    type: integer
+                    example: 500
+
+  /appointment/{id}:
+    get:
+      summary: Obtener una cita
+      tags:
+        - Appointments
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Respuesta exitosa 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Cita encontrada exitosamente
+                  data:
+                    type: object
+                    properties:
+                      appointment:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          patient_id:
+                            type: integer
+                          employee_id:
+                            type: integer
+                          appointment_date:
+                            type: string
+                            format: date-time
+                          appointment_status:
+                            type: string
+                            enum: [Scheduled, Completed, Cancelled]
+                          appointment_area:
+                            type: string
+                            enum: [General, Specialty, Emergency]
+                          createdAt:
+                            type: string
+                            format: date-time
+                          updatedAt:
+                            type: string
+                            format: date-time
+                          deletedAt:
+                            type: string
+                            format: date-time
+                            nullable: true
+        '404':
+          description: Cita no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Cita no encontrada
+                  status:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Error interno del servidor
+                  status:
+                    type: integer
+                    example: 500
+
+    put:
+      summary: Actualizar una cita
+      tags:
+        - Appointments
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - patient_id
+                - employee_id
+                - appointment_date
+                - appointment_status
+                - appointment_area
+              properties:
+                patient_id:
+                  type: integer
+                employee_id:
+                  type: integer
+                appointment_date:
+                  type: string
+                  format: date-time
+                appointment_status:
+                  type: string
+                  enum: [Scheduled, Completed, Cancelled]
+                appointment_area:
+                  type: string
+                  enum: [General, Specialty, Emergency]
+      responses:
+        '200':
+          description: Cita actualizada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Cita actualizada exitosamente
+                  data:
+                    type: object
+                    properties:
+                      appointment:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          patient_id:
+                            type: integer
+                          employee_id:
+                            type: integer
+                          appointment_date:
+                            type: string
+                            format: date-time
+                          appointment_status:
+                            type: string
+                            enum: [Scheduled, Completed, Cancelled]
+                          appointment_area:
+                            type: string
+                            enum: [General, Specialty, Emergency]
+                          createdAt:
+                            type: string
+                            format: date-time
+                          updatedAt:
+                            type: string
+                            format: date-time
+                          deletedAt:
+                            type: string
+                            format: date-time
+                            nullable: true
+        '400':
+          description: Error en la solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: field
+                        msg:
+                          type: string
+                        path:
+                          type: string
+                        location:
+                          type: string
+        '404':
+          description: Cita no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Cita no encontrada
+                  status:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Error interno del servidor
+                  status:
+                    type: integer
+                    example: 500
+
+    delete:
+      summary: Borrar una cita
+      tags:
+        - Appointments
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Cita eliminada exitosamente
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Error interno del servidor
+                  status:
+                    type: integer
+                    example: 500
+

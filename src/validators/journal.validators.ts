@@ -4,10 +4,15 @@ import { JournalServices } from "../services";
 
 class JournalValidator {
   public validateJournal = [
-    body("request_id").notEmpty().withMessage("Request ID is required"),
-    body("request_id").isNumeric().withMessage("Request ID must be numeric"),
-    body("account_record_id").notEmpty().withMessage("Account Record ID is required"),
-    body("account_record_id").isNumeric().withMessage("Account Record ID must be numeric"),
+    body("request_id")
+        .notEmpty().withMessage("El ID de solicitud es requerido")
+        .isInt().withMessage("El ID de solicitud debe ser un número entero"),
+    body("account_record_id")
+        .notEmpty().withMessage("El ID del registro contable es requerido")
+        .isInt().withMessage("El ID del registro contable debe ser un número entero"),
+    body("status")
+        .optional()
+        .isBoolean().withMessage("El estado debe ser verdadero o falso"),
   ];
 
   public validateIfIdExist = async (
