@@ -1,0 +1,305 @@
+swagger: "2.0"
+info:
+  description: "API para gestionar días laborales."
+  version: "1.0.0"
+  title: "API de Días Laborales"
+host: "localhost:3900"
+basePath: "/api"
+schemes:
+  - "http"
+paths:
+  /workingday:
+    get:
+      summary: "Obtener lista de días laborales"
+      tags:
+        - "Días Laborales"
+      description: "Devuelve una lista de días laborales existentes."
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Registros encontrados exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registros encontrados exitosamente"
+                  data:
+                    type: "object"
+                    properties:
+                      workingDays:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              example: 1
+                            description:
+                              type: "string"
+                              example: "Full-time"
+                            weekly_hours:
+                              type: "integer"
+                              example: 40
+        "404":
+          description: "No se encontraron registros"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "No se encontraron registros"
+                  data:
+                    type: "object"
+                    properties:
+                      workingDays:
+                        type: "array"
+                        items: {}
+                        example: []
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+  /workingday/{id}:
+    get:
+      summary: "Obtener un día laboral"
+      tags:
+        - "Días Laborales"
+      description: "Devuelve un día laboral específico."
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "ID del día laboral a obtener"
+      responses:
+        "200":
+          description: "Registro encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registro encontrado"
+                  data:
+                    type: "object"
+                    properties:
+                      workingDay:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          description:
+                            type: "string"
+                            example: "Full-time"
+                          weekly_hours:
+                            type: "integer"
+                            example: 40
+        "404":
+          description: "Registro no encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registro no encontrado"
+                  data:
+                    type: "object"
+                    properties: {}
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+    post:
+      summary: "Crear un nuevo día laboral"
+      tags:
+        - "Días Laborales"
+      description: "Crea un nuevo día laboral."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              description:
+                type: "string"
+                example: "Full-time"
+              weekly_hours:
+                type: "integer"
+                example: 40
+      responses:
+        "201":
+          description: "Creado exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Creado exitosamente"
+                  data:
+                    type: "object"
+                    properties:
+                      workingDay:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          description:
+                            type: "string"
+                            example: "Full-time"
+                          weekly_hours:
+                            type: "integer"
+                            example: 40
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+    put:
+      summary: "Actualizar un día laboral"
+      tags:
+        - "Días Laborales"
+      description: "Actualiza un día laboral existente."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "ID del día laboral a actualizar"
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              description:
+                type: "string"
+                example: "Full-time"
+              weekly_hours:
+                type: "integer"
+                example: 40
+      responses:
+        "200":
+          description: "Actualizado exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Actualizado exitosamente"
+                  data:
+                    type: "object"
+                    properties:
+                      workingDay:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          description:
+                            type: "string"
+                            example: "Full-time"
+                          weekly_hours:
+                            type: "integer"
+                            example: 40
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+    delete:
+      summary: "Eliminar un día laboral"
+      tags:
+        - "Días Laborales"
+      description: "Elimina un día laboral existente."
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "ID del día laboral a eliminar"
+      responses:
+        "200":
+          description: "Eliminado exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Eliminado exitosamente"
+                  data:
+                    type: "object"
+                    properties: {}
+        "404":
+          description: "Registro no encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registro no encontrado"
+                  data:
+                    type: "object"
+                    properties: {}
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
