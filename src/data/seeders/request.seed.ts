@@ -1,48 +1,76 @@
 import { RequestInterface } from "../../interfaces";
 
 const requestsSeeds: Partial<RequestInterface>[] = [
+  // Activos
   {
     request_id: 1,
-    description: "Compra de suministros médicos",
-    request_type_id: 1, 
-    amount: 1000,
-    status: "approved",
+    description: "Registro de activos iniciales",
+    request_type_id: 1,
+    amount: 1132000.00,
+    status: "aprobada"
   },
+  // Pasivos
   {
     request_id: 2,
-    description: "Pago de salarios para el personal médico",
-    request_type_id: 2,
-    amount: 5000,
-    status: "approved",
+    description: "Registro de pasivos iniciales",
+    request_type_id: 1,
+    amount: 546750.00,
+    status: "aprobada"
   },
+  // Capital
   {
     request_id: 3,
-    description: "Solicitud de mantenimiento de equipos",
-    request_type_id: 3,
-    amount: 1200,
-    status: "pending",
+    description: "Registro de capital inicial",
+    request_type_id: 1,
+    amount: 400000.00,
+    status: "aprobada"
   },
+  // Ventas y costo de ventas
   {
     request_id: 4,
-    description: "Compra de muebles de oficina",
-    request_type_id: 1,
-    amount: 800,
-    status: "rejected",
+    description: "Registro de ventas del período",
+    request_type_id: 2,
+    amount: 400000.00,
+    status: "aprobada"
   },
   {
     request_id: 5,
-    description: "Solicitud de cirugía de emergencia",
-    request_type_id: 4,
-    amount: 7000,
-    status: "approved",
+    description: "Registro de costo de ventas",
+    request_type_id: 2,
+    amount: 170000.00,
+    status: "aprobada"
   },
+  // Gastos operativos
   {
     request_id: 6,
-    description: "Sesión de entrenamiento para el personal",
-    request_type_id: 5,
-    amount: 1500,
-    status: "pending",
+    description: "Registro de gastos operativos",
+    request_type_id: 2,
+    amount: 98750.00,
+    status: "aprobada"
   },
+  // Otros ingresos
+  {
+    request_id: 7,
+    description: "Registro de otros ingresos",
+    request_type_id: 2,
+    amount: 500.00,
+    status: "aprobada"
+  },
+  // Resultados
+  {
+    request_id: 8,
+    description: "Registro de utilidad del ejercicio",
+    request_type_id: 2,
+    amount: 131750.00,
+    status: "aprobada"
+  },
+  {
+    request_id: 9,
+    description: "Registro de reserva legal",
+    request_type_id: 2,
+    amount: 53500.00,
+    status: "aprobada"
+  }
 ];
 
 export { requestsSeeds };

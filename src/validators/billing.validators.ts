@@ -1,50 +1,101 @@
 import { NextFunction, Request, Response } from "express";
 import { body } from "express-validator";
-import { PatientServices, clientServices } from "../services";
+import { PatientServices, clientServices, BillingServices } from "../services";
 
 class BillingValidator {
   public validateBilling = [
-    body("id_patient")
+    body("patient_id")
       .notEmpty()
-      .withMessage("Patient ID is required")
+      .withMessage("El ID del paciente es requerido")
       .isNumeric()
-      .withMessage("Patient ID must be numeric"),
-    body("id_client")
+      .withMessage("El ID del paciente debe ser numérico"),
+    body("client_id")
       .notEmpty()
-      .withMessage("Client ID is required")
+      .withMessage("El ID del cliente es requerido")
       .isNumeric()
-      .withMessage("Client ID must be numeric"),
+      .withMessage("El ID del cliente debe ser numérico"),
     body("billing_date")
       .notEmpty()
-      .withMessage("Billing date is required")
+      .withMessage("La fecha de facturación es requerida")
       .isISO8601()
-      .withMessage("Billing date must be a valid date"),
+      .withMessage("La fecha debe ser válida"),
     body("billing_status")
+      .optional()
+      .isIn(["pendiente", "pagado", "cancelado"])
+      .withMessage("El estado debe ser 'pendiente', 'pagado' o 'cancelado'"),
+    body("BillingDetails")
+      .isArray()
+      .withMessage("Los detalles de facturación deben ser un array"),
+    body("BillingDetails.*.quantity")
       .notEmpty()
-      .withMessage("Billing status is required")
-      .isIn(["pending", "paid", "cancelled"])
-      .withMessage("Billing status must be 'pending', 'paid', or 'cancelled'"),
+      .withMessage("La cantidad es requerida")
+      .isNumeric()
+      .withMessage("La cantidad debe ser numérica")
+      .isFloat({ min: 0.01 })
+      .withMessage("La cantidad debe ser mayor a 0"),
+    body("BillingDetails.*.price")
+      .notEmpty()
+      .withMessage("El precio es requerido")
+      .isNumeric()
+      .withMessage("El precio debe ser numérico")
+      .isFloat({ min: 0.01 })
+      .withMessage("El precio debe ser mayor a 0"),
+    body("BillingDetails.*.product_id")
+      .notEmpty()
+      .withMessage("El ID del producto es requerido")
+      .isNumeric()
+      .withMessage("El ID del producto debe ser numérico"),
+    body("payment_type_id")
+      .notEmpty()
+      .withMessage("El tipo de pago es requerido")
+      .isNumeric()
+      .withMessage("El tipo de pago debe ser numérico")
   ];
 
-  // Middleware to validate patient existence
+  // Middleware para validar existencia de factura
+  public validateBillingId = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { id } = req.params;
+    const { status, message, data } = await BillingServices.getOne(parseInt(id));
+    
+    if (status === 500) {
+      return res.status(status).json({ message });
+    } else if (status === 404) {
+      return res.status(404).json({
+        errors: [
+          {
+            type: "field",
+            msg: `La factura con ID: ${id} no existe`,
+            path: "id",
+            location: "params",
+          },
+        ],
+      });
+    }
+    next();
+  };
+
+  // Middleware para validar existencia de paciente
   public validatePatientId = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
-    const { id_patient } = req.body;
-    const { status, message } = await PatientServices.getOne(id_patient);
+    const { patient_id } = req.body;
+    const { status, message } = await PatientServices.getOne(patient_id);
+    
     if (status === 500) {
-      return res.status(status).json({
-        message,
-      });
+      return res.status(status).json({ message });
     } else if (status === 404) {
       return res.status(400).json({
         errors: [
           {
             type: "field",
-            msg: `The patient with ID: ${id_patient} does not exist`,
-            path: "id_patient",
+            msg: `El paciente con ID: ${patient_id} no existe`,
+            path: "patient_id",
             location: "body",
           },
         ],
@@ -53,25 +104,24 @@ class BillingValidator {
     next();
   };
 
-  // Middleware to validate client existence
+  // Middleware para validar existencia de cliente
   public validateClientId = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
-    const { id_client } = req.body;
-    const { status, message } = await clientServices.getOne(id_client);
+    const { client_id } = req.body;
+    const { status, message } = await clientServices.getOne(client_id);
+    
     if (status === 500) {
-      return res.status(status).json({
-        message,
-      });
+      return res.status(status).json({ message });
     } else if (status === 404) {
       return res.status(400).json({
         errors: [
           {
             type: "field",
-            msg: `The client with ID: ${id_client} does not exist`,
-            path: "id_client",
+            msg: `El cliente con ID: ${client_id} no existe`,
+            path: "client_id",
             location: "body",
           },
         ],

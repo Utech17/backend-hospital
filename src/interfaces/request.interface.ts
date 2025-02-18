@@ -5,5 +5,6 @@ export interface RequestInterface {
     description: string;
     request_type_id?: number | string;
     amount: number;
-    status: "pending" | "approved" | "rejected";
+    status: "pendiente" | "aprobada" | "rechazada";
+    RequestType?: RequestTypeInterface;
 }

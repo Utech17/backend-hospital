@@ -4,9 +4,18 @@ import { AccountServices } from "../services";
 
 class AccountValidator {
   public validateAccount = [
-    body("name").notEmpty().withMessage("Account Name is required"),
-    body("name").isString().withMessage("Account Name must be string"),
-  ];
+    body("name")
+        .notEmpty().withMessage("El nombre de la cuenta es requerido")
+        .isString().withMessage("El nombre debe ser texto")
+        .isLength({ max: 50 }).withMessage("El nombre debe tener menos de 50 caracteres"),
+    body("balance")
+        .notEmpty().withMessage("El balance es requerido")
+        .isFloat().withMessage("El balance debe ser un número"),
+    body("type_account")
+        .notEmpty().withMessage("El tipo de cuenta es requerido")
+        .isIn(['activo', 'pasivo', 'capital', 'ingreso', 'egreso'])
+        .withMessage("Tipo de cuenta inválido"),
+];
 
   public validateIfIdExist = async (
     req: Request,

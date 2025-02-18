@@ -87,7 +87,7 @@ const AccountRecordDB = db.define("account_record", AccountRecordModel, Options)
 const ActionDB = db.define("action", ActionModel);
 const AppointmentDB = db.define("appointment", AppointmentModel);
 const AttendanceDB = db.define("attendance", AttendanceEmployeeModel);
-const BillingDB = db.define("billing", BillingModel);
+const BillingDB = db.define("billing", BillingModel, Options);
 const BillingDetailDB = db.define("billing_detail", BillingDetailModel);
 const BuyDB = db.define("buy", BuyModel);
 const BuyDetailsDB = db.define("buy_detail", buyDetailsModel);
@@ -100,28 +100,28 @@ const ContractDB = db.define("contract", ContractModel);
 const DepartmentDB = db.define("departament", DepartmentModel);
 const EmployeeDB = db.define("employee", EmployeeModel);
 const EventDB = db.define("event", EventModel, Options);
-const EventDetailsDB = db.define("event_detail", EventDetailsModel);
-const EventTypeDB = db.define("event_type", EventTypeModel);
-const InventoryDB = db.define("inventory", InventoryModel);
-const InventoryMovementDB = db.define("inventory_movement", InventoryMovementModel);
+const EventDetailsDB = db.define("event_detail", EventDetailsModel, Options);
+const EventTypeDB = db.define("event_type", EventTypeModel, Options);
+const InventoryDB = db.define("inventory", InventoryModel, Options);
+const InventoryMovementDB = db.define("inventory_movement", InventoryMovementModel, Options);
 const JournalDB = db.define("journal", JournalModel);
 const MedicalHistoryDB = db.define("medical_history", MedicalHistoryModel, Options);
-const OrganizationalUnitsDB = db.define("organizational_unit", OrganizationalUnitsModel);
-const PatientDB = db.define("Patient", PatientModel);
-const PaymentTypeDB = db.define("payment_type", PaymentTypeModel);
+const OrganizationalUnitsDB = db.define("organizational_unit", OrganizationalUnitsModel, Options);
+const PatientDB = db.define("Patient", PatientModel, Options);
+const PaymentTypeDB = db.define("payment_type", PaymentTypeModel, Options);
 const PayrollDB = db.define("payroll", PayrollModel, Options);
 const PayrollDetailDB = db.define("payroll_detail", PayrollDetailModel, Options);
 const PresentationDB = db.define("presentation", PresentationModel);
 const ProductDB = db.define("product", ProductModel, Options);
-const RequestDB = db.define("request", RequestModel);
+const RequestDB = db.define("request", RequestModel, Options);
 const RequestTypeDB = db.define("request_type", RequestTypeModel, Options);
 const RoleDB = db.define("role", RoleModel, Options);
-const SaleDB = db.define("sale", SaleModel);
-const StoreDB = db.define("store", StoreModel);
+const SaleDB = db.define("sale", SaleModel, Options);
+const StoreDB = db.define("store", StoreModel, Options);
 const SupplierDB = db.define("supplier", SupplierModel);
 const TypeDB = db.define("type", TypeModel);
 const UserDB = db.define("user", UserModel);
-const WorkingDayDB = db.define("working_day", WorkingDayModel);
+const WorkingDayDB = db.define("working_day", WorkingDayModel, Options);
 
 // En las relaciones importa el orden de la jerarquia
 // MedicalHistoryDB
@@ -182,6 +182,9 @@ EmployeeDB.hasMany(AttendanceDB, { foreignKey: "employee_id" });
 AttendanceDB.belongsTo(EmployeeDB, { foreignKey: "employee_id" });
 
 //SaleDB
+BillingDB.hasOne(SaleDB, { foreignKey: "invoice_number"});
+SaleDB.belongsTo(BillingDB, { foreignKey: "invoice_number"});
+
 PaymentTypeDB.hasMany(SaleDB, { foreignKey: "payment_type_id" });
 SaleDB.belongsTo(PaymentTypeDB, { foreignKey: "payment_type_id" });
 
@@ -229,10 +232,6 @@ BuyDB.belongsTo(SupplierDB, {foreignKey: "supplier_id"});
 DepartmentDB.hasMany(OrganizationalUnitsDB, {foreignKey: "department_id"});
 OrganizationalUnitsDB.belongsTo(DepartmentDB, {foreignKey: "department_id"});
 
-// RequestTypeDB
-DepartmentDB.hasMany(RequestTypeDB, {foreignKey: "department_id"});
-RequestTypeDB.belongsTo(DepartmentDB, { foreignKey: "department_id" });
-
 // RequestDB
 RequestTypeDB.hasMany(RequestDB, { foreignKey: "request_type_id" });
 RequestDB.belongsTo(RequestTypeDB, { foreignKey: "request_type_id" });
@@ -255,10 +254,9 @@ PayrollDetailDB.belongsTo(ConceptDB, { foreignKey: "concept_id" });
 PayrollDB.hasMany(PayrollDetailDB, { foreignKey: "payroll_id" });
 PayrollDetailDB.belongsTo(PayrollDB, { foreignKey: "payroll_id" });
 
-
 // BillingDetailDB
-BillingDB.hasMany(BillingDetailDB, { foreignKey: "billing_id" });
-BillingDetailDB.belongsTo(BillingDB, { foreignKey: "billing_id" });
+BillingDB.hasMany(BillingDetailDB, { foreignKey: "num_fact",});
+BillingDetailDB.belongsTo(BillingDB, { foreignKey: "num_fact",});
 
 ProductDB.hasMany(BillingDetailDB, { foreignKey: "product_id" });
 BillingDetailDB.belongsTo(ProductDB, { foreignKey: "product_id" });

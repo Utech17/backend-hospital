@@ -1,470 +1,398 @@
 /buys:
   get:
-    summary: "Obtener Compras"
+    summary: Obtener todas las compras
     tags:
-      - "Buys"
-    description: "Endpoint para obtener la lista de compras"
+      - buy
+    description: Endpoint para obtener la lista de todas las compras
     produces:
-      - "application/json"
+      - application/json
     responses:
-      "200":
-        description: "Registros encontrados"
+      '200':
+        description: Respuesta exitosa
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 message:
-                  type: "string"
-                  example: "Registros encontrados"
+                  type: string
+                  example: ¡Compras encontradas exitosamente!
                 data:
-                  type: "object"
+                  type: object
                   properties:
                     buys:
-                      type: "array"
+                      type: array
                       items:
-                        type: "object"
-                        properties:
-                          id:
-                            type: "integer"
-                            example: 1
-                          invoice_number:
-                            type: "integer"
-                            example: 1001
-                          date:
-                            type: "string"
-                            format: "date-time"
-                            example: "2024-12-13T00:00:00Z"
-                          amount:
-                            type: "number"
-                            format: "float"
-                            example: 100.00
-                          supplier_id:
-                            type: "integer"
-                            example: 1
-                          status:
-                            type: "boolean"
-                            example: true
-                          updatedAt:
-                            type: "string"
-                            format: "date-time"
-                            example: "2024-12-13T00:00:00Z"
-                          deletedAt:
-                            type: "string"
-                            format: "date-time"
-                            example: null
-      "400":
-        description: "Solicitud incorrecta"
+                        $ref: '#/components/schemas/BuyResponse'
+      '404':
+        description: No se encontraron compras
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 message:
-                  type: "string"
-                  example: "Solicitud incorrecta"
-      "404":
-        description: "Registros no encontrados"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "No se encontraron registros"
-      "500":
-        description: "Error interno del servidor"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "Por favor, contacte al administrador"
+                  type: string
+                  example: No se encontraron registros
+                data:
+                  type: object
+                  properties:
+                    buys:
+                      type: array
+                      items: {}
+      '500':
+        $ref: '#/components/responses/ServerError'
+
   post:
-    summary: "Crear Compra"
+    summary: Crear una nueva compra
     tags:
-      - "Buys"
-    description: "Endpoint para crear una nueva compra"
-    produces:
-      - "application/json"
+      - buy
+    description: Endpoint para crear una nueva compra
     requestBody:
       required: true
       content:
         application/json:
           schema:
-            type: "object"
+            type: object
+            required:
+              - supplier_id
+              - invoice_number
+              - date
+              - buy_details
             properties:
-              invoice_number:
-                type: "integer"
-                example: 1001
-              date:
-                type: "string"
-                format: "date-time"
-                example: "2024-12-13T00:00:00Z"
-              amount:
-                type: "number"
-                format: "float"
-                example: 100.00
               supplier_id:
-                type: "integer"
+                type: integer
                 example: 1
-              status:
-                type: "boolean"
-                example: true
-              products:
-                type: "array"
+              invoice_number:
+                type: integer
+                example: 1004
+              date:
+                type: string
+                format: date
+                example: "2024-03-20"
+              buy_details:
+                type: array
                 items:
-                  type: "object"
+                  type: object
+                  required:
+                    - product_id
+                    - quantity
+                    - buy_price
                   properties:
                     product_id:
-                      type: "integer"
+                      type: integer
                       example: 1
                     quantity:
-                      type: "integer"
-                      example: 2
+                      type: integer
+                      example: 10
                     buy_price:
-                      type: "number"
-                      format: "float"
-                      example: 250.38
+                      type: number
+                      format: float
+                      example: 25.50
     responses:
-      "201":
-        description: "Creación exitosa"
+      '201':
+        description: Compra creada exitosamente
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 message:
-                  type: "string"
-                  example: "Creación exitosa"
+                  type: string
+                  example: ¡Compra registrada exitosamente!
                 data:
-                  type: "object"
-                  properties:
-                    buy:
-                      type: "object"
-                      properties:
-                        id:
-                          type: "integer"
-                          example: 1
-                        invoice_number:
-                          type: "integer"
-                          example: 1001
-                        date:
-                          type: "string"
-                          format: "date-time"
-                          example: "2024-12-13T00:00:00Z"
-                        amount:
-                          type: "number"
-                          format: "float"
-                          example: 100.00
-                        supplier_id:
-                          type: "integer"
-                          example: 1
-                        status:
-                          type: "boolean"
-                          example: true
-                        updatedAt:
-                          type: "string"
-                          format: "date-time"
-                          example: "2024-12-13T00:00:00Z"
-                        deletedAt:
-                          type: "string"
-                          format: "date-time"
-                          example: null
-      "400":
-        description: "Solicitud incorrecta"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "Solicitud incorrecta"
-      "500":
-        description: "Error interno del servidor"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "Por favor, contacte al administrador"
+                  $ref: '#/components/schemas/BuyCreateResponse'
+      '500':
+        $ref: '#/components/responses/ServerError'
 
 /buys/{id}:
   get:
-    summary: "Obtener Compra por ID"
+    summary: Obtener una compra específica
     tags:
-      - "Buys"
-    description: "Endpoint para obtener una compra por ID"
-    produces:
-      - "application/json"
+      - buy
     parameters:
-      - name: id
-        in: path
+      - in: path
+        name: id
         required: true
         schema:
-          type: "integer"
+          type: integer
+        description: ID de la compra
     responses:
-      "200":
-        description: "Registro encontrado"
+      '200':
+        description: Compra encontrada
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 message:
-                  type: "string"
-                  example: "Registro encontrado"
+                  type: string
+                  example: Compra encontrada exitosamente
                 data:
-                  type: "object"
+                  type: object
                   properties:
                     buy:
-                      type: "object"
-                      properties:
-                        id:
-                          type: "integer"
-                          example: 1
-                        invoice_number:
-                          type: "integer"
-                          example: 1001
-                        date:
-                          type: "string"
-                          format: "date-time"
-                          example: "2024-12-13T00:00:00Z"
-                        amount:
-                          type: "number"
-                          format: "float"
-                          example: 100.00
-                        supplier_id:
-                          type: "integer"
-                          example: 1
-                        status:
-                          type: "boolean"
-                          example: true
-                        updatedAt:
-                          type: "string"
-                          format: "date-time"
-                          example: "2024-12-13T00:00:00Z"
-                        deletedAt:
-                          type: "string"
-                          format: "date-time"
-                          example: null
-      "400":
-        description: "Solicitud incorrecta"
+                      $ref: '#/components/schemas/BuyResponse'
+      '404':
+        description: Compra no encontrada
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 message:
-                  type: "string"
-                  example: "Solicitud incorrecta"
-      "404":
-        description: "Registro no encontrado"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "Registro no encontrado"
-      "500":
-        description: "Error interno del servidor"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "Por favor, contacte al administrador"
+                  type: string
+                  example: Compra no encontrada
+                data:
+                  type: object
+                  properties: {}
+      '500':
+        $ref: '#/components/responses/ServerError'
+
   put:
-    summary: "Actualizar Compra por ID"
+    summary: Actualizar una compra
     tags:
-      - "Buys"
-    description: "Endpoint para actualizar una compra por ID"
-    produces:
-      - "application/json"
+      - buy
     parameters:
-      - name: id
-        in: path
+      - in: path
+        name: id
         required: true
         schema:
-          type: "integer"
+          type: integer
+        description: ID de la compra a actualizar
     requestBody:
       required: true
       content:
         application/json:
           schema:
-            type: "object"
-            properties:
-              invoice_number:
-                type: "integer"
-                example: 1001
-              date:
-                type: "string"
-                format: "date-time"
-                example: "2024-12-13T00:00:00Z"
-              amount:
-                type: "number"
-                format: "float"
-                example: 100.00
-              supplier_id:
-                type: "integer"
-                example: 1
-              status:
-                type: "boolean"
-                example: true
-              products:
-                type: "array"
-                items:
-                  type: "object"
-                  properties:
-                    product_id:
-                      type: "integer"
-                      example: 1
-                    quantity:
-                      type: "integer"
-                      example: 2
-                    buy_price:
-                      type: "number"
-                      format: "float"
-                      example: 250.38
+            $ref: '#/components/schemas/BuyUpdateRequest'
     responses:
-      "200":
-        description: "Actualización exitosa"
+      '200':
+        description: Compra actualizada exitosamente
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 message:
-                  type: "string"
-                  example: "Actualización exitosa"
+                  type: string
+                  example: ¡Compra actualizada exitosamente!
                 data:
-                  type: "object"
+                  type: object
                   properties:
                     buy:
-                      type: "object"
-                      properties:
-                        id:
-                          type: "integer"
-                          example: 1
-                        invoice_number:
-                          type: "integer"
-                          example: 1001
-                        date:
-                          type: "string"
-                          format: "date-time"
-                          example: "2024-12-13T00:00:00Z"
-                        amount:
-                          type: "number"
-                          format: "float"
-                          example: 100.00
-                        supplier_id:
-                          type: "integer"
-                          example: 1
-                        status:
-                          type: "boolean"
-                          example: true
-                        updatedAt:
-                          type: "string"
-                          format: "date-time"
-                          example: "2024-12-13T00:00:00Z"
-                        deletedAt:
-                          type: "string"
-                          format: "date-time"
-                          example: null
-      "400":
-        description: "Solicitud incorrecta"
+                      $ref: '#/components/schemas/BuyResponse'
+      '404':
+        description: Compra no encontrada
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 message:
-                  type: "string"
-                  example: "Solicitud incorrecta"
-      "404":
-        description: "Registro no encontrado"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "Registro no encontrado"
-      "500":
-        description: "Error interno del servidor"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "Por favor, contacte al administrador"
+                  type: string
+                  example: La compra no existe
+      '500':
+        $ref: '#/components/responses/ServerError'
+
   delete:
-    summary: "Eliminar Compra por ID"
+    summary: Rechazar una compra
     tags:
-      - "Buys"
-    description: "Endpoint para eliminar una compra por ID"
-    produces:
-      - "application/json"
+      - buy
     parameters:
-      - name: id
-        in: path
+      - in: path
+        name: id
         required: true
         schema:
-          type: "integer"
+          type: integer
+        description: ID de la compra a rechazar
     responses:
-      "204":
-        description: "Eliminación exitosa"
+      '200':
+        description: Compra rechazada exitosamente
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 message:
-                  type: "string"
-                  example: "Eliminación exitosa"
+                  type: string
+                  example: ¡Compra rechazada exitosamente!
                 data:
-                  type: "object"
+                  type: object
                   properties: {}
-      "400":
-        description: "Solicitud incorrecta"
+      '404':
+        description: Compra no encontrada
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 message:
-                  type: "string"
-                  example: "Solicitud incorrecta"
-      "404":
-        description: "Registro no encontrado"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "Registro no encontrado"
-      "500":
-        description: "Error interno del servidor"
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                message:
-                  type: "string"
-                  example: "Por favor, contacte al administrador"
+                  type: string
+                  example: La compra no existe
+      '500':
+        $ref: '#/components/responses/ServerError'
+
+components:
+  schemas:
+    BuyResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        invoice_number:
+          type: integer
+          example: 1001
+        date:
+          type: string
+          format: date-time
+          example: "2024-12-13T00:00:00.000Z"
+        supplier_id:
+          type: integer
+          example: 1
+        status:
+          type: string
+          enum: [pendiente, abrobada, rechazada]
+          example: "abrobada"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-12-13T00:00:00.000Z"
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        createdAt:
+          type: string
+          format: date-time
+          example: "2025-02-18T04:10:17.000Z"
+        buy_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuyDetail'
+
+    BuyDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        buy_id:
+          type: integer
+          example: 1
+        product_id:
+          type: integer
+          example: 1
+        quantity:
+          type: integer
+          example: 2
+        buy_price:
+          type: string
+          example: "250.38"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    BuyCreateResponse:
+      type: object
+      properties:
+        buy:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 5
+            supplier_id:
+              type: integer
+              example: 1
+            invoice_number:
+              type: integer
+              example: 1004
+            date:
+              type: string
+              format: date-time
+            status:
+              type: string
+              example: "pendiente"
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+              format: date-time
+              nullable: true
+            createdAt:
+              type: string
+              format: date-time
+            buy_details:
+              type: array
+              items:
+                $ref: '#/components/schemas/BuyDetail'
+        request:
+          type: object
+          properties:
+            request_id:
+              type: integer
+              example: 9
+            request_type_id:
+              type: integer
+              example: 3
+            description:
+              type: string
+              example: "Solicitud de Compra #1004"
+            amount:
+              type: number
+              example: 405
+            status:
+              type: string
+              example: "pendiente"
+
+    BuyUpdateRequest:
+      type: object
+      properties:
+        supplier_id:
+          type: integer
+          example: 1
+        invoice_number:
+          type: integer
+          example: 1001
+        date:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [pendiente, abrobada, rechazada]
+        buy_details:
+          type: array
+          items:
+            type: object
+            properties:
+              product_id:
+                type: integer
+                example: 1
+              quantity:
+                type: integer
+                example: 5
+              buy_price:
+                type: string
+                example: "250.38"
+
+  responses:
+    ServerError:
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Contacta con el administrador
+              status:
+                type: integer
+                example: 500

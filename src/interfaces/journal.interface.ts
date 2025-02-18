@@ -2,12 +2,13 @@ import { RequestInterface } from "../interfaces";
 import { AccountRecordInterface } from "../interfaces";
 
 export interface JournalInterface {
-    id?: number | string;
-    request_id?: number | string;
-    account_record_id?: number | string;
-    createdAt: Date;
-    updatedAt: string | Date | null;
-    deletedAt?: string | Date | null;
-    request?: RequestInterface;
-    account_record?: AccountRecordInterface;
+  id?: number;
+  request_id: number;
+  account_record_id: number;
+  status: boolean;
+  createdAt: Date;
+  updatedAt: Date | null;
+  deletedAt?: Date | null;
+  request?: RequestInterface;
+  account_record?: AccountRecordInterface;
 }

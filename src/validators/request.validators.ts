@@ -4,15 +4,19 @@ import { RequestServices } from "../services";
 
 class RequestValidator {
   public validateRequest = [
-    body("request_id").optional().isInt().withMessage("Request ID must be an integer"),
-    body("description").notEmpty().withMessage("Description is required"),
-    body("description").isString().withMessage("Description must be a string"),
-    body("request_type_id").notEmpty().withMessage("Request Type ID is required"),
-    body("request_type_id").isInt().withMessage("Request Type ID must be an integer"),
-    body("amount").notEmpty().withMessage("Amount is required"),
-    body("amount").isDecimal().withMessage("Amount must be a decimal value"),
-    body("status").notEmpty().withMessage("Request Status is required"),
-    body("status").isIn(['pending', 'approved', 'rejected']).withMessage("Request Status must be one of 'pending', 'approved', 'rejected'"),
+    body("description")
+        .notEmpty().withMessage("La descripción es requerida")
+        .isString().withMessage("La descripción debe ser texto"),
+    body("request_type_id")
+        .notEmpty().withMessage("El ID del tipo de solicitud es requerido")
+        .isInt().withMessage("El ID del tipo de solicitud debe ser un número entero"),
+    body("amount")
+        .notEmpty().withMessage("El monto es requerido")
+        .isDecimal().withMessage("El monto debe ser decimal"),
+    body("status")
+        .notEmpty().withMessage("El estado es requerido")
+        .isIn(['pendiente', 'aprobada', 'rechazada'])
+        .withMessage("El estado debe ser 'pendiente', 'aprobada' o 'rechazada'")
   ];
 
   public validateIfIdExist = async (
