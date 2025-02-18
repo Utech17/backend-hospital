@@ -6,7 +6,7 @@ export interface BuyInterface {
   invoice_number: number;
   date: Date;
   supplier_id: number;
-  status: 'pendiente' | 'abrobada' | 'rechazada';
+  status: "pendiente" | "aprobada" | "rechazada";
   updatedAt?: Date;
   deletedAt?: Date | null;
   supplier?: SupplierInterface;
