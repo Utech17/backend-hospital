@@ -1,5 +1,5 @@
-import { PaymentTypeDB } from "../config";
-import { PaymentTypeInterface } from "../interfaces";
+import { PaymentTypeDB } from "../config"
+import type { PaymentTypeInterface } from "../interfaces"
 
 const PaymentTypeService = {
   getAll: async () => {
@@ -28,7 +28,7 @@ const PaymentTypeService = {
         },
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
       return {
         message: "Contact the administrator: error",
         status: 500,
@@ -36,11 +36,11 @@ const PaymentTypeService = {
     }
   },
 
-  getOne: async (paymentTypeCode: number | string) => {
+  getOne: async (id: number | string) => {
     try {
       const paymentType = await PaymentTypeDB.findOne({
         where: {
-          paymentTypeCode,
+          id,
           status: true,
         },
       })
@@ -61,7 +61,7 @@ const PaymentTypeService = {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
       return {
         message: "Contact the administrator: error",
         status: 500,
@@ -71,7 +71,7 @@ const PaymentTypeService = {
 
   create: async (data: Partial<PaymentTypeInterface>) => {
     try {
-      const paymentType = await PaymentTypeDB.create({ ...data });
+      const paymentType = await PaymentTypeDB.create({ ...data })
       return {
         message: "Successful creation",
         status: 201,
@@ -80,61 +80,64 @@ const PaymentTypeService = {
         },
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error creating payment type:", error)
+      if (error instanceof Error) {
+        return {
+          message: `Error creating payment type: ${error.message}`,
+          status: 400,
+        }
+      }
       return {
-        message: "Contact the administrator: error",
+        message: "An unexpected error occurred while creating the payment type.",
         status: 500,
       }
     }
   },
 
-  update: async (data: Partial<PaymentTypeInterface>, paymentTypeCode: number | string) => {
+  update: async (data: Partial<PaymentTypeInterface>, id: number | string) => {
     try {
-      // Verificar si el registro existe antes de intentar actualizarlo
-      const existingPaymentType = await PaymentTypeDB.findOne({ where: { paymentTypeCode } });
-  
+      const existingPaymentType = await PaymentTypeDB.findOne({ where: { id } })
+
       if (!existingPaymentType) {
         return {
-          message: `Payment type with code ${paymentTypeCode} does not exist.`,
+          message: `Payment type with code ${id} does not exist.`,
           status: 404,
-        };
+        }
       }
-  
-      // Actualizar el registro
-      await PaymentTypeDB.update(data, { where: { paymentTypeCode } });
-  
-      // Obtener el registro actualizado
-      const { data: updatedPaymentType } = await PaymentTypeService.getOne(paymentTypeCode);
-  
+
+      await PaymentTypeDB.update(data, { where: { id } })
+
+      const { data: updatedPaymentType } = await PaymentTypeService.getOne(id)
+
       return {
         message: "Successful update",
         status: 200,
         data: {
           paymentType: updatedPaymentType,
         },
-      };
+      }
     } catch (error) {
-      console.error("Error updating payment type:", error);
-  
+      console.error("Error updating payment type:", error)
+
       return {
         message: "An error occurred while updating the payment type. Contact the administrator.",
         status: 500,
-      };
+      }
     }
-  },  
+  },
 
-  delete: async (paymentTypeCode: number | string) => {
+  delete: async (id: number | string) => {
     try {
       await PaymentTypeDB.update(
         {
           status: false,
           deletedAt: new Date(),
         },
-        { where: { paymentTypeCode } }
+        { where: { id } },
       )
       return {
         message: "Successful removal",
-        status: 204,
+        status: 200,
         data: {},
       }
     } catch (error) {
@@ -145,48 +148,34 @@ const PaymentTypeService = {
     }
   },
 
-  findByCode: async (paymentTypeCode: string) => {
+  findById: async (id: string) => {
     try {
-      const paymentType = await PaymentTypeDB.findOne({ where: { paymentTypeCode } });
-      if (!paymentType) {
-        return {
-          message: "Record not found",
-          status: 404,
-          data: {},
-        };
-      } else {
-        return {
-          message: "Record found",
-          status: 200,
-          data: {
-            paymentType,
-          },
-        };
+      const patient = await PaymentTypeDB.findOne({ where: { id } })
+      if (patient) {
+        return true
       }
+      return false
     } catch (error) {
-      console.log(error);
-      return {
-        message: "Contact the administrator: error",
-        status: 500,
-      };
+      console.error(error)
+      return false
     }
   },
 
-  findByName: async (paymentTypeDescription: string) => {
+  findByName: async (description: string) => {
     try {
       const paymentType = await PaymentTypeDB.findOne({
         where: {
-          paymentTypeDescription,
+          description,
           status: true,
         },
-      });
-  
+      })
+
       if (!paymentType) {
         return {
           message: "Record not found",
           status: 404,
           data: {},
-        };
+        }
       } else {
         return {
           message: "Record found",
@@ -194,16 +183,17 @@ const PaymentTypeService = {
           data: {
             paymentType,
           },
-        };
+        }
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
       return {
         message: "Contact the administrator: error",
         status: 500,
-      };
+      }
     }
-  },  
+  },
 }
 
 export { PaymentTypeService }
+
