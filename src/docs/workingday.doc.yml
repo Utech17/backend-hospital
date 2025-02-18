@@ -70,7 +70,7 @@ paths:
                 properties:
                   message:
                     type: "string"
-                    example: "Por favor, contacte con el administrador"
+                    example: "contacte con el administrador"
   /workingday/{id}:
     get:
       summary: "Obtener un día laboral"
@@ -254,7 +254,7 @@ paths:
                 properties:
                   message:
                     type: "string"
-                    example: "Por favor, contacte con el administrador"
+                    example: "contacte con el administrador"
     delete:
       summary: "Eliminar un día laboral"
       tags:
@@ -302,4 +302,4 @@ paths:
                 properties:
                   message:
                     type: "string"
-                    example: "Por favor, contacte con el administrador"
+                    example: "contacte con el administrador"
