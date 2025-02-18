@@ -79,7 +79,7 @@ const BuyServices = {
                   supplier_id: data.supplier_id,
                   invoice_number: data.invoice_number,
                   date: data.date,
-                  status: 'pendiente',
+                  status: "pendiente",
                   buy_details: data.buy_details,
               },
               {
@@ -197,7 +197,7 @@ const BuyServices = {
             };
         }
 
-        if (buy.status === 'rechazada') {
+        if (buy.status === "rechazada") {
             return {
                 message: `La compra ya se encuentra rechazada`,
                 status: 400,
@@ -207,7 +207,7 @@ const BuyServices = {
 
         await BuyDB.update(
             {
-                status: 'rechazada',
+                status: "rechazada",
                 deletedAt: new Date(),
             },
             { 
