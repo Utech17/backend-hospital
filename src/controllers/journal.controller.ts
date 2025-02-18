@@ -46,4 +46,28 @@ export class JournalController {
       message,
     });
   };
+
+  getDiaryEntries = async (req: Request, res: Response) => {
+    const { status, message, data } = await JournalServices.getDiaryEntries();
+    return res.status(status).json({
+      message,
+      data,
+    });
+  };
+
+  getBalanceSheet = async (req: Request, res: Response) => {
+    const { status, message, data } = await JournalServices.getBalanceSheet();
+    return res.status(status).json({
+      message,
+      data,
+    });
+  };
+
+  getIncomeStatement = async (req: Request, res: Response) => {
+    const { status, message, data } = await JournalServices.getIncomeStatement();
+    return res.status(status).json({
+      message,
+      data,
+    });
+  };
 }
