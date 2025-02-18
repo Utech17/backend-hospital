@@ -1,13 +1,14 @@
 import { SupplierInterface } from "./supplier.interface";
+import { BuyDetailsInterface } from "./buy.details.Interface";
 
 export interface BuyInterface {
-    id?: number | string;
-    invoice_number: number;
-    date: Date;
-    amount: number;
-    supplier_id: number | string;
-    status: boolean;
-    updatedAt:Date;
-    deletedAt?: string | Date | null;
-    Supplier?:SupplierInterface;
+  id?: number;
+  invoice_number: number;
+  date: Date;
+  supplier_id: number;
+  status: 'pendiente' | 'abrobada' | 'rechazada';
+  updatedAt?: Date;
+  deletedAt?: Date | null;
+  supplier?: SupplierInterface;
+  buy_details?: BuyDetailsInterface[];
 }

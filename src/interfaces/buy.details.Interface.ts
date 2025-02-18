@@ -3,12 +3,13 @@ import { ProductInterface } from "./product.interface";
 import { BuyInterface } from "./buy.interface";
 
 export interface BuyDetailsInterface {
-    buy_id: number;
-    product_id: number;
-    quantity: number;
-    buy_price: number;
-    purchase?:BuyInterface;
-    Product?:ProductInterface;
+  id: number;
+  buy_id: number;
+  product_id: number;
+  quantity: number;
+  buy_price: number;
+  Buy?: BuyInterface;
+  Product?: ProductInterface;
 }
 
 export interface BuyDetailsCreationInterface

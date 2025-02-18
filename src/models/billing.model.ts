@@ -19,8 +19,9 @@ const BillingModel = {
   }, 
   // estado_factura
   billing_status: {
-    type: DataTypes.ENUM("pending", "paid", "cancelled"),
+    type: DataTypes.ENUM("pendiente", "pagado", "cancelado"),
     allowNull: false,
+    defaultValue: "pagado",
   },
   // id_clientes
   client_id: { 

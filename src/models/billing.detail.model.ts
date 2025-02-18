@@ -9,7 +9,7 @@ const BillingDetailModel = {
   },
   // cantidad
   quantity: {
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   // precio
