@@ -24,16 +24,18 @@ const BuyModel = {
   },
   // Estado de la compra (pendiente/abrobada/rechazada')
   status: {
-    type: DataTypes.ENUM("pendiente", "aprobada", "rechazada"),
+    type: DataTypes.ENUM('pendiente', 'aprobada', 'rechazada'),
     allowNull: false,
-    defaultValue: "pendiente",
+    defaultValue: 'pendiente',
   },
   updatedAt: {
     type: DataTypes.DATE,
+    allowNull: false,
     defaultValue: null,
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: false,
     defaultValue: null,
   },
 };
