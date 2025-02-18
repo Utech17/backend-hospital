@@ -24,7 +24,7 @@ const WorkingDayServices = {
     } catch (error) {
       console.error(error);
       return {
-        message: `Por favor contacte al administrador`,
+        message: `contacte al administrador`,
         status: 500,
       };
     }
@@ -52,7 +52,7 @@ const WorkingDayServices = {
     } catch (error) {
       console.error(error);
       return {
-        message: `Por favor contacte al administrador`,
+        message: `contacte al administrador`,
         status: 500,
       };
     }
@@ -71,7 +71,7 @@ const WorkingDayServices = {
     } catch (error) {
       console.error(error);
       return {
-        message: `Por favor contacte al administrador`,
+        message: `contacte al administrador`,
         status: 500,
       };
     }
@@ -115,7 +115,7 @@ const WorkingDayServices = {
     } catch (error) {
       console.error(error);
       return {
-        message: `Por favor contacte al administrador`,
+        message: `contacte al administrador`,
         status: 500,
         data: null,
       };
