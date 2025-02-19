@@ -61,9 +61,11 @@ const clientServices = {
         }
       },
       create: async (data: Partial<ClientInterface>) => {
-        data.name = data.name?.toLowerCase();
         try {
-          const client = await ClientDB.create({ ...data });
+          const { id, ...clientData } = data;
+          data.name = data.name?.toLowerCase();
+          
+          const client = await ClientDB.create({ ...clientData });
           return {
             message: `Creacion exitosa`,
             status: 201,
@@ -71,8 +73,14 @@ const clientServices = {
               client,
             },
           };
-        } catch (error) {
+        } catch (error: any) {
           console.log(error);
+          if (error.name === 'SequelizeUniqueConstraintError') {
+            return {
+              message: `Error: Ya existe un registro con ese ID`,
+              status: 400,
+            };
+          }
           return {
             message: `Contacte con el administrador`,
             status: 500,
