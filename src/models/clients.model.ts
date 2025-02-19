@@ -5,6 +5,7 @@ const ClientModel = {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+    unique: true
   },
   // nombre
   name: {
@@ -37,14 +38,14 @@ const ClientModel = {
   },
   updatedAt: {
     type: DataTypes.DATE,
-    allowNull:  true,
+    allowNull:  true,
     defaultValue: null,
   },
   deletedAt: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: true,
     defaultValue: null,
-   },
+  },
 };
 
 export { ClientModel };
