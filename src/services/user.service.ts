@@ -1,6 +1,8 @@
-import { UserDB } from "../config";
+import { UserDB, EmployeeDB, db } from "../config";
 import { UserInterface } from "../interfaces";
 import { createToken } from "../helpers";
+import { OrganizationalUnitsDB } from "../config";
+import { DepartmentDB } from "../config";
 
 const UserServices = {
   getAll: async () => {
@@ -63,17 +65,45 @@ const UserServices = {
     }
   },
 
-  create: async (data: Partial<UserInterface>) => {
+  create: async (data: any) => {
+    const transaction = await db.transaction();
     try {
-      const user = await UserDB.create({ ...data });
+      // Crear el usuario (solo campos necesarios, los demás usan defaults)
+      const user: any = await UserDB.create(
+        { 
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          password: data.password,
+          role_id: data.role_id
+        }, 
+        { transaction }
+      );
+
+      // Crear el empleado asociado (solo campos necesarios)
+      const employee = await EmployeeDB.create(
+        {
+          phone_number: data.phone_number,
+          home_address: data.home_address,
+          postal_code: data.postal_code,
+          organizational_unit_id: data.organizational_unit_id,
+          user_id: user.get('id')
+        },
+        { transaction }
+      );
+
+      await transaction.commit();
+
       return {
-        message: `Usuario creado exitosamente`,
+        message: `Usuario y empleado creados exitosamente`,
         status: 200,
         data: {
           user,
+          employee,
         },
       };
     } catch (error) {
+      await transaction.rollback();
       console.error(error);
       return {
         message: `Por favor, contacte al administrador`,
@@ -103,14 +133,43 @@ const UserServices = {
   },
 
   delete: async (id: number) => {
+    const transaction = await db.transaction();
     try {
-      await UserDB.destroy({ where: { id } });
+      const now = new Date();
+      
+      // Borrado lógico del empleado
+      await EmployeeDB.update(
+        { 
+          deletedAt: now,
+          status: 'inactive'
+        }, 
+        { 
+          where: { user_id: id },
+          transaction 
+        }
+      );
+
+      // Borrado lógico del usuario
+      await UserDB.update(
+        { 
+          deletedAt: now,
+          status: false
+        }, 
+        { 
+          where: { id },
+          transaction 
+        }
+      );
+
+      await transaction.commit();
+
       return {
-        message: `Usuario eliminado exitosamente`,
+        message: `Usuario y empleado eliminados exitosamente`,
         status: 200,
         data: {},
       };
     } catch (error) {
+      await transaction.rollback();
       console.error(error);
       return {
         message: `Por favor, contacte al administrador`,
@@ -164,14 +223,28 @@ const UserServices = {
       if (status === 200) {
         const user = data?.user?.[0];
         if (user && password === user.password) {
+          // Buscamos la información completa del empleado
+          const employee: any = await EmployeeDB.findOne({
+            where: { user_id: user.id },
+            include: [{
+              model: OrganizationalUnitsDB,
+              include: [{
+                model: DepartmentDB
+              }]
+            }]
+          });
+
           // Creamos el token
           const token = await createToken(user);
-          // Enviamos la respuesta
+          
+          // Enviamos la respuesta con la información adicional
           return {
             message: `Login exitoso`,
             status: 200,
             data: {
               user,
+              employee,
+              department: employee?.get('OrganizationalUnit')?.get('Department'),
               token,
             },
           };
@@ -189,7 +262,7 @@ const UserServices = {
           data: {},
         };
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       return {
         message: `Contacte con el administrador`,

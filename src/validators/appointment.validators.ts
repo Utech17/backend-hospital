@@ -4,30 +4,19 @@ import { AppointmentServices } from "../services"
 
 class AppointmentValidator {
   public validateAppointment = [
-    body("patient_id").notEmpty().withMessage("Patient ID is required"),
-    body("patient_id").isNumeric().withMessage("Patient ID must be numeric"),
-    body("employee_id").notEmpty().withMessage("Employee ID is required"),
-    body("employee_id").isNumeric().withMessage("Employee ID must be numeric"),
-    body("appointment_date").notEmpty().withMessage("Appointment date is required"),
-    body("appointment_date").isISO8601().withMessage("Appointment date must be a valid date"),
-    body("appointment_status").notEmpty().withMessage("Appointment status is required"),
-    body("appointment_status")
-      .isIn(["Scheduled", "Completed", "Cancelled"])
-      .withMessage("Appointment status must be one of: Scheduled, Completed, Cancelled"),
-    body("appointment_area").notEmpty().withMessage("Appointment area is required"),
+    body("patient_id").notEmpty().withMessage("El ID del paciente es requerido"),
+    body("patient_id").isNumeric().withMessage("El ID del paciente debe ser numérico"),
+    body("employee_id").notEmpty().withMessage("El ID del empleado es requerido"),
+    body("employee_id").isNumeric().withMessage("El ID del empleado debe ser numérico"),
+    body("appointment_date").notEmpty().withMessage("La fecha de la cita es requerida"),
+    body("appointment_date").isISO8601().withMessage("La fecha debe ser válida"),
+    body("appointment_area").notEmpty().withMessage("El área de la cita es requerida"),
     body("appointment_area")
-      .isIn(["General", "Specialty", "Emergency"])
-      .withMessage("Appointment area must be one of: General, Specialty, Emergency"),
+      .isIn(["General", "Especialidad", "Emergencia"])
+      .withMessage("El área debe ser una de: General, Especialidad, Emergencia"),
   ]
 
-  public validateAppointmentUpdate = [
-    body("appointment_status").notEmpty().withMessage("Appointment status is required"),
-    body("appointment_status")
-      .isIn(["Scheduled", "Completed", "Cancelled"])
-      .withMessage("Appointment status must be one of: Scheduled, Completed, Cancelled"),
-  ]
-
-  // Middleware to validate patient existence
+  // Middleware para validar existencia del paciente
   public validatePatientId = async (req: Request, res: Response, next: NextFunction) => {
     const { patient_id } = req.body
     const { status, message, data } = await AppointmentServices.getOne(patient_id)
@@ -40,7 +29,7 @@ class AppointmentValidator {
         errors: [
           {
             type: "field",
-            msg: `The patient with ID: ${patient_id} does not exist`,
+            msg: `El paciente con ID: ${patient_id} no existe`,
             path: "patient_id",
             location: "body",
           },
@@ -50,7 +39,7 @@ class AppointmentValidator {
     next()
   }
 
-  // Middleware to validate employee existence
+  // Middleware para validar existencia del empleado
   public validateEmployeeId = async (req: Request, res: Response, next: NextFunction) => {
     const { employee_id } = req.body
     const { status, message, data } = await AppointmentServices.getOne(employee_id)
@@ -63,7 +52,7 @@ class AppointmentValidator {
         errors: [
           {
             type: "field",
-            msg: `The employee with ID: ${employee_id} does not exist`,
+            msg: `El empleado con ID: ${employee_id} no existe`,
             path: "employee_id",
             location: "body",
           },

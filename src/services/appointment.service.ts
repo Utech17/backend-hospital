@@ -7,7 +7,7 @@ const AppointmentServices = {
       const Appointments = await AppointmentDB.findAll();
       if (Appointments.length === 0) {
         return {
-          message: `No Appointments found`,
+          message: `No se encontraron citas`,
           status: 404,
           data: {
             Appointments,
@@ -15,16 +15,16 @@ const AppointmentServices = {
         };
       }
       return {
-        message: `Appointments found successfully`,
+        message: `Citas encontradas exitosamente`,
         status: 200,
         data: {
           Appointments,
         },
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       return {
-        message: `Please contact the administrator`,
+        message: `Por favor contacte al administrador`,
         status: 500,
       };
     }
@@ -35,22 +35,22 @@ const AppointmentServices = {
       const appointment = await AppointmentDB.findOne({ where: { id } });
       if (!appointment) {
         return {
-          message: `Appointment not found`,
+          message: `Cita no encontrada`,
           status: 404,
           data: {},
         };
       }
       return {
-        message: `Appointment found successfully`,
+        message: `Cita encontrada exitosamente`,
         status: 200,
         data: {
           appointment,
         },
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       return {
-        message: `Please contact the administrator`,
+        message: `Por favor contacte al administrador`,
         status: 500,
       };
     }
@@ -60,16 +60,16 @@ const AppointmentServices = {
     try {
       const appointment = await AppointmentDB.create({ ...data });
       return {
-        message: `Appointment created successfully`,
+        message: `Cita creada exitosamente`,
         status: 201,
         data: {
           appointment,
         },
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       return {
-        message: `Please contact the administrator`,
+        message: `Por favor contacte al administrador`,
         status: 500,
       };
     }
@@ -80,16 +80,16 @@ const AppointmentServices = {
       await AppointmentDB.update(data, { where: { id } });
       const { data: updatedData } = await AppointmentServices.getOne(id);
       return {
-        message: `Appointment updated successfully`,
+        message: `Cita actualizada exitosamente`,
         status: 200,
         data: {
           appointment: updatedData?.appointment,
         },
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       return {
-        message: `Please contact the administrator`,
+        message: `Por favor contacte al administrador`,
         status: 500,
       };
     }
@@ -99,14 +99,14 @@ const AppointmentServices = {
     try {
       await AppointmentDB.destroy({ where: { id } });
       return {
-        message: `Appointment deleted successfully`,
+        message: `Cita eliminada exitosamente`,
         status: 204,
         data: {},
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       return {
-        message: `Please contact the administrator`,
+        message: `Por favor contacte al administrador`,
         status: 500,
       };
     }
