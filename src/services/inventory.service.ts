@@ -95,7 +95,7 @@ const InventoryService = {
       );
       return {
         message: "Inventario eliminado exitosamente",
-        status: 204,
+        status: 200,
         data: {},
       };
     } catch (error) {
