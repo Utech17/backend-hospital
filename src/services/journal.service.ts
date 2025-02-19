@@ -6,7 +6,7 @@ const JournalServices = {
     try {
       const entries = await JournalDB.sequelize?.query(`
         SELECT 
-          j.created_at as fecha,
+          j."createdAt" as fecha,
           r.description as description,
           a.id as ref,
           a.name as account,
@@ -21,7 +21,7 @@ const JournalServices = {
           INNER JOIN accounts a ON ac.account_id = a.id
         WHERE 
           r.status = 'aprobada'
-        ORDER BY j.created_at
+        ORDER BY j."createdAt"
       `, { type: 'SELECT' }) as any[];
 
       if (!entries || !entries.length) {
