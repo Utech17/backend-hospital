@@ -23,12 +23,13 @@ const AppointmentModel = {
   },
   // estado_cita
   appointment_status: {
-    type: DataTypes.ENUM('Scheduled', 'Completed', 'Cancelled'),
+    type: DataTypes.ENUM('Pendiente', 'Completada', 'Cancelada'),
+    defaultValue: 'Pendiente',
     allowNull: false,
   },
   // area_cita
   appointment_area: {
-    type: DataTypes.ENUM('General', 'Specialty', 'Emergency'),
+    type: DataTypes.ENUM('General', 'Especialidad', 'Emergencia'),
     allowNull: false,
   },
   createdAt: {
@@ -43,9 +44,9 @@ const AppointmentModel = {
   },
   deletedAt: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: true,
     defaultValue: null,
-   },
+  },
 };
 
 export { AppointmentModel };

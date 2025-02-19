@@ -1,4 +1,4 @@
-import { BuyDB, RequestDB, BuyDetailsDB, db } from "../config";
+import { BuyDB, RequestDB, BuyDetailsDB, db, DepartmentDB, SupplierDB } from "../config";
 import { BuyInterface } from "../interfaces";
 import { Model } from "sequelize";
 
@@ -9,7 +9,11 @@ const BuyServices = {
               where: {
                   
               },
-              include: [{ model: BuyDetailsDB }]
+              include: [
+                  { model: BuyDetailsDB },
+                  { model: DepartmentDB },
+                  { model: SupplierDB }
+              ]
           });
 
           if (buys.length === 0) {
@@ -44,7 +48,11 @@ const BuyServices = {
               where: {
                   id,
               },
-              include: [{ model: BuyDetailsDB }]
+              include: [
+                  { model: BuyDetailsDB },
+                  { model: DepartmentDB },
+                  { model: SupplierDB }
+              ]
           });
 
           if (!buy) {
@@ -186,6 +194,7 @@ const BuyServices = {
   },
 
   delete: async (id: number | string) => {
+    const transaction = await db.transaction();
     try {
         const buy = await BuyDB.findByPk(id) as Model & BuyInterface;
         
@@ -205,15 +214,33 @@ const BuyServices = {
             };
         }
 
+        // Actualizar la compra a rechazada
         await BuyDB.update(
             {
                 status: "rechazada",
                 deletedAt: new Date(),
             },
             { 
-                where: { id } 
+                where: { id },
+                transaction
             }
         );
+
+        // Buscar y actualizar la solicitud asociada
+        await RequestDB.update(
+            {
+                status: "rechazada",
+                updatedAt: new Date()
+            },
+            {
+                where: {
+                    description: `Solicitud de Compra #${buy.invoice_number}`
+                },
+                transaction
+            }
+        );
+
+        await transaction.commit();
         
         return {
             message: `¡Compra rechazada exitosamente!`,
@@ -221,6 +248,7 @@ const BuyServices = {
             data: {},
         };
     } catch (error) {
+        await transaction.rollback();
         console.error(error);
         return {
             message: `Contacta con el administrador`,

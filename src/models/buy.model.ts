@@ -22,6 +22,11 @@ const BuyModel = {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  // ID del departamento
+  department_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   // Estado de la compra (pendiente/abrobada/rechazada')
   status: {
     type: DataTypes.ENUM('pendiente', 'aprobada', 'rechazada'),

@@ -5,16 +5,22 @@ import { RoleService, UserServices } from "../services";
 class UserValidator {
   // Validaciones para crear y actualizar un usuario
   public validateUser = [
+    body("email").notEmpty().withMessage("El email es requerido"),
+    body("email").isEmail().withMessage("Email inválido"),
+    body("password").notEmpty().withMessage("La contraseña es requerida"),
     body("firstName").notEmpty().withMessage("El nombre es requerido"),
     body("firstName").isString().withMessage("El nombre debe ser una cadena de texto"),
     body("lastName").notEmpty().withMessage("El apellido es requerido"),
     body("lastName").isString().withMessage("El apellido debe ser una cadena de texto"),
-    body("email").notEmpty().withMessage("El correo electrónico es requerido"),
-    body("email").isEmail().withMessage("El correo electrónico debe ser válido"),
-    body("password").notEmpty().withMessage("La contraseña es requerida"),
-    body("password").isLength({ min: 8 }).withMessage("La contraseña debe tener al menos 8 caracteres"),
     body("role_id").notEmpty().withMessage("El ID de rol es requerido"),
     body("role_id").isNumeric().withMessage("El ID de rol debe ser numérico"),
+    body("name").notEmpty().withMessage("El nombre es requerido"),
+    body("last_name").notEmpty().withMessage("El apellido es requerido"),
+    body("identification").notEmpty().withMessage("La identificación es requerida"),
+    body("phone_number").notEmpty().withMessage("El teléfono es requerido"),
+    body("address").notEmpty().withMessage("La dirección es requerida"),
+    body("organizational_unit_id").notEmpty().withMessage("La unidad organizacional es requerida"),
+    body("organizational_unit_id").isInt().withMessage("ID de unidad organizacional inválido"),
   ];
 
   public validateLogin = [

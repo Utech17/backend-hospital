@@ -13,6 +13,9 @@ class BuyValidator {
     body("supplier_id")
         .notEmpty().withMessage("El ID del proveedor es requerido")
         .isInt().withMessage("El ID del proveedor debe ser un número entero"),
+    body("department_id")
+        .notEmpty().withMessage("El ID del departamento es requerido")
+        .isInt().withMessage("El ID del departamento debe ser un número entero"),
   ];
 
   // Valida la existencia de los productos y su stock

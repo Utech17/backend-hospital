@@ -12,7 +12,7 @@ router.get("/:id", appointmentController.one); // GET: http://localhost:3900/api
 router.post("/", appointmentValidator.validateAppointment, appointmentValidator.validatePatientId, 
   appointmentValidator.validateEmployeeId, validateFields, appointmentController.create
 ); // POST: http://localhost:3900/api/appointment
-router.put("/:id", appointmentValidator.validateAppointmentUpdate, validateFields, 
+router.put("/:id", validateFields, 
   appointmentController.update); // PUT: http://localhost:3900/api/appointment/2
 router.delete("/:id", appointmentController.delete); // DELETE: http://localhost:3900/api/appointment/3
 

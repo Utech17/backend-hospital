@@ -228,6 +228,10 @@ EmployeeDB.belongsTo(UserDB, { foreignKey: "user_id" });
 SupplierDB.hasMany(BuyDB, {foreignKey: "supplier_id"});
 BuyDB.belongsTo(SupplierDB, {foreignKey: "supplier_id"});
 
+// Agregar la nueva relación con Department
+DepartmentDB.hasMany(BuyDB, {foreignKey: "department_id"});
+BuyDB.belongsTo(DepartmentDB, {foreignKey: "department_id"});
+
 //OrganizationalUnitsDB
 DepartmentDB.hasMany(OrganizationalUnitsDB, {foreignKey: "department_id"});
 OrganizationalUnitsDB.belongsTo(DepartmentDB, {foreignKey: "department_id"});
