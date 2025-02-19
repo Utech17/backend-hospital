@@ -2,136 +2,134 @@ import { InventoryDB } from "../config";
 import { InventoryInterface } from "../interfaces";
 
 const InventoryService = {
-    getAllInventorys: async () => {
-        try {
-            const Inventorys = await InventoryDB.findAll({
-                where: {
-                    status: true,
-                },
-            });
-
-            if (Inventorys.length === 0) {
-                return {
-                    message: `No records found`,
-                    status: 404,
-                    data: {
-                        Inventorys,
-                    },
-                };
-            }
-
-            return {
-                message: `Records found`,
-                status: 200,
-                data: {
-                },
-            };
-
-        } catch (error) {
-            console.error('Error fetching Inventory:', error);
-            return {
-                message: 'Error fetching Inventory',
-                status: 500,
-            };
-        }
-    },
-
-getOne: async (id: number | string) => {
+  getAllInventorys: async () => {
     try {
-      const Inventory = await InventoryDB.findOne({
-        where: {
-          id,
-          status: true,
-        },
-      })
-
-      if (!Inventory) {
+      const inventories = await InventoryDB.findAll({ where: { status: true } });
+      if (inventories.length === 0) {
         return {
-          message: "Record not found",
+          message: "No se encontraron registros",
+          status: 404,
+          data: { inventories },
+        };
+      }
+      return {
+        message: "Registros encontrados correctamente",
+        status: 200,
+        data: { inventories },
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        message: "Por favor, contacte con el administrador",
+        status: 500,
+      };
+    }
+  },
+
+  getOne: async (id: number | string) => {
+    try {
+      const inventory = await InventoryDB.findOne({
+        where: { id, status: true },
+      });
+      if (!inventory) {
+        return {
+          message: "Registro no encontrado",
           status: 404,
           data: {},
-        }
-      } else {
-        return {
-          message: "Record found",
-          status: 200,
-          data: {
-            Inventory,
-          },
-        }
+        };
       }
-    } catch (error) {
-      console.log(error);
       return {
-        message: "Error fetching Inventorys",
+        message: "Registro encontrado correctamente",
+        status: 200,
+        data: { inventory },
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        message: "Por favor, contacte con el administrador",
         status: 500,
-      }
+      };
     }
   },
 
   create: async (data: Partial<InventoryInterface>) => {
     try {
-      const Inventory = await InventoryDB.create({ ...data });
+      const inventory = await InventoryDB.create({ ...data });
       return {
-        message: "Successful creation",
+        message: "Inventario creado exitosamente",
         status: 201,
-        data: {
-          Inventory,
-        },
-      }
+        data: { inventory },
+      };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: "Error fetching Inventory",
+        message: "Por favor, contacte con el administrador",
         status: 500,
-      }
+      };
     }
   },
 
-  update: async (data: Partial<InventoryInterface>, id: number | string) => {
+  update: async (id: number | string, data: Partial<InventoryInterface>) => {
     try {
       await InventoryDB.update(data, { where: { id } });
-      const { data: updatedInventory } = await InventoryService.getOne(id);
-
+      const { data: updatedData } = await InventoryService.getOne(id);
       return {
-        message: "Successful update",
+        message: "Inventario actualizado exitosamente",
         status: 200,
-        data: {
-          Inventory: updatedInventory,
-        },
-      }
+        data: { inventory: updatedData?.inventory },
+      };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return {
-        message: "Error fetching Inventory",
+        message: "Por favor, contacte con el administrador",
         status: 500,
-      }
+      };
     }
   },
 
   delete: async (id: number | string) => {
     try {
       await InventoryDB.update(
-        {
-          status: false,
-          deletedAt: new Date(),
-        },
+        { status: false, deletedAt: new Date() },
         { where: { id } }
-      )
+      );
       return {
-        message: "Successful removal",
+        message: "Inventario eliminado exitosamente",
         status: 204,
         data: {},
-      }
+      };
     } catch (error) {
+      console.error(error);
       return {
-        message: "Error fetching Inventory",
+        message: "Por favor, contacte con el administrador",
         status: 500,
-      }
+      };
     }
   },
 
- 
-}
+  findByName: async (name: string) => {
+    try {
+      const inventory = await InventoryDB.findAll({ where: { name } });
+      if (inventory.length === 0) {
+        return {
+          message: "Inventario no encontrado",
+          status: 404,
+          data: {},
+        };
+      }
+      return {
+        message: "Inventario encontrado correctamente",
+        status: 200,
+        data: { inventory: inventory[0] },
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        message: "Por favor, contacte con el administrador",
+        status: 500,
+      };
+    }
+  },
+};
 
-export { InventoryService }
+export { InventoryService };
