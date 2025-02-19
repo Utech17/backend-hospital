@@ -4,6 +4,7 @@ import { ClassServices } from "../services";
 export class ClassController {
   constructor() {}
 
+  // Obtener todas las clases
   all = async (req: Request, res: Response) => {
     const { status, message, data } = await ClassServices.getAll();
     return res.status(status).json({
@@ -12,6 +13,7 @@ export class ClassController {
     });
   };
 
+  // Obtener una clase por ID
   one = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { status, message, data } = await ClassServices.getOne(Number(id));
@@ -21,6 +23,7 @@ export class ClassController {
     });
   };
 
+  // Crear una nueva clase
   create = async (req: Request, res: Response) => {
     const { status, message, data } = await ClassServices.create(req.body);
     return res.status(status).json({
@@ -29,6 +32,7 @@ export class ClassController {
     });
   };
 
+  // Actualizar una clase existente
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { status, message, data } = await ClassServices.update(Number(id), req.body);
@@ -38,6 +42,7 @@ export class ClassController {
     });
   };
 
+  // Eliminar una clase
   delete = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { status, message, data } = await ClassServices.delete(Number(id));

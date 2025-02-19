@@ -1,0 +1,417 @@
+swagger: "2.0"
+info:
+  description: "API para gestionar inventarios."
+  version: "1.0.0"
+  title: "API de Inventario"
+host: "localhost:3900"
+basePath: "/api"
+schemes:
+  - "http"
+paths:
+  /inventory:
+    get:
+      summary: "Obtener lista de inventarios"
+      tags:
+        - "Inventarios"
+      description: "Devuelve una lista de inventarios existentes."
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Registros encontrados correctamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registros encontrados correctamente"
+                  data:
+                    type: "object"
+                    properties:
+                      inventories:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              example: 1
+                            product_id:
+                              type: "integer"
+                              example: 1
+                            organizational_unit_id:
+                              type: "integer"
+                              example: 1
+                            amount:
+                              type: "integer"
+                              example: 100
+                            status:
+                              type: "integer"
+                              example: 1
+                            batch:
+                              type: "string"
+                              example: "A12345"
+                            expiration_date:
+                              type: "string"
+                              format: "date-time"
+                              example: "2023-12-31T00:00:00.000Z"
+        "404":
+          description: "No se encontraron registros"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "No se encontraron registros"
+                  data:
+                    type: "object"
+                    properties:
+                      inventories:
+                        type: "array"
+                        items: {}
+                        example: []
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+    post:
+      summary: "Crear inventario"
+      tags:
+        - "Inventarios"
+      description: "Endpoint para crear un inventario."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Datos del nuevo inventario"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              product_id:
+                type: "integer"
+                example: 1
+              organizational_unit_id:
+                type: "integer"
+                example: 1
+              amount:
+                type: "integer"
+                example: 100
+              status:
+                type: "integer"
+                example: 1
+              batch:
+                type: "string"
+                example: "A12345"
+              expiration_date:
+                type: "string"
+                format: "date-time"
+                example: "2023-12-31T00:00:00.000Z"
+      responses:
+        "201":
+          description: "Inventario creado exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Inventario creado exitosamente"
+                  data:
+                    type: "object"
+                    properties:
+                      inventory:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          product_id:
+                            type: "integer"
+                            example: 1
+                          organizational_unit_id:
+                            type: "integer"
+                            example: 1
+                          amount:
+                            type: "integer"
+                            example: 100
+                          status:
+                            type: "integer"
+                            example: 1
+                          batch:
+                            type: "string"
+                            example: "A12345"
+                          expiration_date:
+                            type: "string"
+                            format: "date-time"
+                            example: "2023-12-31T00:00:00.000Z"
+        "400":
+          description: "Solicitud incorrecta"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Solicitud incorrecta. Verifique los datos enviados."
+        "500":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+  /inventory/{id}:
+    get:
+      summary: "Obtener inventario por ID"
+      tags:
+        - "Inventarios"
+      description: "Devuelve un inventario por su ID."
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID del inventario"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "Registro encontrado correctamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registro encontrado correctamente"
+                  data:
+                    type: "object"
+                    properties:
+                      inventory:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          product_id:
+                            type: "integer"
+                            example: 1
+                          organizational_unit_id:
+                            type: "integer"
+                            example: 1
+                          amount:
+                            type: "integer"
+                            example: 100
+                          status:
+                            type: "integer"
+                            example: 1
+                          batch:
+                            type: "string"
+                            example: "A12345"
+                          expiration_date:
+                            type: "string"
+                            format: "date-time"
+                            example: "2023-12-31T00:00:00.000Z"
+        "404":
+          description: "No se encontraron registros"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "No se encontraron registros"
+                  data:
+                    type: "object"
+                    properties:
+                      inventory:
+                        type: "object"
+                        example: {}
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
+    put:
+      summary: "Actualizar inventario"
+      tags:
+        - "Inventarios"
+      description: "Endpoint para actualizar un inventario."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID del inventario"
+          required: true
+          type: "integer"
+        - in: "body"
+          name: "body"
+          description: "Datos actualizados del inventario"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              product_id:
+                type: "integer"
+                example: 1
+              organizational_unit_id:
+                type: "integer"
+                example: 1
+              amount:
+                type: "integer"
+                example: 100
+              status:
+                type: "integer"
+                example: 1
+              batch:
+                type: "string"
+                example: "A12345"
+              expiration_date:
+                type: "string"
+                format: "date-time"
+                example: "2023-12-31T00:00:00.000Z"
+      responses:
+        "200":
+          description: "Inventario actualizado exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Inventario actualizado exitosamente"
+                  data:
+                    type: "object"
+                    properties:
+                      inventory:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            example: 1
+                          product_id:
+                            type: "integer"
+                            example: 1
+                          organizational_unit_id:
+                            type: "integer"
+                            example: 1
+                          amount:
+                            type: "integer"
+                            example: 100
+                          status:
+                            type: "integer"
+                            example: 1
+                          batch:
+                            type: "string"
+                            example: "A12345"
+                          expiration_date:
+                            type: "string"
+                            format: "date-time"
+                            example: "2023-12-31T00:00:00.000Z"
+        "400":
+          description: "Solicitud incorrecta"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Solicitud incorrecta. Verifique los datos enviados."
+        "404":
+          description: "No se encontraron registros"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "No se encontraron registros"
+        "500":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+    delete:
+      summary: "Eliminar inventario"
+      tags:
+        - "Inventarios"
+      description: "Endpoint para eliminar un inventario existente."
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID del inventario a eliminar"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "Inventario eliminado exitosamente"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Inventario eliminado exitosamente"
+                  data:
+                    type: "object"
+                    properties: {}
+        "404":
+          description: "Registro no encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Registro no encontrado"
+                  data:
+                    type: "object"
+                    properties: {}
+        "505":
+          description: "Error en el servidor"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: "string"
+                    example: "Por favor, contacte con el administrador"
