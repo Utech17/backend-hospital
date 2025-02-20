@@ -14,4 +14,14 @@ export class JournalController {
 
     return res.status(status).json({ message });
   };
+
+  getMinMaxDates = async (req: Request, res: Response) => {
+    const { status, message, data } = await JournalServices.getMinMaxDates();
+
+    if (status === 200 && data) {
+      return res.json(data);
+    }
+
+    return res.status(status).json({ message });
+  };
 }

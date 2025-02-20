@@ -15,28 +15,5 @@ class JournalValidator {
         .isBoolean().withMessage("El estado debe ser verdadero o falso"),
   ];
 
-  public validateIfIdExist = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    const { id } = req.params;
-    const { status, message, data } = await JournalServices.getOne(Number(id));
-    if (status === 500) {
-      return res.status(status).json({ message });
-    } else if (status === 404) {
-      return res.status(404).json({
-        errors: [
-          {
-            type: "field",
-            msg: `The id ${id} does not exist in the database.`,
-            path: "id",
-            location: "param",
-          },
-        ],
-      });
-    }
-    next();
-  };
 }
 export { JournalValidator };
