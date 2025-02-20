@@ -1,4 +1,5 @@
-import { EmployeeInterface, EmployeeStatus } from "../../interfaces";
+import { EmployeeInterface,} from "../../interfaces";
+
 
 const employeesSeeds: Partial<EmployeeInterface>[] = [
   {
@@ -6,7 +7,6 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     home_address: "Av. Los Próceres, Caracas, Venezuela",
     postal_code: "1010",
     organizational_unit_id: 1,
-    status: EmployeeStatus.ACTIVE,
     user_id: 1,
     createdAt: new Date("2024-01-01T08:00:00Z"),
     updatedAt: new Date("2024-01-15T10:00:00Z"),
@@ -17,7 +17,6 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     home_address: "Calle El Sol, Valencia, Venezuela",
     postal_code: "2001",
     organizational_unit_id: 2,
-    status: EmployeeStatus.ACTIVE,
     user_id: 2,
     createdAt: new Date("2024-01-10T09:00:00Z"),
     updatedAt: new Date("2024-01-20T14:30:00Z"),
@@ -28,7 +27,6 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     home_address: "Urbanización La Lagunita, Maracaibo, Venezuela",
     postal_code: "4002",
     organizational_unit_id: 3,
-    status: EmployeeStatus.INACTIVE,
     user_id: 3,
     createdAt: new Date("2024-02-01T07:30:00Z"),
     updatedAt: new Date("2024-02-10T11:45:00Z"),
@@ -39,7 +37,6 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     home_address: "Calle Bolívar, Barquisimeto, Venezuela",
     postal_code: "3001",
     organizational_unit_id: 2,
-    status: EmployeeStatus.ACTIVE,
     user_id: 4,
     createdAt: new Date("2024-01-20T06:45:00Z"),
     updatedAt: new Date("2024-02-05T10:15:00Z"),
@@ -50,7 +47,6 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     home_address: "Sector Altamira, Puerto Ordaz, Venezuela",
     postal_code: "8050",
     organizational_unit_id: 3,
-    status: EmployeeStatus.ACTIVE,
     user_id: 5,
     createdAt: new Date("2024-03-01T08:30:00Z"),
     updatedAt: new Date("2024-03-15T12:00:00Z"),

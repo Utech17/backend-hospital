@@ -18,7 +18,7 @@ export const validateToken = async (
     return res.status(404).json({ message, data });
   } else {
     req.userAuth = data?.user;
-    if (data?.user?.status == false) {
+    if (data?.user?.get('status') === false) {
       return res.status(401).json({ message: "Usuario deshabilitado" });
     }
     next();
