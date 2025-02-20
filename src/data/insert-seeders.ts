@@ -80,7 +80,7 @@ import {
   rolesSeeds,
   saleSeeds,
   StoreSeeds,
-  suppliersSeeds,
+  supplierSeeds,
   typeSeeds,
   usersSeeds,
   workingDaysSeeds,
@@ -168,7 +168,7 @@ async function insertSeeders() {
 
     console.log("Insertando seeds de nivel 3...");
     await EmployeeDB.bulkCreate(employeesSeeds, { ignoreDuplicates: true, validate: true });
-    await SupplierDB.bulkCreate(suppliersSeeds, { ignoreDuplicates: true, validate: true });
+    await SupplierDB.bulkCreate(supplierSeeds, { ignoreDuplicates: true, validate: true });
     await WorkingDayDB.bulkCreate(workingDaysSeeds, { ignoreDuplicates: true, validate: true });
     await ChargeDB.bulkCreate(chargesSeeds, { ignoreDuplicates: true, validate: true });
     await PaymentTypeDB.bulkCreate(paymentTypeSeeds, { ignoreDuplicates: true, validate: true });
