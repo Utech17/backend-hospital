@@ -2,7 +2,6 @@ import { ContractInterface } from "../../interfaces";
 
 const contractSeeds: Partial<ContractInterface>[] = [
   {
-    id: 1,
     employee_id: 1,
     working_day_id: 1,
     charge_id: 3,
@@ -13,7 +12,6 @@ const contractSeeds: Partial<ContractInterface>[] = [
     status: true,
   },
   {
-    id: 2,
     employee_id: 2,
     working_day_id: 2,
     charge_id: 2,
@@ -24,7 +22,6 @@ const contractSeeds: Partial<ContractInterface>[] = [
     status: true,
   },
   {
-    id: 3,
     employee_id: 3,
     working_day_id: 1,
     charge_id: 4,
@@ -35,7 +32,6 @@ const contractSeeds: Partial<ContractInterface>[] = [
     status: true,
   },
   {
-    id: 4,
     employee_id: 4,
     working_day_id: 3,
     charge_id: 5,
@@ -46,7 +42,6 @@ const contractSeeds: Partial<ContractInterface>[] = [
     status: true,
   },
   {
-    id: 5,
     employee_id: 5,
     working_day_id: 1,
     charge_id: 1,

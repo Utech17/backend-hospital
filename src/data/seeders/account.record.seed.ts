@@ -3,7 +3,6 @@ import { AccountRecordInterface } from "../../interfaces";
 const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
   // Activos (debe)
   {
-    id: 1,
     account_id: 1,
     type: "debe",
     name: "Efectivo en Caja",
@@ -11,7 +10,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Saldo en efectivo"
   },
   {
-    id: 2,
     account_id: 2,
     type: "debe",
     name: "Cuentas por Cobrar Clientes",
@@ -19,7 +17,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Saldo por cobrar"
   },
   {
-    id: 3,
     account_id: 4,
     type: "debe",
     name: "Inventario de mercancías",
@@ -27,7 +24,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Saldo en inventario"
   },
   {
-    id: 4,
     account_id: 8,
     type: "debe",
     name: "Edificio",
@@ -35,7 +31,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Valor del edificio"
   },
   {
-    id: 5,
     account_id: 9,
     type: "debe",
     name: "Depreciación acumulada de edificio",
@@ -43,7 +38,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Depreciación acumulada"
   },
   {
-    id: 6,
     account_id: 10,
     type: "debe",
     name: "Equipo de cómputo",
@@ -51,7 +45,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Valor del equipo de cómputo"
   },
   {
-    id: 7,
     account_id: 11,
     type: "debe",
     name: "Equipo de transporte",
@@ -59,7 +52,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Valor del equipo de transporte"
   },
   {
-    id: 8,
     account_id: 23,
     type: "debe",
     name: "Terrenos",
@@ -68,7 +60,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
   },
   // Pasivos (haber)
   {
-    id: 9,
     account_id: 3,
     type: "haber",
     name: "Cuentas por Pagar Proveedores",
@@ -76,7 +67,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Saldo por pagar a proveedores"
   },
   {
-    id: 10,
     account_id: 12,
     type: "haber",
     name: "Documentos por pagar a Largo Plazo",
@@ -84,7 +74,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Documentos por pagar LP"
   },
   {
-    id: 11,
     account_id: 19,
     type: "haber",
     name: "Cuentas por pagar varias",
@@ -93,7 +82,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
   },
   // Capital (haber)
   {
-    id: 12,
     account_id: 6,
     type: "haber",
     name: "Capital Social",
@@ -102,7 +90,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
   },
   // Resultados
   {
-    id: 13,
     account_id: 5,
     type: "haber",
     name: "Ventas",
@@ -110,7 +97,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Ventas del período"
   },
   {
-    id: 14,
     account_id: 7,
     type: "debe",
     name: "Costo de ventas",
@@ -118,7 +104,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Costo de ventas del período"
   },
   {
-    id: 15,
     account_id: 21,
     type: "haber",
     name: "Otros ingresos",
@@ -127,7 +112,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
   },
   // Gastos
   {
-    id: 16,
     account_id: 13,
     type: "debe",
     name: "Gastos de Ventas",
@@ -135,7 +119,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Gastos de ventas"
   },
   {
-    id: 17,
     account_id: 14,
     type: "debe",
     name: "Comisiones vendedores",
@@ -143,7 +126,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Comisiones"
   },
   {
-    id: 18,
     account_id: 15,
     type: "debe",
     name: "Fletes en Ventas",
@@ -151,7 +133,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Fletes"
   },
   {
-    id: 19,
     account_id: 16,
     type: "debe",
     name: "Alquileres",
@@ -159,7 +140,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Alquileres"
   },
   {
-    id: 20,
     account_id: 17,
     type: "debe",
     name: "Sueldos y Salarios Administracion",
@@ -167,7 +147,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Sueldos y salarios"
   },
   {
-    id: 21,
     account_id: 18,
     type: "debe",
     name: "Articulos de Oficina Administracion",
@@ -175,7 +154,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Artículos de oficina"
   },
   {
-    id: 22,
     account_id: 20,
     type: "debe",
     name: "Gastos financieros",
@@ -184,7 +162,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
   },
   // Resultados finales
   {
-    id: 23,
     account_id: 22,
     type: "haber",
     name: "Utilidad del Ejercicio",
@@ -192,7 +169,6 @@ const accountRecordsSeeds: Partial<AccountRecordInterface>[] = [
     description: "Utilidad del ejercicio"
   },
   {
-    id: 24,
     account_id: 24,
     type: "haber",
     name: "Reserva legal",

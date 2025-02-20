@@ -1,43 +1,43 @@
 import { ClassInterface } from "../../interfaces/";
 
 const classSeeds: Partial<ClassInterface>[] = [
-  { cod_class: 1,
+  { 
     des_class: 'Medicamentos',
     status: true,
   },
-  { cod_class: 2, 
+  {  
     des_class: 'Equipos Médicos',
     status: true,
   },
-  { cod_class: 3, 
+  { 
     des_class: 'Suministros Quirúrgicos',
     status: true, 
   },
-  { cod_class: 4, 
+  { 
     des_class: 'Material de Laboratorio',
     status: true, 
   },
-  { cod_class: 5,
+  { 
     des_class: 'Productos de Higiene',
     status: true, 
   },
-  { cod_class: 6, 
+  { 
     des_class: 'Instrumentos Médicos',
     status: true, 
   },
-  { cod_class: 7, 
+  { 
     des_class: 'Ropa de Hospital',
     status: true, 
   },
-  { cod_class: 8, 
+  { 
     des_class: 'Mobiliario Médico',
     status: true, 
   },
-  { cod_class: 9, 
+  { 
     des_class: 'Dispositivos Médicos',
     status: true, 
   },
-  { cod_class: 10, 
+  { 
     des_class: 'Material de Diagnóstico',
     status: true, 
   },

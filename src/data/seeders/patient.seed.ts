@@ -2,7 +2,6 @@ import { PatientInterface } from "../../interfaces";
 
 const patientsSeeds: Partial<PatientInterface>[] = [
   {
-    id: 1,
     nickname: "Jhei",
     firstName: "Jheilyn",
     lastName: "Ramirez",
@@ -14,7 +13,6 @@ const patientsSeeds: Partial<PatientInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 2,
     nickname: "Mike",
     firstName: "Maikel",
     lastName: "Perez",
@@ -26,7 +24,6 @@ const patientsSeeds: Partial<PatientInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 3,
     nickname: "Leti",
     firstName: "Leticia",
     lastName: "Gimenez",
@@ -38,7 +35,6 @@ const patientsSeeds: Partial<PatientInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 4,
     nickname: "Debbie",
     firstName: "Debora",
     lastName: "Mayurel",
@@ -50,7 +46,6 @@ const patientsSeeds: Partial<PatientInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 5,
     nickname: "Migy",
     firstName: "Miguel",
     lastName: "Gutierrez",
@@ -62,7 +57,6 @@ const patientsSeeds: Partial<PatientInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 6,
     nickname: "Elly",
     firstName: "Ellyhan",
     lastName: "Rodríguez",

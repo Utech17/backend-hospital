@@ -2,7 +2,6 @@ import { PresentationInterface } from "../../interfaces";
 
 const PresentationSeeds: Partial<PresentationInterface>[] = [
   {
-    cod_pres: 1,
     quantity: "12",
     unit: "Caja",
     weight: 5.5,
@@ -12,7 +11,6 @@ const PresentationSeeds: Partial<PresentationInterface>[] = [
     deletedAt: null,
   },
   {
-    cod_pres: 2,
     quantity: "24",
     unit: "Paquete",
     weight: 12.0,
@@ -22,7 +20,6 @@ const PresentationSeeds: Partial<PresentationInterface>[] = [
     deletedAt: null,
   },
   {
-    cod_pres: 3,
     quantity: "6",
     unit: "Botella",
     weight: 2.0,
@@ -32,7 +29,6 @@ const PresentationSeeds: Partial<PresentationInterface>[] = [
     deletedAt: null,
   },
   {
-    cod_pres: 4,
     quantity: "10",
     unit: "Tubo",
     weight: 1.5,
@@ -42,7 +38,6 @@ const PresentationSeeds: Partial<PresentationInterface>[] = [
     deletedAt: null,
   },
   {
-    cod_pres: 5,
     quantity: "50",
     unit: "Blister",
     weight: 0.5,
@@ -52,7 +47,6 @@ const PresentationSeeds: Partial<PresentationInterface>[] = [
     deletedAt: null,
   },
   {
-    cod_pres: 6,
     quantity: "100",
     unit: "Ampolla",
     weight: 0.2,
@@ -62,7 +56,6 @@ const PresentationSeeds: Partial<PresentationInterface>[] = [
     deletedAt: null,
   },
   {
-    cod_pres: 7,
     quantity: "1",
     unit: "Unidad",
     weight: 0.1,
@@ -72,7 +65,6 @@ const PresentationSeeds: Partial<PresentationInterface>[] = [
     deletedAt: null,
   },
   {
-    cod_pres: 8,
     quantity: "20",
     unit: "Sobre",
     weight: 0.3,
@@ -82,7 +74,6 @@ const PresentationSeeds: Partial<PresentationInterface>[] = [
     deletedAt: null,
   },
   {
-    cod_pres: 9,
     quantity: "15",
     unit: "Frasco",
     weight: 3.0,
@@ -92,7 +83,6 @@ const PresentationSeeds: Partial<PresentationInterface>[] = [
     deletedAt: null,
   },
   {
-    cod_pres: 10,
     quantity: "30",
     unit: "Cartón",
     weight: 7.0,

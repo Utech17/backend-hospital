@@ -2,7 +2,6 @@ import { BillingInterface } from "../../interfaces";
 
 const billingSeeds: Partial<BillingInterface>[] = [
   {
-    id: 1,
     patient_id: 1,
     billing_date: new Date("2024-12-01"),
     client_id: 1,
@@ -10,7 +9,6 @@ const billingSeeds: Partial<BillingInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 2,
     patient_id: 2,
     billing_date: new Date("2024-12-02"),
     client_id: 2,
@@ -18,7 +16,6 @@ const billingSeeds: Partial<BillingInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 3,
     patient_id: 3, 
     billing_date: new Date("2024-12-03"),
     client_id: 3, 
