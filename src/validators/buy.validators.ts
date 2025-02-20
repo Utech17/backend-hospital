@@ -7,9 +7,6 @@ class BuyValidator {
     body("invoice_number")
         .notEmpty().withMessage("El número de factura es requerido")
         .isInt().withMessage("El número de factura debe ser un número entero"),
-    body("date")
-        .notEmpty().withMessage("La fecha es requerida")
-        .isISO8601().withMessage("Formato de fecha inválido"),
     body("supplier_id")
         .notEmpty().withMessage("El ID del proveedor es requerido")
         .isInt().withMessage("El ID del proveedor debe ser un número entero"),
