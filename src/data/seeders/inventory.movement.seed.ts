@@ -2,7 +2,6 @@ import { InventoryMovementInterface } from "../../interfaces";
 
 const inventoryMovementsSeeds: Partial<InventoryMovementInterface>[] = [
   {
-    id: 1,
     store_id: 1,
     movement_date: new Date("2024-01-10"),
     quantity: 50,
@@ -10,7 +9,6 @@ const inventoryMovementsSeeds: Partial<InventoryMovementInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 2,
     store_id: 2,
     movement_date: new Date("2024-02-05"),
     quantity: -20,
@@ -18,7 +16,6 @@ const inventoryMovementsSeeds: Partial<InventoryMovementInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 3,
     store_id: 3,
     movement_date: new Date("2024-03-20"),
     quantity: 30,

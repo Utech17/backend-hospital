@@ -3,7 +3,6 @@ import { SaleInterface } from "../../interfaces";
 
 const saleSeeds: Partial<SaleInterface>[] = [
   {
-    id: 1,
     invoice_number: 1,
     date: new Date("2024-01-15T00:00:00Z"),
     amount: 500.75,
@@ -13,7 +12,6 @@ const saleSeeds: Partial<SaleInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 2,
     invoice_number: 2,
     date: new Date("2024-02-20T00:00:00Z"),
     amount: 1500.0,
@@ -23,7 +21,6 @@ const saleSeeds: Partial<SaleInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 3,
     invoice_number: 3,
     date: new Date("2024-03-05T00:00:00Z"),
     amount: 300.5,

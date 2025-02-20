@@ -3,7 +3,6 @@ import { InventoryInterface } from "../../interfaces";
 const InventorysSeeds: Partial<InventoryInterface>[] = [
    
   {
-    id: 1,
     product_id: 1,
     organizational_unit_id: 1,
     amount: 100,
@@ -12,7 +11,6 @@ const InventorysSeeds: Partial<InventoryInterface>[] = [
     expiration_date: new Date("2023-12-31"),
   },
   {
-    id: 2,
     product_id: 2,
     organizational_unit_id: 2,
     amount: 50,
@@ -21,7 +19,6 @@ const InventorysSeeds: Partial<InventoryInterface>[] = [
     expiration_date: new Date("2023-12-31"),
   },
   {
-    id: 3,
     product_id: 3,
     organizational_unit_id: 3,
     amount: 5,
@@ -30,7 +27,6 @@ const InventorysSeeds: Partial<InventoryInterface>[] = [
     expiration_date: new Date("2023-12-31"),
   },
   {
-    id: 4,
     product_id: 4,
     organizational_unit_id: 2,
     amount: 500,

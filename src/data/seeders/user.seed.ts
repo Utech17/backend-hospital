@@ -2,7 +2,6 @@ import { UserInterface } from "../../interfaces";
 
 const usersSeeds: Partial<UserInterface>[] = [
   {
-    id: 1,
     firstName: "Miguel",
     lastName: "Gurierrez",
     email: "miguel.gurierrez@example.com",
@@ -12,7 +11,6 @@ const usersSeeds: Partial<UserInterface>[] = [
     role_id: 1,
   },
   {
-    id: 2,
     firstName: "Jheilyn",
     lastName: "Ramirez",
     email: "jheilyn.ramirez@example.com",
@@ -22,7 +20,6 @@ const usersSeeds: Partial<UserInterface>[] = [
     role_id: 2,
   },
   {
-    id: 3,
     firstName: "Maikel",
     lastName: "Perez",
     email: "maikel.perez@example.com",
@@ -32,7 +29,6 @@ const usersSeeds: Partial<UserInterface>[] = [
     role_id: 3,
   },
   {
-    id: 4,
     firstName: "Debora",
     lastName: "Mayurel",
     email: "debora.mayurel@example.com",
@@ -42,7 +38,6 @@ const usersSeeds: Partial<UserInterface>[] = [
     role_id: 2,
   },
   {
-    id: 5,
     firstName: "Leticia",
     lastName: "Parra",
     email: "leticia.parra@example.com",

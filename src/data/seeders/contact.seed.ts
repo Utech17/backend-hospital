@@ -2,7 +2,6 @@ import { ContactInterface } from "../../interfaces";
 
 const contactsSeeds: Partial<ContactInterface>[] = [
   {
-    id: 1,
     name: "Eliana",
     lastName: "Jiménez",
     phone: "04140000011",
@@ -11,7 +10,6 @@ const contactsSeeds: Partial<ContactInterface>[] = [
     patient_id: 1,
   },
   {
-    id: 2,
     name: "Carlos",
     lastName: "Fernández",
     phone: "04140000012",
@@ -20,7 +18,6 @@ const contactsSeeds: Partial<ContactInterface>[] = [
     patient_id: 2,
   },
   {
-    id: 3,
     name: "Adriana",
     lastName: "Rojas",
     phone: "04140000013",
@@ -29,7 +26,6 @@ const contactsSeeds: Partial<ContactInterface>[] = [
     patient_id: 3,
   },
   {
-    id: 4,
     name: "Luis",
     lastName: "Ramírez",
     phone: "04140000014",
@@ -38,7 +34,6 @@ const contactsSeeds: Partial<ContactInterface>[] = [
     patient_id: 4,
   },
   {
-    id: 5,
     name: "Sara",
     lastName: "Vargas",
     phone: "04140000015",

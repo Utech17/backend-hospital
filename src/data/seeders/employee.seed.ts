@@ -2,7 +2,6 @@ import { EmployeeInterface, EmployeeStatus } from "../../interfaces";
 
 const employeesSeeds: Partial<EmployeeInterface>[] = [
   {
-    id: 1,
     phone_number: "04141234567",
     home_address: "Av. Los Próceres, Caracas, Venezuela",
     postal_code: "1010",
@@ -14,7 +13,6 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 2,
     phone_number: "04161112233",
     home_address: "Calle El Sol, Valencia, Venezuela",
     postal_code: "2001",
@@ -26,7 +24,6 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 3,
     phone_number: "04241234456",
     home_address: "Urbanización La Lagunita, Maracaibo, Venezuela",
     postal_code: "4002",
@@ -38,7 +35,6 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     deletedAt: new Date("2024-03-01T12:00:00Z"), 
   },
   {
-    id: 4,
     phone_number: "04125556677",
     home_address: "Calle Bolívar, Barquisimeto, Venezuela",
     postal_code: "3001",
@@ -50,7 +46,6 @@ const employeesSeeds: Partial<EmployeeInterface>[] = [
     deletedAt: null,
   },
   {
-    id: 5,
     phone_number: "04261234567",
     home_address: "Sector Altamira, Puerto Ordaz, Venezuela",
     postal_code: "8050",

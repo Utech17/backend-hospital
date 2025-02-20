@@ -7,7 +7,6 @@ enum ProductStatus {
 
 const productSeeds: Partial<ProductInterface>[] = [
   {
-    id: 1,
     name: "Aspirina",
     description: "Medicamento para el dolor y la fiebre",
     unit_measure: "tabletas",
@@ -20,7 +19,6 @@ const productSeeds: Partial<ProductInterface>[] = [
     cod_pres: 1,
   },
   {
-    id: 2,
     name: "Estetoscopio",
     description: "Instrumento para auscultar sonidos corporales",
     unit_measure: "unidades",
@@ -33,7 +31,6 @@ const productSeeds: Partial<ProductInterface>[] = [
     cod_pres: 2,
   },
   {
-    id: 3,
     name: "Guantes de látex",
     description: "Guantes desechables para laboratorio",
     unit_measure: "paquetes",
@@ -46,7 +43,6 @@ const productSeeds: Partial<ProductInterface>[] = [
     cod_pres: 2,
   },
   {
-    id: 4,
     name: "Microscopio óptico",
     description: "Microscopio para análisis de muestras",
     unit_measure: "unidades",
@@ -59,7 +55,6 @@ const productSeeds: Partial<ProductInterface>[] = [
     cod_pres: 3,
   },
   {
-    id: 5,
     name: "Papel higiénico industrial",
     description: "Rollo de papel higiénico para baños",
     unit_measure: "rollos",
@@ -72,7 +67,6 @@ const productSeeds: Partial<ProductInterface>[] = [
     cod_pres: 4,
   },
   {
-    id: 6,
     name: "Desinfectante multiusos",
     description: "Producto para limpieza de superficies",
     unit_measure: "litros",
@@ -85,7 +79,6 @@ const productSeeds: Partial<ProductInterface>[] = [
     cod_pres: 2,
   },
   {
-    id: 7,
     name: "Termómetro digital",
     description: "Instrumento para medir la temperatura corporal",
     unit_measure: "unidades",
@@ -98,7 +91,6 @@ const productSeeds: Partial<ProductInterface>[] = [
     cod_pres: 1,
   },
   {
-    id: 8,
     name: "Jeringas desechables",
     description: "Jeringas estériles para inyecciones",
     unit_measure: "unidades",
@@ -111,7 +103,6 @@ const productSeeds: Partial<ProductInterface>[] = [
     cod_pres: 1,
   },
   {
-    id: 9,
     name: "Mascarillas quirúrgicas",
     description: "Mascarillas desechables para procedimientos médicos",
     unit_measure: "unidades",
@@ -124,7 +115,6 @@ const productSeeds: Partial<ProductInterface>[] = [
     cod_pres: 2,
   },
   {
-    id: 10,
     name: "Bata médica",
     description: "Ropa de protección para personal médico",
     unit_measure: "unidades",
