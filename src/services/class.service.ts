@@ -9,17 +9,13 @@ const ClassServices = {
         return {
           message: `No se encontraron registros`,
           status: 404,
-          data: {
-            classes,
-          },
+          data: { classes },
         };
       }
       return {
         message: `Registros encontrados correctamente`,
         status: 200,
-        data: {
-          classes,
-        },
+        data: { classes },
       };
     } catch (error) {
       console.error(error);
@@ -44,15 +40,12 @@ const ClassServices = {
           status: 404,
           data: {},
         };
-      } else {
-        return {
-          message: `Registro encontrado correctamente`,
-          status: 200,
-          data: {
-            clase,
-          },
-        };
       }
+      return {
+        message: `Registro encontrado correctamente`,
+        status: 200,
+        data: { clase },
+      };
     } catch (error) {
       console.error(error);
       return {
@@ -69,9 +62,7 @@ const ClassServices = {
       return {
         message: `Clase creada exitosamente`,
         status: 201,
-        data: {
-          clase,
-        },
+        data: { clase },
       };
     } catch (error) {
       console.error(error);
@@ -90,9 +81,7 @@ const ClassServices = {
       return {
         message: `Clase actualizada exitosamente`,
         status: 200,
-        data: {
-          clase: updatedData?.clase,
-        },
+        data: { clase: updatedData?.clase },
       };
     } catch (error) {
       console.error(error);
@@ -114,10 +103,8 @@ const ClassServices = {
       );
       return {
         message: `Clase eliminada exitosamente`,
-        status: 204,
-        data: {
-          clase: null,
-        },
+        status: 200,
+        data: {},
       };
     } catch (error) {
       console.error(error);
@@ -132,21 +119,17 @@ const ClassServices = {
     try {
       const clase = await ClassDB.findAll({ where: { des_class: name } });
       if (clase.length === 0) {
-        console.log("Registro no encontrado");
         return {
           message: `Clase no encontrada`,
           status: 404,
           data: {},
         };
-      } else {
-        return {
-          message: `Clase encontrada correctamente`,
-          status: 200,
-          data: {
-            clase: clase[0],
-          },
-        };
       }
+      return {
+        message: `Clase encontrada correctamente`,
+        status: 200,
+        data: { clase: clase[0] },
+      };
     } catch (error) {
       console.error(error);
       return {
