@@ -6,6 +6,7 @@ const SupplierModel = {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+    unique: true
   },
   // rif
   rif: {
@@ -34,14 +35,14 @@ const SupplierModel = {
   },
   updatedAt: {
     type: DataTypes.DATE,
-    allowNull:  true,
+    allowNull:  true,
     defaultValue: null,
   },
   deletedAt: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: true,
     defaultValue: null,
-   },
+  },
 };
 
 export { SupplierModel };
