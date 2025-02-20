@@ -251,6 +251,44 @@ const JournalServices = {
         status: 500
       };
     }
+  },
+
+  getMinMaxDates: async () => {
+    try {
+      const dialect = process.env.DATABASE_DIALECT;
+      const result = await JournalDB.sequelize?.query(
+        dialect === 'mysql'
+          ? `SELECT 
+              MIN(DATE_FORMAT(j.createdAt, '%Y-%m-%d')) as minDate,
+              MAX(DATE_FORMAT(j.createdAt, '%Y-%m-%d')) as maxDate
+            FROM journals j`
+          : `SELECT 
+              TO_CHAR(MIN(j."createdAt"), 'YYYY-MM-DD') as minDate,
+              TO_CHAR(MAX(j."createdAt"), 'YYYY-MM-DD') as maxDate
+            FROM journals j`,
+        {
+          type: 'SELECT'
+        }
+      );
+
+      if (result && result.length > 0) {
+        return {
+          status: 200,
+          data: result[0]
+        };
+      } else {
+        return {
+          status: 404,
+          message: "No se encontraron fechas"
+        };
+      }
+    } catch (error) {
+      console.error(error);
+      return {
+        status: 500,
+        message: "Contacte con el administrador"
+      };
+    }
   }
 };
 
