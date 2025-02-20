@@ -5,6 +5,7 @@ const BuyModel = {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+    unique: true
   },
   // Número de factura
   invoice_number: {
