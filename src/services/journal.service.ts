@@ -788,8 +788,31 @@ const JournalServices = {
 
       // Generar hojas de Excel
       const diarySheet = generateDiarySheet(diaryEntries, startDate, endDate);
+      diarySheet['!cols'] = [
+        { wch: 32 },  // Fecha
+        { wch: 40 },  // Descripción
+        { wch: 35 },  // Cuenta
+        { wch: 15 },  // Debe
+        { wch: 15 },  // Haber
+        { wch: 20 },  // Tipo de Cuenta
+        { wch: 15 }   // Saldo
+      ];
+
       const balanceSheetData = generateBalanceSheet(balanceSheet, startDate, endDate);
+      balanceSheetData['!cols'] = [
+        { wch: 32 },  // Tipo
+        { wch: 33 },  // Cuenta
+        { wch: 16 },  // Saldo
+        { wch: 16 },  // Debe
+        { wch: 16 }   // Haber
+      ];
+
       const incomeSheet = generateIncomeSheet(incomeStatement, startDate, endDate);
+      incomeSheet['!cols'] = [
+        { wch: 32 },  // Tipo
+        { wch: 35 },  // Cuenta
+        { wch: 15 }   // Monto
+      ];
 
       // Añadir hojas al libro
       XLSX.utils.book_append_sheet(workbook, diarySheet, 'Libro Diario');
