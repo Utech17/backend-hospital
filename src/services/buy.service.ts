@@ -1,4 +1,4 @@
-import { BuyDB, RequestDB, BuyDetailsDB, db, DepartmentDB, SupplierDB } from "../config";
+import { BuyDB, RequestDB, BuyDetailsDB, db, DepartmentDB, SupplierDB, ProductDB } from "../config";
 import { BuyInterface } from "../interfaces";
 import { Model } from "sequelize";
 
@@ -6,13 +6,23 @@ const BuyServices = {
   getAll: async () => {
       try {
           const buys = await BuyDB.findAll({
-              where: {
-                  
-              },
               include: [
-                  { model: BuyDetailsDB },
-                  { model: DepartmentDB },
-                  { model: SupplierDB }
+                  { 
+                      model: BuyDetailsDB,
+                      include: [{
+                          model: ProductDB,
+                          attributes: ['id', 'name', 'description']
+                      }],
+                      attributes: ['id', 'quantity', 'buy_price', 'product_id']
+                  },
+                  { 
+                      model: DepartmentDB,
+                      attributes: ['id', 'name', 'description']
+                  },
+                  { 
+                      model: SupplierDB,
+                      attributes: ['id', 'name', 'rif', 'phone', 'address']
+                  }
               ]
           });
 
@@ -45,13 +55,24 @@ const BuyServices = {
   getOne: async (id: number | string) => {
       try {
           const buy = await BuyDB.findOne({
-              where: {
-                  id,
-              },
+              where: { id },
               include: [
-                  { model: BuyDetailsDB },
-                  { model: DepartmentDB },
-                  { model: SupplierDB }
+                  { 
+                      model: BuyDetailsDB,
+                      include: [{
+                          model: ProductDB,
+                          attributes: ['id', 'name', 'description']
+                      }],
+                      attributes: ['id', 'quantity', 'buy_price', 'product_id']
+                  },
+                  { 
+                      model: DepartmentDB,
+                      attributes: ['id', 'name', 'description']
+                  },
+                  { 
+                      model: SupplierDB,
+                      attributes: ['id', 'name', 'rif', 'phone', 'address']
+                  }
               ]
           });
 
@@ -82,27 +103,43 @@ const BuyServices = {
   create: async (data: BuyInterface) => {
       const transaction = await db.transaction();
       try {
+          // Validar que exista el departamento
+          const department = await DepartmentDB.findByPk(data.department_id);
+          if (!department) {
+              return {
+                  message: `El departamento no existe`,
+                  status: 404,
+                  data: {}
+              };
+          }
+
           const buy = await BuyDB.create(
               {
                   supplier_id: data.supplier_id,
+                  department_id: data.department_id,
                   invoice_number: data.invoice_number,
                   date: data.date,
                   status: "pendiente",
+                  createdAt: new Date(),
                   buy_details: data.buy_details,
               },
               {
-                  include: [{ model: BuyDetailsDB }],
+                  include: [{ 
+                      model: BuyDetailsDB,
+                      include: [{
+                          model: ProductDB,
+                          attributes: ['id', 'name', 'description']
+                      }]
+                  }],
                   transaction,
               }
           );
 
           // Calcular monto total
-          let amount = 0.0;
-          if (data.buy_details) {
-              for (const detail of data.buy_details) {
-                  amount += detail.quantity * detail.buy_price;
-              }
-          }
+          let amount = data.buy_details?.reduce((total, detail) => {
+              const detailAmount = detail.quantity * detail.buy_price;
+              return total + detailAmount;
+          }, 0.0) || 0.0;
 
           // Crear solicitud asociada
           const request = await RequestDB.create(

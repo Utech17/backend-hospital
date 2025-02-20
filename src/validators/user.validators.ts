@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { body } from "express-validator";
+import { body, check } from "express-validator";
 import { RoleService, UserServices } from "../services";
 
 class UserValidator {
@@ -14,11 +14,9 @@ class UserValidator {
     body("lastName").isString().withMessage("El apellido debe ser una cadena de texto"),
     body("role_id").notEmpty().withMessage("El ID de rol es requerido"),
     body("role_id").isNumeric().withMessage("El ID de rol debe ser numérico"),
-    body("name").notEmpty().withMessage("El nombre es requerido"),
-    body("last_name").notEmpty().withMessage("El apellido es requerido"),
-    body("identification").notEmpty().withMessage("La identificación es requerida"),
     body("phone_number").notEmpty().withMessage("El teléfono es requerido"),
-    body("address").notEmpty().withMessage("La dirección es requerida"),
+    body("home_address").notEmpty().withMessage("La dirección es requerida"),
+    body("postal_code").notEmpty().withMessage("El código postal es requerido"),
     body("organizational_unit_id").notEmpty().withMessage("La unidad organizacional es requerida"),
     body("organizational_unit_id").isInt().withMessage("ID de unidad organizacional inválido"),
   ];

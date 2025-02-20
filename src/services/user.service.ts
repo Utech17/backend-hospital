@@ -1,13 +1,30 @@
 import { UserDB, EmployeeDB, db } from "../config";
-import { UserInterface } from "../interfaces";
+import { UserInterface, EmployeeInterface } from "../interfaces";
 import { createToken } from "../helpers";
 import { OrganizationalUnitsDB } from "../config";
 import { DepartmentDB } from "../config";
+import { RoleDB } from "../config";
 
 const UserServices = {
   getAll: async () => {
     try {
-      const users = await UserDB.findAll();
+      const users = await UserDB.findAll({
+        include: [
+          {
+            model: RoleDB
+          },
+          {
+            model: EmployeeDB,
+            include: [{
+              model: OrganizationalUnitsDB,
+              include: [{
+                model: DepartmentDB
+              }]
+            }]
+          }
+        ]
+      });
+
       if (users.length === 0) {
         return {
           message: `No se encontraron usuarios`,
@@ -35,12 +52,27 @@ const UserServices = {
 
   getOne: async (id: number) => {
     try {
-      const user:any = await UserDB.findOne({
+      const user = await UserDB.findOne({
         where: {
           id: id,
           status: true,
         },
+        include: [
+          {
+            model: RoleDB
+          },
+          {
+            model: EmployeeDB,
+            include: [{
+              model: OrganizationalUnitsDB,
+              include: [{
+                model: DepartmentDB
+              }]
+            }]
+          }
+        ]
       });
+
       if (!user) {
         return {
           message: `Registro no encontrado`,
@@ -112,18 +144,49 @@ const UserServices = {
     }
   },
 
-  update: async (id: number, data: Partial<UserInterface>) => {
+  update: async (id: number, data: Partial<UserInterface & EmployeeInterface>) => {
+    const transaction = await db.transaction();
     try {
-      await UserDB.update(data, { where: { id } });
+      // Actualizar datos del usuario
+      const userUpdate = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+        role_id: data.role_id
+      };
+      
+      await UserDB.update(userUpdate, { 
+        where: { id },
+        transaction 
+      });
+
+      // Actualizar datos del empleado
+      const employeeUpdate = {
+        phone_number: data.phone_number,
+        home_address: data.home_address,
+        postal_code: data.postal_code,
+        organizational_unit_id: data.organizational_unit_id
+      };
+
+      await EmployeeDB.update(employeeUpdate, { 
+        where: { user_id: id },
+        transaction 
+      });
+
+      await transaction.commit();
+
       const { data: updatedData } = await UserServices.getOne(id);
+      
       return {
-        message: `Usuario actualizado exitosamente`,
+        message: `Usuario y empleado actualizados exitosamente`,
         status: 200,
         data: {
           user: updatedData?.user,
         },
       };
     } catch (error) {
+      await transaction.rollback();
       console.error(error);
       return {
         message: `Por favor, contacte al administrador`,
@@ -228,8 +291,10 @@ const UserServices = {
             where: { user_id: user.id },
             include: [{
               model: OrganizationalUnitsDB,
+              as: 'organizational_unit',
               include: [{
-                model: DepartmentDB
+                model: DepartmentDB,
+                as: 'departament'
               }]
             }]
           });
@@ -244,7 +309,7 @@ const UserServices = {
             data: {
               user,
               employee,
-              department: employee?.get('OrganizationalUnit')?.get('Department'),
+              department: employee?.get('organizational_unit')?.get('departament'),
               token,
             },
           };
