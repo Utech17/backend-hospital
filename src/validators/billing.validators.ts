@@ -14,11 +14,6 @@ class BillingValidator {
       .withMessage("El ID del cliente es requerido")
       .isNumeric()
       .withMessage("El ID del cliente debe ser numérico"),
-    body("billing_date")
-      .notEmpty()
-      .withMessage("La fecha de facturación es requerida")
-      .isISO8601()
-      .withMessage("La fecha debe ser válida"),
     body("billing_status")
       .optional()
       .isIn(["pendiente", "pagado", "cancelado"])
