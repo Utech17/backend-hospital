@@ -112,7 +112,7 @@ const actionServices = {
             )
             return {
                 message: `Successful removal`,
-                status: 204,
+                status: 200,
                 data: {
                     action: null,
                 },

@@ -16,6 +16,11 @@ const ActionModel = {
         type: DataTypes.TEXT,
         allowNull: false,
     },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: null,
+    },
 }
 
 export {ActionModel};
