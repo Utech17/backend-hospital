@@ -7,8 +7,7 @@
     "start": "node dist/app.js",
     "dev": "tsc && node dist/app.js",
     "seeds": "node dist/data/insert-seeders",
-    "seeds-dev": "tsc && node dist/data/insert-seeders",
-    "seeds-dev-x2": "tsc && node dist/data/insert-seeders && node dist/data/insert-seeders"
+    "seeds-dev": "tsc && node dist/data/insert-seeders"
   },
   "author": "Utech17",
   "license": "ISC",
