@@ -1,9 +1,9 @@
-/billing:
+/buys:
   get:
-    summary: Obtener todas las facturas
+    summary: Obtener todas las compras
     tags:
-      - billing
-    description: Endpoint para obtener la lista de todas las facturas
+      - buy
+    description: Endpoint para obtener la lista de todas las compras
     produces:
       - application/json
     responses:
@@ -16,16 +16,16 @@
               properties:
                 message:
                   type: string
-                  example: Facturas encontradas exitosamente
+                  example: ¡Compras encontradas exitosamente!
                 data:
                   type: object
                   properties:
-                    bills:
+                    buys:
                       type: array
                       items:
-                        $ref: '#/components/schemas/BillResponse'
+                        $ref: '#/components/schemas/BuyResponse'
       '404':
-        description: No se encontraron facturas
+        description: No se encontraron compras
         content:
           application/json:
             schema:
@@ -33,18 +33,21 @@
               properties:
                 message:
                   type: string
-                  example: No se encontraron facturas
+                  example: No se encontraron registros
                 data:
                   type: object
-                  properties: {}
+                  properties:
+                    buys:
+                      type: array
+                      items: {}
       '500':
         $ref: '#/components/responses/ServerError'
 
   post:
-    summary: Crear una nueva factura
+    summary: Crear una nueva compra
     tags:
-      - billing
-    description: Endpoint para crear una nueva factura
+      - buy
+    description: Endpoint para crear una nueva compra
     requestBody:
       required: true
       content:
@@ -52,49 +55,43 @@
           schema:
             type: object
             required:
-              - patient_id
-              - client_id
-              - BillingDetails
+              - supplier_id
+              - invoice_number
+              - date
+              - buy_details
             properties:
-              patient_id:
+              supplier_id:
                 type: integer
                 example: 1
-              billing_date:
+              invoice_number:
+                type: integer
+                example: 1004
+              date:
                 type: string
                 format: date
-                example: "2024-03-17"
-              billing_status:
-                type: string
-                enum: [pendiente, pagado, cancelado]
-                example: "pagado"
-              client_id:
-                type: integer
-                example: 1
-              BillingDetails:
+                example: "2024-03-20"
+              buy_details:
                 type: array
                 items:
                   type: object
                   required:
                     - product_id
                     - quantity
-                    - price
+                    - buy_price
                   properties:
                     product_id:
                       type: integer
                       example: 1
                     quantity:
                       type: integer
-                      example: 2
-                    price:
+                      example: 10
+                    buy_price:
                       type: number
                       format: float
-                      example: 15.50
-              payment_type_id:
-                type: integer
-                example: 1
+                      example: 25.50
     responses:
       '201':
-        description: Factura creada exitosamente
+        description: Compra creada exitosamente
         content:
           application/json:
             schema:
@@ -102,43 +99,27 @@
               properties:
                 message:
                   type: string
-                  example: Factura creada exitosamente
-                status:
-                  type: integer
-                  example: 201
+                  example: ¡Compra registrada exitosamente!
                 data:
-                  $ref: '#/components/schemas/BillCreateResponse'
-      '400':
-        description: Error en los datos de entrada
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Los campos patient_id y client_id son obligatorios
-                status:
-                  type: integer
-                  example: 400
+                  $ref: '#/components/schemas/BuyCreateResponse'
       '500':
         $ref: '#/components/responses/ServerError'
 
-/billing/{id}:
+/buys/{id}:
   get:
-    summary: Obtener una factura específica
+    summary: Obtener una compra específica
     tags:
-      - billing
+      - buy
     parameters:
       - in: path
         name: id
         required: true
         schema:
           type: integer
-        description: ID de la factura
+        description: ID de la compra
     responses:
       '200':
-        description: Factura encontrada
+        description: Compra encontrada
         content:
           application/json:
             schema:
@@ -146,14 +127,14 @@
               properties:
                 message:
                   type: string
-                  example: Factura encontrada
+                  example: Compra encontrada exitosamente
                 data:
                   type: object
                   properties:
-                    bill:
-                      $ref: '#/components/schemas/BillResponse'
+                    buy:
+                      $ref: '#/components/schemas/BuyResponse'
       '404':
-        description: Factura no encontrada
+        description: Compra no encontrada
         content:
           application/json:
             schema:
@@ -161,7 +142,7 @@
               properties:
                 message:
                   type: string
-                  example: Factura no encontrada
+                  example: Compra no encontrada
                 data:
                   type: object
                   properties: {}
@@ -169,25 +150,25 @@
         $ref: '#/components/responses/ServerError'
 
   put:
-    summary: Actualizar una factura
+    summary: Actualizar una compra
     tags:
-      - billing
+      - buy
     parameters:
       - in: path
         name: id
         required: true
         schema:
           type: integer
-        description: ID de la factura a actualizar
+        description: ID de la compra a actualizar
     requestBody:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/BillUpdateRequest'
+            $ref: '#/components/schemas/BuyUpdateRequest'
     responses:
       '200':
-        description: Factura actualizada exitosamente
+        description: Compra actualizada exitosamente
         content:
           application/json:
             schema:
@@ -195,14 +176,14 @@
               properties:
                 message:
                   type: string
-                  example: Factura actualizada exitosamente
+                  example: ¡Compra actualizada exitosamente!
                 data:
                   type: object
                   properties:
-                    bill:
-                      $ref: '#/components/schemas/BillResponse'
+                    buy:
+                      $ref: '#/components/schemas/BuyResponse'
       '404':
-        description: Factura no encontrada
+        description: Compra no encontrada
         content:
           application/json:
             schema:
@@ -210,24 +191,24 @@
               properties:
                 message:
                   type: string
-                  example: Factura no encontrada
+                  example: La compra no existe
       '500':
         $ref: '#/components/responses/ServerError'
 
   delete:
-    summary: Eliminar una factura
+    summary: Rechazar una compra
     tags:
-      - billing
+      - buy
     parameters:
       - in: path
         name: id
         required: true
         schema:
           type: integer
-        description: ID de la factura a eliminar
+        description: ID de la compra a rechazar
     responses:
       '200':
-        description: Factura eliminada exitosamente
+        description: Compra rechazada exitosamente
         content:
           application/json:
             schema:
@@ -235,15 +216,12 @@
               properties:
                 message:
                   type: string
-                  example: Factura eliminada exitosamente
-                status:
-                  type: integer
-                  example: 200
+                  example: ¡Compra rechazada exitosamente!
                 data:
                   type: object
                   properties: {}
       '404':
-        description: Factura no encontrada
+        description: Compra no encontrada
         content:
           application/json:
             schema:
@@ -251,83 +229,13 @@
               properties:
                 message:
                   type: string
-                  example: Factura no encontrada
+                  example: La compra no existe
       '500':
         $ref: '#/components/responses/ServerError'
 
 components:
   schemas:
-    BillResponse:
-      type: object
-      properties:
-        num_fact:
-          type: integer
-          example: 1
-        patient_id:
-          type: integer
-          example: 1
-        billing_date:
-          type: string
-          format: date-time
-          example: "2024-12-01T00:00:00.000Z"
-        billing_status:
-          type: string
-          example: "pagado"
-        client_id:
-          type: integer
-          example: 1
-        updatedAt:
-          type: string
-          format: date-time
-          example: "2025-02-18T04:10:16.000Z"
-        deletedAt:
-          type: string
-          format: date-time
-          nullable: true
-          example: null
-        billing_details:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingDetail'
-        sale:
-          $ref: '#/components/schemas/Sale'
-        Patient:
-          $ref: '#/components/schemas/Patient'
-        client:
-          $ref: '#/components/schemas/Client'
-
-    BillingDetail:
-      type: object
-      properties:
-        billing_id:
-          type: integer
-          example: 1
-        quantity:
-          type: integer
-          example: 10
-        price:
-          type: string
-          example: "15.50"
-        num_fact:
-          type: integer
-          example: 1
-        product_id:
-          type: integer
-          example: 1
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        deletedAt:
-          type: string
-          format: date-time
-          nullable: true
-        product:
-          $ref: '#/components/schemas/Product'
-
-    Sale:
+    BuyResponse:
       type: object
       properties:
         id:
@@ -335,213 +243,82 @@ components:
           example: 1
         invoice_number:
           type: integer
-          example: 1
+          example: 1001
         date:
           type: string
           format: date-time
-        amount:
-          type: string
-          example: "500.75"
-        payment_type_id:
+          example: "2024-12-13T00:00:00.000Z"
+        supplier_id:
           type: integer
           example: 1
         status:
-          type: boolean
-          example: true
+          type: string
+          enum: [pendiente, abrobada, rechazada]
+          example: "abrobada"
         updatedAt:
           type: string
           format: date-time
+          example: "2024-12-13T00:00:00.000Z"
         deletedAt:
           type: string
           format: date-time
           nullable: true
-        payment_type:
-          $ref: '#/components/schemas/PaymentType'
+          example: null
+        createdAt:
+          type: string
+          format: date-time
+          example: "2025-02-18T04:10:17.000Z"
+        buy_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuyDetail'
 
-    Patient:
+    BuyDetail:
       type: object
       properties:
         id:
           type: integer
           example: 1
-        nickname:
-          type: string
-          example: "Jhei"
-        firstName:
-          type: string
-          example: "Jheilyn"
-        lastName:
-          type: string
-          example: "Ramirez"
-        birthDate:
-          type: string
-          format: date-time
-        gender:
-          type: string
-          example: "Female"
-        identifier:
-          type: string
-          example: "1234567891"
-        registrationDate:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        deletedAt:
-          type: string
-          format: date-time
-          nullable: true
-
-    Client:
-      type: object
-      properties:
-        id:
+        buy_id:
           type: integer
           example: 1
-        name:
+        product_id:
+          type: integer
+          example: 1
+        quantity:
+          type: integer
+          example: 2
+        buy_price:
           type: string
-          example: "Juan"
-        last_name:
-          type: string
-          example: "Pérez"
-        email:
-          type: string
-          example: "juan.perez@example.com"
-        phone_number:
-          type: string
-          example: "0412-123-4567"
+          example: "250.38"
         createdAt:
           type: string
           format: date-time
         updatedAt:
           type: string
           format: date-time
-        deletedAt:
-          type: string
-          format: date-time
-          nullable: true
 
-    Product:
+    BuyCreateResponse:
       type: object
       properties:
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: "Aspirina"
-        description:
-          type: string
-          example: "Medicamento para el dolor y la fiebre"
-        unit_measure:
-          type: string
-          example: "tabletas"
-        quantity_xunit:
-          type: integer
-          example: 100
-        weight:
-          type: string
-          example: "0.10"
-        location:
-          type: string
-          example: "Farmacia - Estante A1"
-        status:
-          type: string
-          example: "active"
-        cod_type:
-          type: integer
-          example: 1
-        cod_class:
-          type: integer
-          example: 1
-        cod_pres:
-          type: integer
-          example: 1
-
-    PaymentType:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        description:
-          type: string
-          example: "Efectivo"
-        status:
-          type: boolean
-          example: true
-
-    BillCreateResponse:
-      type: object
-      properties:
-        bill:
-          type: object
-          properties:
-            num_fact:
-              type: integer
-              example: 7
-            patient_id:
-              type: integer
-              example: 1
-            billing_date:
-              type: string
-              format: date-time
-            billing_status:
-              type: string
-              example: "pagado"
-            client_id:
-              type: integer
-              example: 1
-            updatedAt:
-              type: string
-              format: date-time
-              nullable: true
-            deletedAt:
-              type: string
-              format: date-time
-              nullable: true
-        billing_details:
-          type: array
-          items:
-            type: object
-            properties:
-              product_id:
-                type: integer
-                example: 1
-              quantity:
-                type: integer
-                example: 2
-              price:
-                type: number
-                example: 15.5
-              updatedAt:
-                type: string
-                format: date-time
-              num_fact:
-                type: integer
-                example: 7
-        sale:
+        buy:
           type: object
           properties:
             id:
               type: integer
-              example: 4
+              example: 5
+            supplier_id:
+              type: integer
+              example: 1
             invoice_number:
               type: integer
-              example: 7
+              example: 1004
             date:
               type: string
               format: date-time
-            amount:
-              type: number
-              example: 31
-            payment_type_id:
-              type: integer
-              example: 1
             status:
-              type: boolean
-              example: true
+              type: string
+              example: "pendiente"
             updatedAt:
               type: string
               format: date-time
@@ -549,43 +326,48 @@ components:
               type: string
               format: date-time
               nullable: true
+            createdAt:
+              type: string
+              format: date-time
+            buy_details:
+              type: array
+              items:
+                $ref: '#/components/schemas/BuyDetail'
         request:
           type: object
           properties:
             request_id:
               type: integer
-              example: 7
+              example: 9
             request_type_id:
               type: integer
-              example: 2
+              example: 3
             description:
               type: string
-              example: "Venta al contado - Factura #7"
+              example: "Solicitud de Compra #1004"
             amount:
               type: number
-              example: 31
+              example: 405
             status:
               type: string
-              example: "aprobada"
+              example: "pendiente"
 
-    BillUpdateRequest:
+    BuyUpdateRequest:
       type: object
       properties:
-        patient_id:
+        supplier_id:
           type: integer
           example: 1
-        billing_date:
-          type: string
-          format: date
-          example: "2024-02-17"
-        billing_status:
-          type: string
-          enum: [pendiente, pagado, cancelado]
-          example: "pagado"
-        client_id:
+        invoice_number:
           type: integer
-          example: 1
-        BillingDetails:
+          example: 1001
+        date:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [pendiente, abrobada, rechazada]
+        buy_details:
           type: array
           items:
             type: object
@@ -595,14 +377,10 @@ components:
                 example: 1
               quantity:
                 type: integer
-                example: 3
-              price:
-                type: number
-                format: float
-                example: 10.50
-        payment_type_id:
-          type: integer
-          example: 1
+                example: 5
+              buy_price:
+                type: string
+                example: "250.38"
 
   responses:
     ServerError:
@@ -614,7 +392,7 @@ components:
             properties:
               message:
                 type: string
-                example: Por favor, contacte al administrador
+                example: Contacta con el administrador
               status:
                 type: integer
-                example: 500 
+                example: 500

@@ -1,80 +1,9 @@
-/journal:
-  get:
-    summary: Obtener todos los registros de diario
-    tags:
-      - journal
-    description: Endpoint para obtener la lista de registros de diario
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: Respuesta exitosa
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Registros encontrados exitosamente
-                data:
-                  type: object
-                  properties:
-                    journals:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                            example: 1
-                          request_id:
-                            type: integer
-                            example: 1
-                          account_record_id:
-                            type: integer
-                            example: 1
-                          createdAt:
-                            type: string
-                            format: date-time
-                            example: "2024-01-01T00:00:00.000Z"
-                          updatedAt:
-                            type: string
-                            format: date-time
-                            example: "2024-01-01T00:00:00.000Z"
-                          deletedAt:
-                            type: string
-                            format: date-time
-                            example: "2024-01-01T00:00:00.000Z"
-      '404':
-        description: Registros no encontrados
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Registros no encontrados
-                data:
-                  type: array
-                  items: {}
-                  example: []
-      '500':
-        description: Error interno del servidor
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Contacte con el administrador
+/journal/excel:
   post:
-    summary: Crear un nuevo registro de diario
+    summary: Generar archivo Excel
     tags:
       - journal
-    description: Endpoint para crear un nuevo registro de diario
+    description: Endpoint para generar un archivo Excel con los registros contables
     requestBody:
       required: true
       content:
@@ -82,50 +11,22 @@
           schema:
             type: object
             properties:
-              request_id:
-                type: integer
-                example: 1
-              account_record_id:
-                type: integer
-                example: 1
+              startDate:
+                type: string
+                format: date
+                example: "2024-01-01"
+              endDate:
+                type: string
+                format: date
+                example: "2024-12-31"
     responses:
-      '201':
-        description: Creación exitosa
+      '200':
+        description: Excel generado exitosamente
         content:
-          application/json:
+          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
             schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Creación exitosa
-                data:
-                  type: object
-                  properties:
-                    journal:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                          example: 1
-                        request_id:
-                          type: integer
-                          example: 1
-                        account_record_id:
-                          type: integer
-                          example: 1
-                        createdAt:
-                          type: string
-                          format: date-time
-                          example: "2024-01-01T00:00:00.000Z"
-                        updatedAt:
-                          type: string
-                          format: date-time
-                          example: "2024-01-01T00:00:00.000Z"
-                        deletedAt:
-                          type: string
-                          format: date-time
-                          example: "2024-01-01T00:00:00.000Z"
+              type: string
+              format: binary
       '400':
         description: Error en la solicitud
         content:
@@ -133,298 +34,9 @@
             schema:
               type: object
               properties:
-                errors:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                        example: "field"
-                      msg:
-                        type: string
-                        example: "Request ID is required"
-                      path:
-                        type: string
-                        example: "request_id"
-                      location:
-                        type: string
-                        example: "body"
-      '500':
-        description: Error del servidor
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
                 message:
                   type: string
-                  example: Contacte con el administrador
-
-/journal/diary:
-  get:
-    summary: Obtener libro diario
-    tags:
-      - journal
-    description: Endpoint para obtener todos los asientos del libro diario
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: Respuesta exitosa
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Registros del diario encontrados exitosamente
-                data:
-                  type: object
-                  properties:
-                    entries:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          fecha:
-                            type: string
-                            format: date-time
-                            example: "2024-01-01T00:00:00.000Z"
-                          description:
-                            type: string
-                            example: "Registro de activos iniciales"
-                          ref:
-                            type: integer
-                            example: 1
-                          account:
-                            type: string
-                            example: "Efectivo en Caja"
-                          nickname:
-                            type: string
-                            example: "Efectivo en Caja"
-                          amount:
-                            type: number
-                            example: 120000.00
-                          type:
-                            type: string
-                            enum: [debe, haber]
-                            example: "debe"
-      '404':
-        description: No se encontraron registros
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: No se encontraron registros en el diario
-                data:
-                  type: object
-                  properties:
-                    entries:
-                      type: array
-                      items: {}
-                      example: []
-
-/journal/balance:
-  get:
-    summary: Obtener balance general
-    tags:
-      - journal
-    description: Endpoint para obtener el balance general
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: Respuesta exitosa
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Balance General generado exitosamente
-                data:
-                  type: object
-                  properties:
-                    balanceSheet:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                            example: 1
-                          name:
-                            type: string
-                            example: "Efectivo en Caja"
-                          balance:
-                            type: number
-                            example: 120000.00
-                          debit:
-                            type: number
-                            example: 120000.00
-                          credit:
-                            type: number
-                            example: 0.00
-                          type_account:
-                            type: string
-                            enum: [activo, pasivo, capital]
-                            example: "activo"
-                          category:
-                            type: string
-                            enum: [real, nominal]
-                            example: "real"
-      '404':
-        description: No se encontraron datos
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: No se encontraron datos para el Balance General
-                data:
-                  type: object
-                  properties:
-                    balanceSheet:
-                      type: array
-                      items: {}
-                      example: []
-
-/journal/income:
-  get:
-    summary: Obtener estado de resultados
-    tags:
-      - journal
-    description: Endpoint para obtener el estado de resultados
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: Respuesta exitosa
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Estado de Resultados generado exitosamente
-                data:
-                  type: object
-                  properties:
-                    incomeStatement:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type_account:
-                            type: string
-                            enum: [ingreso, egreso]
-                            example: "ingreso"
-                          amount:
-                            type: number
-                            example: 400000.00
-                    resultado:
-                      type: object
-                      properties:
-                        ingresos:
-                          type: number
-                          example: 400000.00
-                        egresos:
-                          type: number
-                          example: 98750.00
-                        utilidad:
-                          type: number
-                          example: 301250.00
-      '404':
-        description: No se encontraron datos
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: No se encontraron datos para el Estado de Resultados
-                data:
-                  type: object
-                  properties:
-                    incomeStatement:
-                      type: array
-                      items: {}
-                      example: []
-
-/journal/{id}:
-  get:
-    summary: Obtener un registro de diario
-    tags:
-      - journal
-    description: Endpoint para obtener un registro de diario por su id
-    parameters:
-      - in: path
-        name: id
-        required: true
-        description: Id del registro de diario
-        schema:
-          type: integer
-    responses:
-      '200':
-        description: Respuesta exitosa
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Registro encontrado
-                data:
-                  type: object
-                  properties:
-                    journal:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                          example: 1
-                        request_id:
-                          type: integer
-                          example: 1
-                        account_record_id:
-                          type: integer
-                          example: 1
-                        createdAt:
-                          type: string
-                          format: date-time
-                          example: "2024-01-01T00:00:00.000Z"
-                        updatedAt:
-                          type: string
-                          format: date-time
-                          example: "2024-01-01T00:00:00.000Z"
-                        deletedAt:
-                          type: string
-                          format: date-time
-                          example: "2024-01-01T00:00:00.000Z"
-      '404':
-        description: Registro no encontrado
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Registro no encontrado
-                data:
-                  type: object
-                  properties: {}
+                  example: Error en los parámetros de entrada
       '500':
         description: Error interno del servidor
         content:
@@ -435,34 +47,18 @@
                 message:
                   type: string
                   example: Contacte con el administrador
-  put:
-    summary: Actualizar un registro de diario
+
+/journal/dates:
+  get:
+    summary: Obtener fechas mínima y máxima
     tags:
       - journal
-    description: Endpoint para actualizar un registro de diario por su id
-    parameters:
-      - in: path
-        name: id
-        required: true
-        description: Id del registro de diario
-        schema:
-          type: integer
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              request_id:
-                type: integer
-                example: 1
-              account_record_id:
-                type: integer
-                example: 1
+    description: Endpoint para obtener la fecha mínima y máxima de los registros de diario
+    produces:
+      - application/json
     responses:
       '200':
-        description: Actualización exitosa
+        description: Fechas obtenidas exitosamente
         content:
           application/json:
             schema:
@@ -470,83 +66,20 @@
               properties:
                 message:
                   type: string
-                  example: Actualización exitosa
+                  example: Fechas obtenidas exitosamente
                 data:
                   type: object
                   properties:
-                    journal:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                          example: 1
-                        request_id:
-                          type: integer
-                          example: 1
-                        account_record_id:
-                          type: integer
-                          example: 1
-                        createdAt:
-                          type: string
-                          format: date-time
-                          example: "2024-01-01T00:00:00.000Z"
-                        updatedAt:
-                          type: string
-                          format: date-time
-                          example: "2024-01-01T00:00:00.000Z"
-                        deletedAt:
-                          type: string
-                          format: date-time
-                          example: "2024-01-01T00:00:00.000Z"
-      '400':
-        description: Error en la solicitud
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                errors:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                        example: "field"
-                      msg:
-                        type: string
-                        example: "Request ID is required"
-                      path:
-                        type: string
-                        example: "request_id"
-                      location:
-                        type: string
-                        example: "body"
+                    minDate:
+                      type: string
+                      format: date
+                      example: "2024-01-01"
+                    maxDate:
+                      type: string
+                      format: date
+                      example: "2024-12-31"
       '404':
-        description: Registro no encontrado para actualizar
-        content:
-          application/json:
-            schema:
-              properties:
-                errors:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                        example: "field"
-                      msg:
-                        type: string
-                        example: "El parametro id : 1, no existe en la base de datos."
-                      path:
-                        type: string
-                        example: "id"
-                      location:
-                        type: string
-                        example: "param"
-      '500':
-        description: Error interno del servidor
+        description: No se encontraron fechas
         content:
           application/json:
             schema:
@@ -554,53 +87,7 @@
               properties:
                 message:
                   type: string
-                  example: Contacte con el administrador
-  delete:
-    summary: Eliminar un registro de diario
-    tags:
-      - journal
-    description: Endpoint para eliminar un registro de diario
-    parameters:
-      - name: id
-        in: path
-        description: ID del registro de diario a eliminar
-        required: true
-        schema:
-          type: integer
-    responses:
-      '204':
-        description: Registro de diario eliminado exitosamente
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: Eliminación exitosa
-      '404':
-        description: Registro no encontrado para eliminar
-        content:
-          application/json:
-            schema:
-              properties:
-                errors:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                        example: "field"
-                      msg:
-                        type: string
-                        example: "El parametro id : 1, no existe en la base de datos."
-                      path:
-                        type: string
-                        example: "id"
-                      location:
-                        type: string
-                        example: "param"
+                  example: No se encontraron fechas
       '500':
         description: Error interno del servidor
         content:
