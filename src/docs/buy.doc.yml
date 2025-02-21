@@ -253,8 +253,8 @@ components:
           example: 1
         status:
           type: string
-          enum: [pendiente, abrobada, rechazada]
-          example: "abrobada"
+          enum: [pendiente, aprobada, rechazada]
+          example: "aprobada"
         updatedAt:
           type: string
           format: date-time
@@ -366,7 +366,7 @@ components:
           format: date-time
         status:
           type: string
-          enum: [pendiente, abrobada, rechazada]
+          enum: [pendiente, aprobada, rechazada]
         buy_details:
           type: array
           items:
