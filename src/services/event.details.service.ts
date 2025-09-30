@@ -1,10 +1,23 @@
-import { EventDetailsDB } from "../config";
+import { Model } from "sequelize";
+import { ActionDB, EmployeeDB, EventDB, EventDetailsDB, EventTypeDB, MedicalHistoryDB, PatientDB, UserDB } from "../config";
 import { EventDetailsInterface } from "../interfaces";
 
 const eventDetailsServices = {
     getAll: async () => {
         try {
-            const eventDetails = await EventDetailsDB.findAll();
+            const eventDetails = await EventDetailsDB.findAll({
+              include: [{
+                model: EventDB,
+                include: [
+                  {model: MedicalHistoryDB, 
+                  include:[{ 
+                    model: PatientDB}]}, 
+                    {model: EmployeeDB, 
+                      include: [{ model: UserDB }]},
+                    {model: EventTypeDB}],
+                },{ 
+                  model: ActionDB }],
+            });
 
             if (eventDetails.length == 0) {
                 return {
@@ -37,6 +50,17 @@ const eventDetailsServices = {
                 where: {
                     id: id,
                 },
+                include: [{
+                model: EventDB,
+                include: [
+                  {model: MedicalHistoryDB, 
+                  include:[{ 
+                    model: PatientDB}]}, 
+                    {model: EmployeeDB, 
+                      include: [{ model: UserDB }]},
+                    {model: EventTypeDB}],
+                },{ 
+                  model: ActionDB }],
             });
 
             if (!eventDetail) {

@@ -1,10 +1,17 @@
-import { AppointmentDB } from "../config";
+import { AppointmentDB, EmployeeDB, PatientDB, UserDB } from "../config";
 import { AppointmentInterface } from "../interfaces";
 
 const AppointmentServices = {
   getAll: async () => {
     try {
-      const Appointments = await AppointmentDB.findAll();
+      const Appointments = await AppointmentDB.findAll({
+        include: [{
+          model: PatientDB,
+        },{
+          model: EmployeeDB,
+          include: [{ model: UserDB }],
+        }],
+      });
       if (Appointments.length === 0) {
         return {
           message: `No se encontraron citas`,
