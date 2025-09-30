@@ -7,11 +7,7 @@ const eventServices = {
             const events = await EventDB.findAll({
                 where: {
                     status: true
-                },
-                include: [{
-                    model: EventDetailsDB,
-                    where: { status: true }
-                }]
+                }
             });
 
             if (events.length === 0) {
