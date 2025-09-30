@@ -99,6 +99,14 @@ const eject = async () => {
         console.log("No se pudo conectar a la base de datos");
         process.exit(1); // Salir si no hay conexión
       });
+    try {
+      console.log('Sincronizando modelos con la base de datos (db.sync)...');
+      await db.sync({ alter: true });
+      console.log('Sincronización completa.');
+    } catch (syncErr) {
+      console.error('Error durante la sincronización de modelos:', syncErr);
+      process.exit(1);
+    }
 
     await insertSeeders();
   } catch (error) {
