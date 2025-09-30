@@ -86,6 +86,7 @@ import {
   workingDaysSeeds,
   InventorysSeeds,
 } from "../data/seeders";
+import bcrypt from 'bcryptjs';
 
 const eject = async () => {
   try {
@@ -161,7 +162,20 @@ async function insertSeeders() {
     await PresentationDB.bulkCreate(PresentationSeeds, { ignoreDuplicates: true, validate: true });
 
     console.log("Insertando seeds de nivel 2...");
-    await UserDB.bulkCreate(usersSeeds, { ignoreDuplicates: true, validate: true });
+    let usersSeedsHashed = usersSeeds;
+    try {
+      usersSeedsHashed = await Promise.all(
+        usersSeeds.map(async (u: any) => {
+          if (u.password) {
+            return { ...u, password: await bcrypt.hash(u.password as string, 10) };
+          }
+          return u;
+        })
+      );
+    } catch (err) {
+      console.warn('Error hashing user seed passwords, proceeding with original seeds', err);
+    }
+    await UserDB.bulkCreate(usersSeedsHashed, { ignoreDuplicates: true, validate: true });
     await OrganizationalUnitsDB.bulkCreate(organizationalUnitsInterface, { ignoreDuplicates: true, validate: true,});
     await StoreDB.bulkCreate(StoreSeeds, { ignoreDuplicates: true, validate: true });
     await ClientDB.bulkCreate(clientsSeeds, { ignoreDuplicates: true, validate: true });

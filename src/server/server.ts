@@ -57,7 +57,7 @@ export class Server {
 
   constructor() {
     this.app = express();
-    this.port = process.env.DATABASE_PORT!;
+    this.port = 5000;
     this.pre = "/api";
     this.paths = {
       Action: this.pre + "/Action",
@@ -102,6 +102,15 @@ export class Server {
       WorkingDay: this.pre + "/WorkingDay",
     };
     this.middlewares();
+    // Add debug middleware early so we can log Host and requested URL
+    this.app.use((req, _res, next) => {
+      try {
+        console.debug(`[REQ] host=${req.headers.host} method=${req.method} url=${req.originalUrl}`);
+      } catch (e) {
+        console.error("Error logging request:", e);
+      }
+      next();
+    });
     this.routes();
     this.dbConnection();
     this.swaggerSetup();

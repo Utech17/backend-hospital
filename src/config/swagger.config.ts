@@ -1,5 +1,5 @@
-const port = process.env.DATABASE_PORT!;
-const apiUrl = process.env.API_URL || 'http://localhost';
+const port = 5000;
+const apiUrl = 'http://localhost';
 const pre = "/api";
 
 const swaggerOptions = {
