@@ -1,10 +1,16 @@
-import { EmployeeDB } from "../config";
+import { EmployeeDB, UserDB, OrganizationalUnitsDB } from "../config";
 import { EmployeeInterface } from "../interfaces"; 
 
 const EmployeeServices = {
   getAll: async () => {
     try {
-      const employees = await EmployeeDB.findAll();
+      const employees = await EmployeeDB.findAll({
+         include: [{
+          model: UserDB,
+        }, {
+          model: OrganizationalUnitsDB,
+        }],
+      });
       if (employees.length === 0) {
         return {
           message: `No employees found`,
