@@ -4,6 +4,8 @@ import { createToken } from "../helpers";
 import { OrganizationalUnitsDB } from "../config";
 import { DepartmentDB } from "../config";
 import { RoleDB } from "../config";
+import bcrypt from 'bcryptjs';
+
 
 const UserServices = {
   getAll: async () => {
@@ -101,12 +103,16 @@ const UserServices = {
     const transaction = await db.transaction();
     try {
       // Crear el usuario (solo campos necesarios, los demás usan defaults)
+
+      const hashPassword = bcrypt.hash(data.password as string, 10);
+      console.log(hashPassword);
+
       const user: any = await UserDB.create(
         { 
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
-          password: data.password,
+          password: (await hashPassword).toString(),
           role_id: data.role_id
         }, 
         { transaction }
@@ -147,12 +153,14 @@ const UserServices = {
   update: async (id: number, data: Partial<UserInterface & EmployeeInterface>) => {
     const transaction = await db.transaction();
     try {
+      const hashPassword = bcrypt.hash(data.password as string, 10);
+
       // Actualizar datos del usuario
       const userUpdate = {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
-        password: data.password,
+        password: hashPassword,
         role_id: data.role_id
       };
       
@@ -243,10 +251,11 @@ const UserServices = {
 
   getByEmail: async (email: string) => {
     try {
-      const user: UserInterface | any = await UserDB.findAll({
+      const user: UserInterface | any = await UserDB.findOne({
         where: { email },
       });
-      if (!user) {
+
+      if (user === null) {
         return {
           message: `Registro no encontrado`,
           status: 404,
@@ -254,15 +263,15 @@ const UserServices = {
             user,
           },
         };
-      } else {
-        return {
-          message: `Registro encontrado`,
-          status: 200,
-          data: {
-            user,
-          },
-        };
-      }
+      } 
+
+      return {
+        message: `Registro encontrado`,
+        status: 200,
+        data: {
+          user,
+        },
+      };
     } catch (error) {
       console.log(error);
       return {
@@ -282,51 +291,50 @@ const UserServices = {
       }
 
       const { data, status } = await UserServices.getByEmail(email);
+      const user = data?.user;
 
-      if (status === 200) {
-        const user = data?.user?.[0];
-        if (user && password === user.password) {
-          // Buscamos la información completa del empleado
-          const employee: any = await EmployeeDB.findOne({
-            where: { user_id: user.id },
-            include: [{
-              model: OrganizationalUnitsDB,
-              as: 'organizational_unit',
-              include: [{
-                model: DepartmentDB,
-                as: 'departament'
-              }]
-            }]
-          });
-
-          // Creamos el token
-          const token = await createToken(user);
-          
-          // Enviamos la respuesta con la información adicional
-          return {
-            message: `Login exitoso`,
-            status: 200,
-            data: {
-              user,
-              employee,
-              department: employee?.get('organizational_unit')?.get('departament'),
-              token,
-            },
-          };
-        } else {
-          return {
-            message: `Credenciales incorrectas`,
-            status: 401,
-            data: {},
-          };
-        }
-      } else {
+      if (status != 200) {
         return {
-          message: `Credenciales incorrectas`,
+          message: `El email ${email} no está registrado`,
+          status: 404,
+          data: {},
+        };
+      }
+
+      const result = await bcrypt.compare(password, user.password);
+
+      if (!result) {
+        return {
+          message: `La contraseña es incorrecta`,
           status: 401,
           data: {},
         };
       }
+      
+      const employee: any = await EmployeeDB.findOne({
+          where: { user_id: user.id },
+          include: [{
+            model: OrganizationalUnitsDB,
+            as: 'organizational_unit',
+            include: [{
+              model: DepartmentDB,
+              as: 'departament'
+            }]
+          }]
+        });
+
+        const token = await createToken(user);
+        
+        return {
+          message: `Login exitoso`,
+          status: 200,
+          data: {
+            user,
+            employee,
+            department: employee?.get('organizational_unit')?.get('departament'),
+            token,
+          },
+        };
     } catch (error: any) {
       console.log(error);
       return {
